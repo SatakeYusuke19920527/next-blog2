@@ -19,5 +19,11 @@ export const categoryConfig = [
   { name: "成形屋" },
   { name: "樹脂" },
   { name: "展示会" },
-  {name: "その他"},
+  { name: "その他"}
+]
+
+export const navbarMenu = [
+  { name: "ログイン" },
+  { name: "新規登録" },
+  { name: "お問合せ" }
 ]
