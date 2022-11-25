@@ -23,7 +23,7 @@ export const categoryConfig = [
 ]
 
 export const navbarMenu = [
-  { name: "ログイン" },
-  { name: "新規登録" },
-  { name: "お問合せ" }
+  { name: "ログイン", slug: "signIn" },
+  { name: "新規登録", slug: "register" },
+  { name: "お問合せ", slug: "contact" }
 ]

@@ -9,7 +9,7 @@ const Navbar = () => {
           className="bg-grey-light rounded-md w-full col-span-3 p-2"
           aria-label="breadcrumb1"
         >
-          <Link href="/" className="text-white hover:text-gray-100">
+          <Link href={`/`} className="text-white hover:text-gray-100">
             {siteConfig.title}
           </Link>
         </div>
@@ -23,7 +23,7 @@ const Navbar = () => {
               aria-label="breadcrumb2"
               key={index}
             >
-              <Link href="/" className="text-white hover:text-gray-100">
+              <Link href={`/${menu.slug}`} className="text-white hover:text-gray-100">
                 {menu.name}
               </Link>
             </div>
