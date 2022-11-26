@@ -7,7 +7,7 @@ const layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <main className='w-full pb-12 px-4'>{children}</main>
+      <main className="w-full pb-12 px-4">{children}</main>
       <Footer />
     </div>
   );

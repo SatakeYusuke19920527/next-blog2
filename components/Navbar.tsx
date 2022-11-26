@@ -4,9 +4,9 @@ import { navbarMenu, siteConfig } from "../site.config";
 const Navbar = () => {
   return (
     <nav className="relative w-full flex flex-wrap items-center justify-between py-3  text-white hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-gray-900">
-      <div className="grid grid-cols-4 container-fluid w-full px-6">
+      <div className="grid grid-cols-10 container-fluid w-full px-6">
         <div
-          className="bg-grey-light rounded-md w-full col-span-3 p-2"
+          className="bg-grey-light rounded-md w-full col-span-8 p-2"
           aria-label="breadcrumb1"
         >
           <Link href={`/`} className="text-white hover:text-gray-100">
@@ -14,7 +14,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className="bg-grey-light rounded-md w-full col-span-1 p-2 grid grid-cols-3"
+          className="bg-grey-light rounded-md w-full col-span-2 p-2 grid grid-cols-2"
           aria-label="breadcrumb1"
         >
           {navbarMenu.map((menu, index) => (
