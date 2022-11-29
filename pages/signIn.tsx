@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import { createUser } from '../plugins/firebase';
 
 const signIn = () => {
+  const registerUser = async () => {
+    const user = await createUser("sataaaaak1@gmail.com", "S29y27a25")
+    console.log("🚀 ~ file: signIn.tsx ~ line 8 ~ registerUser ~ user", user)
+  }
   return (
     <Layout>
       <section className="h-screen">
         <div className="px-6 h-full text-gray-800">
-          <div
-            className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
-          >
-            <div
-              className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
-            >
+          <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
+            <div className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0">
               <img
                 src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                 className="w-full"
@@ -29,7 +30,11 @@ const signIn = () => {
                     className="inline-block p-3 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out mx-1"
                   >
                     {/* <!-- Facebook --> */}
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" className="w-4 h-4">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 320 512"
+                      className="w-4 h-4"
+                    >
                       {/* <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --> */}
                       <path
                         fill="currentColor"
@@ -45,7 +50,11 @@ const signIn = () => {
                     className="inline-block p-3 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out mx-1"
                   >
                     {/* <!-- Twitter --> */}
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
+                      className="w-4 h-4"
+                    >
                       {/* <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --> */}
                       <path
                         fill="currentColor"
@@ -61,7 +70,11 @@ const signIn = () => {
                     className="inline-block p-3 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out mx-1"
                   >
                     {/* <!-- Linkedin --> */}
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="w-4 h-4">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                      className="w-4 h-4"
+                    >
                       {/* <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --> */}
                       <path
                         fill="currentColor"
@@ -71,9 +84,7 @@ const signIn = () => {
                   </button>
                 </div>
 
-                <div
-                  className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
-                >
+                <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                   <p className="text-center font-semibold mx-4 mb-0">Or</p>
                 </div>
 
@@ -96,24 +107,10 @@ const signIn = () => {
                     placeholder="Password"
                   />
                 </div>
-
-                <div className="flex justify-between items-center mb-6">
-                  <div className="form-group form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                      id="exampleCheck2"
-                    />
-                    <label className="form-check-label inline-block text-gray-800" htmlFor="exampleCheck2"
-                    >Remember me</label
-                    >
-                  </div>
-                  <a href="#!" className="text-gray-800">Forgot password?</a>
-                </div>
-
                 <div className="text-center lg:text-left">
                   <button
                     type="button"
+                    onClick={registerUser}
                     className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                   >
                     Login
@@ -123,7 +120,9 @@ const signIn = () => {
                     <Link
                       href="/register"
                       className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
-                    >Register</Link>
+                    >
+                      Register
+                    </Link>
                   </p>
                 </div>
               </form>

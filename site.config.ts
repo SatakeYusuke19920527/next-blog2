@@ -10,7 +10,9 @@ export const searchConfig = {
   category: "カテゴリ",
   companyName: "企業名",
   keyword: "キーワード",
-  search: "検索"
+  search: "検索",
+  prefectures: "都道府県",
+  updateDate: "更新月"
 }
 
 export const categoryConfig = [

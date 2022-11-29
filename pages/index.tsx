@@ -1,10 +1,23 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Card from '../components/Card';
 import Layout from '../components/Layout';
 import Search from '../components/Search';
+import { fetchPages } from '../utils/notion';
 import { sampleCards } from '../utils/sample';
 
-const Home:NextPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const {results} = await fetchPages();
+  return {
+    props: {
+      pages: results ? results : []
+    },
+    revalidate: 10
+  }
+}
+
+const Home: NextPage = ({ pages }: any) => {
+  console.log("🚀 ~ file: index.tsx ~ line 19 ~ pages", pages)
+  
   return (
     <Layout>
       <div className="w-full pt-8">

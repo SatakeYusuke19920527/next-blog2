@@ -4,7 +4,7 @@ export const sampleCards = [
       name: "Red",
       author: "dog",
       cover: "/",
-      published: "202x-xx-01",
+      published: "厚肉のPMMA成形で特殊技術を保有",
       tags: ["notion", "nextjs"],
       content: "Red page content",
     },
