@@ -2,7 +2,7 @@ import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import { CardProps } from '../types/types';
-import { getCover, getMultiSelect, getOverview, getText } from '../utils/property';
+import { getColor, getCover, getMultiSelect, getOverview, getText, getTitle } from '../utils/property';
 
 const Card: FC<CardProps> = ({ page }) => {
   return (
@@ -10,7 +10,13 @@ const Card: FC<CardProps> = ({ page }) => {
       href={`/articles/${getText(page.properties.slug.rich_text)}`}
       className="flex justify-center "
     >
-      <div className="max-w-sm rounded overflow-hidden shadow-lg w-full my-4 md:my-0 content-between grid">
+      <div
+        style={{ backgroundColor: getColor(page.properties.type.select.name) }}
+        className="max-w-sm rounded overflow-hidden shadow-lg w-full my-4 md:my-0 content-between grid"
+      >
+        <h4 className="w-full py-2 text-center text-gray-700 font-normal text-lg">
+          {getTitle(page.properties.type.select.name)}
+        </h4>
         {/* image */}
         <div>
           {' '}
@@ -25,8 +31,8 @@ const Card: FC<CardProps> = ({ page }) => {
           />
         </div>
 
-        {/* title & date*/}
-        <div className="px-6 pt-4 ">
+        {/* title & overview*/}
+        <div className="px-6 pt-4">
           <h2 className="text-base font-medium mb-3 ">
             {getText(page.properties.name.title)}
           </h2>

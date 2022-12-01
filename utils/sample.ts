@@ -1,43 +1,4 @@
-export const sampleCards = [
-    {
-      slug: "red",
-      name: "Red",
-      author: "dog",
-      cover: "/",
-      published: "厚肉のPMMA成形で特殊技術を保有",
-      tags: ["notion", "nextjs"],
-      content: "Red page content",
-    },
-    {
-      slug: "green",
-      name: "Green",
-      author: "cat",
-      cover: "/",
-      published: "202x-xx-02",
-      tags: ["notion"],
-      content: "Green page content",
-    },
-    {
-      slug: "blue",
-      name: "Blue",
-      author: "bird",
-      cover: "/",
-      published: "202x-xx-03",
-      tags: ["react"],
-      content: "Blue page content",
-    },
-    {
-      slug: "black",
-      name: "Black",
-      author: "child",
-      cover: "/",
-      published: "202x-xx-04",
-      tags: ["react","Next"],
-      content: "Black page content",
-    },
-];
-  
-const sample = {
+export const sample = {
     "object": "page",
     "id": "1df6f923-b418-4351-9f8f-f742a85f592f",
     "created_time": "2022-11-28T04:38:00.000Z",

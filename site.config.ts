@@ -24,6 +24,21 @@ export const categoryConfig = [
   { name: "その他"}
 ]
 
+export const colorConfig = {
+  molding_shop: {
+    name: "成形屋",
+    color:"#FF6666"
+  },
+  molding_equipment: {
+    name: "成形設備",
+    color:"#BBFFFF"
+  },
+  molding_maker: {
+    name: "金型メーカー",
+    color:"#FFFF88"
+  },
+}
+
 export const navbarMenu = [
   { name: "ログイン", slug: "signIn" },
   { name: "お問合せ", slug: "contact" }

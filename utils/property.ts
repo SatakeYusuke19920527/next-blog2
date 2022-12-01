@@ -1,4 +1,22 @@
+import { colorConfig } from "../site.config";
 import { PageType, RichTextType } from "../types/types";
+
+export const getTitle = (type: string) => {
+  try {
+    switch (type) {
+      case colorConfig.molding_equipment.name:
+        return colorConfig.molding_equipment.name;
+      case colorConfig.molding_shop.name:
+        return colorConfig.molding_shop.name;
+      case colorConfig.molding_maker.name:
+        return colorConfig.molding_maker.name;
+      default:
+        return ""
+    }
+  } catch (error) {
+    console.log("🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error", error)
+  }
+}
 
 export const getText = (richTextArr: RichTextType[]) => {
   try {
@@ -38,5 +56,22 @@ export const getOverview = (overview: {rich_text: RichTextType[]}) => {
     return overview.rich_text[0].plain_text
   } catch (error) {
     console.log("🚀 ~ file: property.ts ~ line 40 ~ getOverview ~ error", error)
+  }
+}
+
+export const getColor = (type: string) => {
+  try {
+    switch (type) {
+      case colorConfig.molding_equipment.name:
+        return colorConfig.molding_equipment.color;
+      case colorConfig.molding_shop.name:
+        return colorConfig.molding_shop.color;
+      case colorConfig.molding_maker.name:
+        return colorConfig.molding_maker.color;
+      default:
+        return "white"
+    }
+  } catch (error) {
+    console.log("🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error", error)
   }
 }
