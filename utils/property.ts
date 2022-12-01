@@ -32,3 +32,11 @@ export const getMultiSelect = (multiSelect: [{ name: string }]) => {
   }
   return [];
 };
+
+export const getOverview = (overview: {rich_text: RichTextType[]}) => {
+  try {
+    return overview.rich_text[0].plain_text
+  } catch (error) {
+    console.log("🚀 ~ file: property.ts ~ line 40 ~ getOverview ~ error", error)
+  }
+}
