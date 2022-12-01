@@ -16,10 +16,12 @@ export type PageProps = {
 };
  
 export type CardProps = {
-  page: PageProps;
+  page: PageType;
 };
 export type ArticleProps = CardProps;
 export type ArticleMetaProps = CardProps;
+
+export type IndexProps = { pages: PageProps[] };
  
 export type Params = ParsedUrlQuery & {
   slug: string;
