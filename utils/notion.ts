@@ -4,7 +4,7 @@ const notion = new Client({ auth: process.env.NOTION_KEY as string })
 
 const DATABASE_ID = process.env.NOTION_DATABASE_ID as string
 
-export const fetchPages = async ({slug}: {slug?:string}) => {
+export const fetchPages = async ({slug, tag}: {slug?:string, tag?:string}) => {
   const and: any = [
         {
           property: "isPublished",
@@ -19,12 +19,20 @@ export const fetchPages = async ({slug}: {slug?:string}) => {
           }
         }
   ]
-  console.log("🚀 ~ file: notion.ts ~ line 8 ~ fetchPages ~ slug", slug)
    if (slug) {
     and.push({
       property: "slug",
       rich_text: {
         equals: slug,
+      },
+    });
+   }
+  console.log("🚀 ~ file: notion.ts ~ line 8 ~ fetchPages ~ tag", tag)
+  if (tag) {
+    and.push({
+      property: "tags",
+      multi_select: {
+        contains: tag,
       },
     });
   }
