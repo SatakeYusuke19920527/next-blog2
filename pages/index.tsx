@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from 'next';
 import Card from '../components/Card';
 import Layout from '../components/Layout';
 import Search from '../components/Search';
+import { useLoginCheck } from '../hooks/useLoginCheck';
 import { IndexProps } from '../types/types';
 import { fetchPages } from '../utils/notion';
 
@@ -16,6 +17,8 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Home: NextPage<IndexProps> = ({ pages }) => {
+  const isUser = useLoginCheck();
+  console.log('🚀 ~ file: _app.tsx:9 ~ App ~ isUser', isUser);
   return (
     <Layout>
       <div className="w-full pt-8">

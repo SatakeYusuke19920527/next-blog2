@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { selectUser } from "../features/userSlice";
+import { useAppSelector } from "../hooks/useRTK";
 import { navbarMenu, siteConfig } from "../site.config";
+import { UserType } from "../types/types";
 
 const Navbar = () => {
+  const user: UserType = useAppSelector(selectUser);
   return (
     <nav className="relative w-full flex flex-wrap items-center justify-between py-3  text-white hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-gray-900">
       <div className="grid grid-cols-10 container-fluid w-full px-6">
