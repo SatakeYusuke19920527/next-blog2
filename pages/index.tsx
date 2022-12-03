@@ -16,8 +16,6 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Home: NextPage<IndexProps> = ({ pages }) => {
-  console.log('🚀 ~ file: index.tsx ~ line 19 ~ pages', pages);
-
   return (
     <Layout>
       <div className="w-full pt-8">

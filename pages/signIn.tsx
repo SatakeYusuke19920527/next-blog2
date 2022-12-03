@@ -1,12 +1,16 @@
 import Link from 'next/link';
+import { useState } from 'react';
 import Layout from '../components/Layout';
-import { createUser } from '../plugins/firebase';
+import { login } from '../models/user/userApplicationService';
 
 const signIn = () => {
-  const registerUser = async () => {
-    const user = await createUser("sataaaaak1@gmail.com", "S29y27a25")
-    console.log("🚀 ~ file: signIn.tsx ~ line 8 ~ registerUser ~ user", user)
-  }
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  
+  const loginByFirebaseAuth = async () => {
+    const user = await login(email, password);
+    console.log('🚀 ~ file: signIn.tsx ~ line 8 ~ registerUser ~ user', user);
+  };
   return (
     <Layout>
       <section className="h-screen">
@@ -95,6 +99,9 @@ const signIn = () => {
                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleFormControlInput2"
                     placeholder="Email address"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                   />
                 </div>
 
@@ -105,12 +112,15 @@ const signIn = () => {
                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="exampleFormControlInput2"
                     placeholder="Password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="text-center lg:text-left">
                   <button
                     type="button"
-                    onClick={registerUser}
+                    onClick={loginByFirebaseAuth}
                     className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                   >
                     Login

@@ -1,5 +1,5 @@
 import firebase, { getApps, initializeApp } from 'firebase/app';
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -22,19 +22,5 @@ export const auth = getAuth();
 export const db = getFirestore();
 export const storage = getStorage();
 export const provider = new GoogleAuthProvider();
-
-export const createUser = (email: string, password: string) => {
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log("🚀 ~ file: firebase.ts ~ line 31 ~ .then ~ user", user)
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("🚀 ~ file: firebase.ts ~ line 38 ~ createUser ~ errorMessage", errorMessage)
-  });
-}
 
 export default firebase;

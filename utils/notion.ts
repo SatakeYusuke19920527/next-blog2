@@ -27,7 +27,6 @@ export const fetchPages = async ({slug, tag}: {slug?:string, tag?:string}) => {
       },
     });
    }
-  console.log("🚀 ~ file: notion.ts ~ line 8 ~ fetchPages ~ tag", tag)
   if (tag) {
     and.push({
       property: "tags",
@@ -36,7 +35,6 @@ export const fetchPages = async ({slug, tag}: {slug?:string, tag?:string}) => {
       },
     });
   }
-  console.log("🚀 ~ file: notion.ts ~ line 8 ~ fetchPages ~ and", and)
   return await notion.databases.query({
     database_id: DATABASE_ID,
     filter: {

@@ -1,12 +1,18 @@
+import { useState } from 'react';
 import Layout from '../components/Layout';
-
+import { createUser } from '../models/user/userApplicationService';
 const Register = () => {
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('');
+  
+  const createUserByFirebaseAuth = async () => {
+    await createUser(email, password);
+  }
+
   return (
     <Layout>
       <div className="w-full h-full pt-12 flex flex-col  justify-center items-center">
-        <h2 className="text-gray-600 text-10s text-left">
-          ユーザ登録
-        </h2>
+        <h2 className="text-gray-600 text-10s text-left">ユーザ登録</h2>
         <form className="w-full max-w-lg">
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full px-3">
@@ -14,92 +20,16 @@ const Register = () => {
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
-                氏名：姓
+                ユーザ名
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nick"
+                id="userid"
                 type="text"
+                placeholder="ユーザ名"
               />
             </div>
           </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                フリガナ：セイ
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nick"
-                type="text"
-              />
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                氏名：名
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nick"
-                type="text"
-              />
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                フリガナ：メイ
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nick"
-                type="text"
-              />
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                住所
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nick"
-                type="text"
-              />
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                電話番号
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nick"
-                type="text"
-              />
-              <p className="text-gray-600 text-xs italic">ハイフンは不要</p>
-            </div>
-          </div>
-
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full px-3">
               <label
@@ -112,10 +42,11 @@ const Register = () => {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="email"
                 type="email"
+                placeholder="ご使用されるメールアドレスを入力してください"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
-              <p className="text-gray-600 text-xs italic">
-                Some tips - as long as needed
-              </p>
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">
@@ -124,16 +55,66 @@ const Register = () => {
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
+                パスワード
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="password"
+                type="password"
+                placeholder="ご使用されるパスワードを入力してください"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+                placeholder="住所"
+              >
+                住所
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="address"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+                placeholder="電話番号"
+              >
+                電話番号
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="phonenumber"
+                type="number"
+              />
+              <p className="text-gray-600 text-xs italic">ハイフンは不要</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+                placeholder="業種"
+              >
                 業種
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="email"
-                type="email"
+                id="industry"
+                type="type"
               />
-              <p className="text-gray-600 text-xs italic">
-                Some tips - as long as needed
-              </p>
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">
@@ -146,25 +127,23 @@ const Register = () => {
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="email"
-                type="email"
+                id="company"
+                type="text"
+                placeholder="会社名"
               />
-              <p className="text-gray-600 text-xs italic">
-                Some tips - as long as needed
-              </p>
             </div>
           </div>
 
-          <div className="md:flex md:items-center">
-            <div className="md:w-1/3">
+          <div className="w-full px-3 md:flex md:items-center">
+            <div className="w-full">
               <button
-                className="shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                className="w-full shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="button"
+                onClick={createUserByFirebaseAuth}
               >
                 登録
               </button>
             </div>
-            <div className="md:w-2/3"></div>
           </div>
         </form>
       </div>
