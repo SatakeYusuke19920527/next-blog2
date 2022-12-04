@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
 import { auth } from '../plugins/firebase';
 import { UserType } from '../types/types';
 
-export const useLoginCheck = (): UserType | null => {
+export const useLoginCheck = (): boolean => {
   const user: UserType = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -26,5 +26,5 @@ export const useLoginCheck = (): UserType | null => {
       unSub();
     };
   }, [dispatch]);
-  return user.uid !== "" ? user : null
+  return user.uid !== "" ? true : false
 };

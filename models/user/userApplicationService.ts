@@ -1,10 +1,9 @@
 import { UserRepository } from "./userRepository";
 
 
-export const login = async (email: string, password: string): Promise<void> => {
+export const login = async (email: string, password: string) => {
     const repo =  new UserRepository();
     await repo.login(email, password);
-    return;
 }
 
 export const logout = async ():Promise<void> => {

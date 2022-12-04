@@ -38,8 +38,3 @@ export const colorConfig = {
     color:"#FFFF88"
   },
 }
-
-export const navbarMenu = [
-  { name: "ログイン", slug: "signIn" },
-  { name: "お問合せ", slug: "contact" }
-]

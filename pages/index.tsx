@@ -18,7 +18,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<IndexProps> = ({ pages }) => {
   const isUser = useLoginCheck();
-  console.log('🚀 ~ file: _app.tsx:9 ~ App ~ isUser', isUser);
+  console.log(
+    '🚀 ~ file: index.tsx:21 ~ isUser ~ login check : [',
+    isUser,
+    ']'
+  );
+  
   return (
     <Layout>
       <div className="w-full pt-8">

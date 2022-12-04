@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { selectUser } from "../features/userSlice";
-import { useAppSelector } from "../hooks/useRTK";
-import { navbarMenu, siteConfig } from "../site.config";
-import { UserType } from "../types/types";
+import { useLoginCheck } from "../hooks/useLoginCheck";
+import { logout } from "../models/user/userApplicationService";
+import { siteConfig } from "../site.config";
 
 const Navbar = () => {
-  const user: UserType = useAppSelector(selectUser);
+  const isLogin = useLoginCheck()
   return (
     <nav className="relative w-full flex flex-wrap items-center justify-between py-3  text-white hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-gray-900">
       <div className="grid grid-cols-10 container-fluid w-full px-6">
@@ -21,17 +20,31 @@ const Navbar = () => {
           className="bg-grey-light rounded-md w-full col-span-2 p-2 grid grid-cols-2"
           aria-label="breadcrumb1"
         >
-          {navbarMenu.map((menu, index) => (
-            <div
-              className="bg-grey-light rounded-md w-full col-span-1 md:block hidden text-right gap-3"
-              aria-label="breadcrumb2"
-              key={index}
-            >
-              <Link href={`/${menu.slug}`} className="text-white hover:text-gray-100">
-                {menu.name}
+          <div
+            className="bg-grey-light rounded-md w-full col-span-1 md:block hidden text-right gap-3"
+            aria-label="breadcrumb2"
+          >
+            {isLogin ? (
+              <button
+                onClick={logout}
+                className="text-white hover:text-gray-100"
+              >
+                ログアウト
+              </button>
+            ) : (
+              <Link href={`/signIn`} className="text-white hover:text-gray-100">
+                ログイン
               </Link>
-            </div>
-          ))}
+            )}
+          </div>
+          <div
+            className="bg-grey-light rounded-md w-full col-span-1 md:block hidden text-right gap-3"
+            aria-label="breadcrumb2"
+          >
+            <Link href={`/contact`} className="text-white hover:text-gray-100">
+              お問合せ
+            </Link>
+          </div>
           <div
             className="bg-grey-light rounded-md w-full col-span-3 text-right gap-3 md:hidden"
             aria-label="breadcrumb2"
