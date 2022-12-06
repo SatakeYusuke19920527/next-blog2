@@ -92,3 +92,8 @@ export type UserType = {
   email: string,
   photoURL: string,
 }
+
+export type ErrorType = {
+  code: string,
+  message: string
+}

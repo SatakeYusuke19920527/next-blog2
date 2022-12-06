@@ -2,12 +2,14 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { auth } from "../../plugins/firebase";
 
 export class UserRepository {
-    async login(email: string, password: string){
-        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-            return userCredential.user;
-        }).catch((error) => {
-            console.log(error)
-        });
+    async login(email: string, password: string) {
+            return new Promise(async (resolve, reject) => { 
+                await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                resolve(userCredential.user);
+            }).catch((error) => {
+                reject(error.code)
+            });
+        })
     }
 
     async logout() {

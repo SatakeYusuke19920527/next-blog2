@@ -2,13 +2,19 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
+import { error, no_error, selectError } from '../features/errorSlice';
 import { useLoginCheck } from '../hooks/useLoginCheck';
+import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
+import { getErrorText } from '../models/error/errorApplicationService';
 import { login } from '../models/user/userApplicationService';
 
 const signIn = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const isLogin = useLoginCheck()
+  const dispatch = useAppDispatch();
+  const isLogin = useLoginCheck();
+  const err = useAppSelector(selectError);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   
   useEffect(() => {
     if (isLogin) {
@@ -20,7 +26,25 @@ const signIn = () => {
   }, [isLogin]);
   
   const loginByFirebaseAuth = async () => {
-    await login(email, password);
+    setIsLoading(true)
+    const err = await login(email, password);
+    console.log("🚀 ~ file: signIn.tsx:25 ~ loginByFirebaseAuth ~ res", err)
+    if (err !== undefined) {
+      const errMessage = getErrorText(err as string);
+      console.log(
+        '🚀 ~ file: signIn.tsx:32 ~ loginByFirebaseAuth ~ errMessage',
+        errMessage
+      );
+      dispatch(
+        error({
+          code: err,
+          message: errMessage,
+        })
+      );
+    } else {
+      dispatch(no_error());
+    }
+    setIsLoading(false);
   };
   return (
     <Layout>
@@ -35,8 +59,7 @@ const signIn = () => {
               />
             </div>
             <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-              <form>  
-
+              <form>
                 {/* <!-- Email input --> */}
                 <div className="mb-6">
                   <input
@@ -62,13 +85,26 @@ const signIn = () => {
                     }}
                   />
                 </div>
+                {err.message !== '' ? (
+                  <div className="text-sm font-semibold mt-2 pt-1 mb-0">
+                    <p className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
+                      {err.message}
+                    </p>
+                  </div>
+                ) : null}
                 <div className="text-center lg:text-left">
                   <button
                     type="button"
                     onClick={loginByFirebaseAuth}
                     className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                   >
-                    Login
+                    {isLoading ? (
+                      <div className="flex justify-center">
+                        <div className="animate-spin h-5 w-5 border-4 border-blue-500 rounded-full border-t-transparent"></div>
+                      </div>
+                    ) : (
+                      'Login'
+                    )}
                   </button>
                   <p className="text-sm font-semibold mt-2 pt-1 mb-0">
                     新規ユーザー登録は
