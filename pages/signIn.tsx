@@ -28,13 +28,8 @@ const signIn = () => {
   const loginByFirebaseAuth = async () => {
     setIsLoading(true)
     const err = await login(email, password);
-    console.log("🚀 ~ file: signIn.tsx:25 ~ loginByFirebaseAuth ~ res", err)
     if (err !== undefined) {
       const errMessage = getErrorText(err as string);
-      console.log(
-        '🚀 ~ file: signIn.tsx:32 ~ loginByFirebaseAuth ~ errMessage',
-        errMessage
-      );
       dispatch(
         error({
           code: err,

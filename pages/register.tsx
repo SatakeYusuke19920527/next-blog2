@@ -1,12 +1,37 @@
 import { useState } from 'react';
 import Layout from '../components/Layout';
+import { error, no_error, selectError } from '../features/errorSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
+import { getErrorText } from '../models/error/errorApplicationService';
 import { createUser } from '../models/user/userApplicationService';
 const Register = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('');
+  const [displayName, setDisplayName] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const err = useAppSelector(selectError);
+  const dispatch = useAppDispatch();
   
   const createUserByFirebaseAuth = async () => {
-    await createUser(email, password);
+    setIsLoading(true);
+    const err = await createUser(email, password, displayName);
+    console.log("🚀 ~ file: register.tsx:17 ~ createUserByFirebaseAuth ~ err", err)
+    if (err !== undefined) {
+      const errMessage = getErrorText(err as string);
+      console.log(
+        '🚀 ~ file: register.tsx:17 ~ createUserByFirebaseAuth ~ err',
+        errMessage
+      );
+      dispatch(
+        error({
+          code: err,
+          message: errMessage,
+        })
+      );
+    } else {
+      dispatch(no_error());
+    }
+    setIsLoading(false);
   }
 
   return (
@@ -27,6 +52,9 @@ const Register = () => {
                 id="userid"
                 type="text"
                 placeholder="ユーザ名"
+                onChange={(e) => {
+                  setDisplayName(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -133,6 +161,13 @@ const Register = () => {
               />
             </div>
           </div>
+          {err.message !== '' ? (
+            <div className="text-sm font-semibold mt-2 pt-1 mb-0">
+              <p className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
+                {err.message}
+              </p>
+            </div>
+          ) : null}
 
           <div className="w-full px-3 md:flex md:items-center">
             <div className="w-full">
@@ -141,7 +176,13 @@ const Register = () => {
                 type="button"
                 onClick={createUserByFirebaseAuth}
               >
-                登録
+                {isLoading ? (
+                  <div className="flex justify-center">
+                    <div className="animate-spin h-5 w-5 border-4 border-blue-500 rounded-full border-t-transparent"></div>
+                  </div>
+                ) : (
+                  '登録'
+                )}
               </button>
             </div>
           </div>

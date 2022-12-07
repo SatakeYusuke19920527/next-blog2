@@ -10,13 +10,20 @@ export const login = async (email: string, password: string) => {
     }
 };
 
-export const logout = async ():Promise<void> => {
-    const repo =  new UserRepository();
-    await repo.logout();
+export const logout = async () => {
+    try {
+        const repo =  new UserRepository();
+        await repo.logout();
+    } catch (err) {
+        return err
+    }
 }
 
-export const createUser = async (email: string, password:string): Promise<void> => {
-    const repo =  new UserRepository();
-    await repo.createUser(email, password);
-    return;
+export const createUser = async (email: string, password:string, displayName: string) => {
+    try {
+        const repo =  new UserRepository();
+        await repo.createUser(email, password, displayName);
+    } catch (err) {
+        return err
+    }
 }

@@ -5,6 +5,10 @@ import { siteConfig } from "../site.config";
 
 const Navbar = () => {
   const isLogin = useLoginCheck()
+  const handleLogout = async () => {
+    const result = window.confirm("ログアウトしますか？")
+    if (result) await logout();
+  }
   return (
     <nav className="relative w-full flex flex-wrap items-center justify-between py-3  text-white hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-gray-900">
       <div className="grid grid-cols-10 container-fluid w-full px-6">
@@ -26,7 +30,7 @@ const Navbar = () => {
           >
             {isLogin ? (
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="text-white hover:text-gray-100"
               >
                 ログアウト
