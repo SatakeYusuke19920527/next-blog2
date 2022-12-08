@@ -90,7 +90,13 @@ export type UserType = {
   uid: string,
   displayName: string,
   email: string,
-  photoURL: string,
+  photoURL?: string,
+  created_at?: Date,
+  isDeleted?: boolean,
+  address?: string,
+  phone_number?: string,
+  occupation?: string,
+  company?: string
 }
 
 export type ErrorType = {

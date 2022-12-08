@@ -1,3 +1,4 @@
+import { UserType } from "../../types/types";
 import { UserRepository } from "./userRepository";
 
 
@@ -23,6 +24,15 @@ export const createUser = async (email: string, password:string, displayName: st
     try {
         const repo =  new UserRepository();
         await repo.createUser(email, password, displayName);
+    } catch (err) {
+        return err
+    }
+}
+
+export const saveUserForFirestore = async (user: UserType) => {
+    try {
+        const repo =  new UserRepository();
+        await repo.saveUserForFirestore(user)
     } catch (err) {
         return err
     }

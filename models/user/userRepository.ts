@@ -1,5 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { auth } from "../../plugins/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "../../plugins/firebase";
+import { UserType } from "../../types/types";
 
 export class UserRepository {
     async login(email: string, password: string) {
@@ -42,4 +44,28 @@ export class UserRepository {
                 });
         })
     };
+
+    async saveUserForFirestore(user: UserType) {
+        const { uid, displayName, email, address, phone_number, occupation, company } = user
+        return new Promise(async (resolve, reject) => {
+            try {
+                const docRef = await addDoc(collection(db, "users"), {
+                    uid,
+                    displayName,
+                    email,
+                    created_at: serverTimestamp(),
+                    isDeleted: false,
+                    address,
+                    phone_number,
+                    occupation,
+                    company
+                });
+                console.log("Document written with ID: ", docRef.id);  
+                resolve(user)
+            } catch (error) {
+                console.log("🚀 ~ file: userRepository.ts:67 ~ UserRepository ~ returnnewPromise ~ error", error)
+                reject("不明なエラーです。")
+            }
+        });
+    }
 }

@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { selectUser } from "../features/userSlice";
 import { useLoginCheck } from "../hooks/useLoginCheck";
+import { useAppSelector } from "../hooks/useRTK";
 import { logout } from "../models/user/userApplicationService";
 import { siteConfig } from "../site.config";
 
 const Navbar = () => {
   const isLogin = useLoginCheck()
+  const user = useAppSelector(selectUser)
   const handleLogout = async () => {
     const result = window.confirm("ログアウトしますか？")
     if (result) await logout();

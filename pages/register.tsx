@@ -1,21 +1,47 @@
-import { useState } from 'react';
+import Router from 'next/router';
+import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { error, no_error, selectError } from '../features/errorSlice';
+import { selectUser } from '../features/userSlice';
+import { useLoginCheck } from '../hooks/useLoginCheck';
 import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
 import { getErrorText } from '../models/error/errorApplicationService';
-import { createUser } from '../models/user/userApplicationService';
+import {
+  createUser,
+  saveUserForFirestore
+} from '../models/user/userApplicationService';
+import { auth } from '../plugins/firebase';
+import { UserType } from '../types/types';
 const Register = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [phone_number, setPhone_Number] = useState<string>('');
+  const [occupation, setOccupation] = useState<string>('');
+  const [company, setCompany] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const err = useAppSelector(selectError);
+  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
+  const isLogin = useLoginCheck();
+
+  useEffect(() => {
+    if (isLogin) {
+      console.log("🚀 ~ file: register.tsx:30 ~ useEffect ~ isLogin", isLogin)
+      Router.push('/');
+    } else {
+      console.log('🚀 ~ file: register.tsx:33 ~ useEffect ~ isLogin', isLogin);
+    }
+  }, [isLogin]);
   
-  const createUserByFirebaseAuth = async () => {
+  const createUserByFirebase = async () => {
     setIsLoading(true);
     const err = await createUser(email, password, displayName);
-    console.log("🚀 ~ file: register.tsx:17 ~ createUserByFirebaseAuth ~ err", err)
+    console.log(
+      '🚀 ~ file: register.tsx:17 ~ createUserByFirebaseAuth ~ err',
+      err
+    );
     if (err !== undefined) {
       const errMessage = getErrorText(err as string);
       console.log(
@@ -30,8 +56,23 @@ const Register = () => {
       );
     } else {
       dispatch(no_error());
+      await saveUser();
     }
     setIsLoading(false);
+  };
+
+  const saveUser = async () => {
+    const uid = auth.currentUser!.uid;
+    const userObj: UserType = {
+      uid,
+      displayName,
+      email,
+      address,
+      phone_number,
+      occupation,
+      company,
+    };
+    await saveUserForFirestore(userObj);
   }
 
   return (
@@ -109,6 +150,9 @@ const Register = () => {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="address"
                 type="text"
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -125,6 +169,9 @@ const Register = () => {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="phonenumber"
                 type="number"
+                onChange={(e) => {
+                  setPhone_Number(e.target.value);
+                }}
               />
               <p className="text-gray-600 text-xs italic">ハイフンは不要</p>
             </div>
@@ -140,8 +187,11 @@ const Register = () => {
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="industry"
+                id="occupation"
                 type="type"
+                onChange={(e) => {
+                  setOccupation(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -158,6 +208,9 @@ const Register = () => {
                 id="company"
                 type="text"
                 placeholder="会社名"
+                onChange={(e) => {
+                  setCompany(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -174,7 +227,7 @@ const Register = () => {
               <button
                 className="w-full shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="button"
-                onClick={createUserByFirebaseAuth}
+                onClick={createUserByFirebase}
               >
                 {isLoading ? (
                   <div className="flex justify-center">
