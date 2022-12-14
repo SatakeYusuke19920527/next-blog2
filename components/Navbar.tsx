@@ -20,7 +20,7 @@ const Navbar = () => {
           aria-label="breadcrumb1"
         >
           <Link href={`/`} className="text-white hover:text-gray-100">
-            {siteConfig.title}
+            {siteConfig.title} / SendGrid
           </Link>
         </div>
         <div
@@ -52,7 +52,8 @@ const Navbar = () => {
               お問合せ
             </Link>
           </div>
-          <div
+          {/* レスポンシブ対応予定 */}
+          {/* <div
             className="bg-grey-light rounded-md w-full col-span-3 text-right gap-3 md:hidden"
             aria-label="breadcrumb2"
           >
@@ -61,7 +62,7 @@ const Navbar = () => {
                 test
               </Link>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>

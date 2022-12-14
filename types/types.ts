@@ -17,7 +17,6 @@ export type PageProps = {
 };
  
 export type CardProps = {
-  
   page: PageType;
 };
 export type ArticleProps = {
@@ -102,4 +101,12 @@ export type UserType = {
 export type ErrorType = {
   code: string,
   message: string
+}
+
+export type MailType = {
+  uid?: string,
+  uname: string,
+  email: string,
+  content: string,
+  project?: string
 }
