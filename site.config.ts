@@ -17,7 +17,7 @@ export const searchConfig = {
 
 export const categoryConfig = [
   { name: "成形設備" },
-  { name: "金型" },
+  { name: "金型屋" },
   { name: "成形屋" },
   { name: "樹脂" },
   { name: "展示会" },
