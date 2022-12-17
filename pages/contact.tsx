@@ -12,12 +12,17 @@ const Contact = () => {
   const [uname, setUname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const dispatch = useAppDispatch();
   const page = useAppSelector(selectPage);
   const err = useAppSelector(selectError);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const sendEmailByFirebase = async () => {
+    if (uname === '' || email === '' || email === '') {
+      setErrorMessage('全て入力してください');
+      return;
+    }
     setIsLoading(true);
     const uid = auth.currentUser?.uid;
     const mailObj: MailType = {
@@ -47,6 +52,7 @@ const Contact = () => {
       setUname('');
       setEmail('');
       setContent('');
+      setErrorMessage('');
       window.alert('送信完了しました。');
     }
     setIsLoading(false);
@@ -116,6 +122,13 @@ const Contact = () => {
               ></textarea>
             </div>
           </div>
+          {errorMessage !== '' ? (
+            <div className="text-sm font-semibold mt-2 pt-1 mb-0">
+              <p className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
+                {errorMessage}
+              </p>
+            </div>
+          ) : null}
           {err.message !== '' ? (
             <div className="text-sm font-semibold mt-2 pt-1 mb-0">
               <p className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
