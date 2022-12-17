@@ -19,7 +19,7 @@ const Contact = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const sendEmailByFirebase = async () => {
-    if (uname === '' || email === '' || email === '') {
+    if (uname === '' || email === '' || content === '') {
       setErrorMessage('全て入力してください');
       return;
     }

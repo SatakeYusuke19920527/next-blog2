@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav className="relative w-full flex flex-wrap items-center justify-between py-3  text-white hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-gray-900">
       <div className="grid grid-cols-10 container-fluid w-full px-6">
         <div
-          className="bg-grey-light rounded-md w-full col-span-8 p-2"
+          className="bg-grey-light rounded-md w-full col-span-9 p-2"
           aria-label="breadcrumb1"
         >
           <Link href={`/`} className="text-white hover:text-gray-100">
@@ -24,7 +24,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className="bg-grey-light rounded-md w-full col-span-2 p-2 grid grid-cols-2"
+          className="bg-grey-light rounded-md w-full col-span-1 p-2 grid grid-cols-1"
           aria-label="breadcrumb1"
         >
           <div
@@ -44,14 +44,14 @@ const Navbar = () => {
               </Link>
             )}
           </div>
-          <div
+          {/* <div
             className="bg-grey-light rounded-md w-full col-span-1 md:block hidden text-right gap-3"
             aria-label="breadcrumb2"
           >
             <Link href={`/contact`} className="text-white hover:text-gray-100">
               お問合せ
             </Link>
-          </div>
+          </div> */}
           {/* レスポンシブ対応予定 */}
           {/* <div
             className="bg-grey-light rounded-md w-full col-span-3 text-right gap-3 md:hidden"
