@@ -11,6 +11,7 @@ export class UserRepository {
                     uid: mail.uid ? mail.uid : "",
                     uname,
                     project: mail.project ? mail.project : "",
+                    url: mail.url ? mail.url : "",
                     email,
                     content,
                     created_at: serverTimestamp(),

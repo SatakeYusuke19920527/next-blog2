@@ -1,12 +1,13 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import NotionBlocks from 'notion-block-renderer';
-import { useState } from "react";
+import { useEffect } from "react";
 import ArticleMeta from '../../components/ArticleMeta';
 import Layout from '../../components/Layout';
 import { selectError } from "../../features/errorSlice";
+import { selectPageInfo } from "../../features/pageSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRTK";
-import { ArticleProps, Params } from '../../types/types';
+import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
 import { fetchBlocksByPageId, fetchPages } from "../../utils/notion";
 import { getText } from "../../utils/property";
 
@@ -41,14 +42,23 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
-  const [uname, setUname] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [content, setContent] = useState<string>('');
+  console.log("🚀 ~ file: [slug].tsx:44 ~ page", page)
+  const router = useRouter()
   const dispatch = useAppDispatch();
   const err = useAppSelector(selectError);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const title = getText(page.properties.name.title) as string
+    const url = `https://next-blog2-zeta.vercel.app/articles/${getText(page.properties.slug.rich_text)}`;
+    const pageInfoObj: SelectPageInfoType = {
+      title,
+      url,
+    };
+    dispatch(selectPageInfo(pageInfoObj));
+  },[])
+
   const moveTocontact = async () => {
-    Router.push(`/contact/${getText(page.properties.slug.rich_text)}`);
+    router.push(`/contact`);
   };
   return (
     <Layout>
@@ -75,13 +85,7 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
               type="button"
               onClick={moveTocontact}
             >
-              {isLoading ? (
-                <div className="flex justify-center">
-                  <div className="animate-spin h-5 w-5 border-4 border-blue-500 rounded-full border-t-transparent"></div>
-                </div>
-              ) : (
-                'お問合せ'
-              )}
+              お問合せ
             </button>
           </div>
         </div>

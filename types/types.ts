@@ -108,5 +108,11 @@ export type MailType = {
   uname: string,
   email: string,
   content: string,
-  project?: string
+  project?: string,
+  url?: string
+}
+
+export type SelectPageInfoType = {
+  title: string,
+  url: string
 }
