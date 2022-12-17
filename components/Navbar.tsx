@@ -20,7 +20,7 @@ const Navbar = () => {
           aria-label="breadcrumb1"
         >
           <Link href={`/`} className="text-white hover:text-gray-100">
-            {siteConfig.title} / SendGrid
+            {siteConfig.title}
           </Link>
         </div>
         <div

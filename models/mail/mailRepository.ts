@@ -14,7 +14,6 @@ export class UserRepository {
                     email,
                     content,
                     created_at: serverTimestamp(),
-                    isSend: false,
                 });
                 console.log("Success!! written with ID: ", docRef.id);  
                 resolve(mail)

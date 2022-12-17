@@ -1,14 +1,12 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Router from 'next/router';
 import NotionBlocks from 'notion-block-renderer';
 import { useState } from "react";
 import ArticleMeta from '../../components/ArticleMeta';
 import Layout from '../../components/Layout';
-import { error, no_error, selectError } from "../../features/errorSlice";
+import { selectError } from "../../features/errorSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRTK";
-import { getErrorText } from "../../models/error/errorApplicationService";
-import { sendEmail } from "../../models/mail/mailApplicationService";
-import { auth } from "../../plugins/firebase";
-import { ArticleProps, MailType, Params } from '../../types/types';
+import { ArticleProps, Params } from '../../types/types';
 import { fetchBlocksByPageId, fetchPages } from "../../utils/notion";
 import { getText } from "../../utils/property";
 
@@ -49,37 +47,8 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
   const dispatch = useAppDispatch();
   const err = useAppSelector(selectError);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const sendEmailByFirebase = async () => {
-    setIsLoading(true);
-    const uid = auth.currentUser?.uid;
-    const mailObj: MailType = {
-      uid,
-      uname,
-      email,
-      content,
-    };
-    const err = await sendEmail(mailObj);
-    console.log('🚀 ~ file: contact.tsx:22 ~ sendEmail ~ err', err);
-    if (err !== undefined) {
-      const errMessage = getErrorText(err as string);
-      console.log(
-        '🚀 ~ file: contact.tsx:32 ~ sendEmailByFirebase ~ errMessage',
-        errMessage
-      );
-      dispatch(
-        error({
-          code: err,
-          message: errMessage,
-        })
-      );
-    } else {
-      dispatch(no_error());
-      setUname('');
-      setEmail('');
-      setContent('');
-      window.alert('送信完了しました。');
-    }
-    setIsLoading(false);
+  const moveTocontact = async () => {
+    Router.push(`/contact/${getText(page.properties.slug.rich_text)}`);
   };
   return (
     <Layout>
@@ -104,7 +73,7 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
             <button
               className="w-full shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
               type="button"
-              onClick={sendEmailByFirebase}
+              onClick={moveTocontact}
             >
               {isLoading ? (
                 <div className="flex justify-center">

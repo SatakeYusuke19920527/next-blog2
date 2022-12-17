@@ -1,14 +1,45 @@
-import { useState } from "react";
-import Layout from "../components/Layout";
-import { error, no_error, selectError } from '../features/errorSlice';
-import { useAppDispatch, useAppSelector } from "../hooks/useRTK";
-import { getErrorText } from "../models/error/errorApplicationService";
-import { sendEmail } from "../models/mail/mailApplicationService";
-import { auth } from "../plugins/firebase";
-import { MailType } from "../types/types";
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { useState } from 'react';
+import Layout from '../../components/Layout';
+import { error, no_error, selectError } from '../../features/errorSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRTK';
+import { getErrorText } from '../../models/error/errorApplicationService';
+import { sendEmail } from '../../models/mail/mailApplicationService';
+import { auth } from '../../plugins/firebase';
+import { ArticleProps, MailType, Params } from '../../types/types';
+import { fetchPages } from '../../utils/notion';
+import { getText } from '../../utils/property';
 
-const Contact = () => {
-  const [uname, setUname] = useState<string>('')
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { results } = await fetchPages({});
+  const paths = results.map((page: any) => {
+    return {
+      params: {
+        slug: getText(page.properties.slug.rich_text),
+      },
+    };
+  });
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const { slug } = ctx.params as Params;
+  const { results } = await fetchPages({ slug: slug });
+  const page = results[0];
+  return {
+    props: {
+      page: page,
+    },
+    revalidate: 10,
+  };
+};
+
+const Contact: NextPage<ArticleProps> = ({ page }) => {
+  console.log("🚀 ~ file: [product].tsx:40 ~ page", page)
+  const [uname, setUname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const dispatch = useAppDispatch();
@@ -22,13 +53,16 @@ const Contact = () => {
       uid,
       uname,
       email,
-      content
+      content,
     };
     const err = await sendEmail(mailObj);
-    console.log("🚀 ~ file: contact.tsx:22 ~ sendEmail ~ err", err)
+    console.log('🚀 ~ file: contact.tsx:22 ~ sendEmail ~ err', err);
     if (err !== undefined) {
       const errMessage = getErrorText(err as string);
-      console.log("🚀 ~ file: contact.tsx:32 ~ sendEmailByFirebase ~ errMessage", errMessage)
+      console.log(
+        '🚀 ~ file: contact.tsx:32 ~ sendEmailByFirebase ~ errMessage',
+        errMessage
+      );
       dispatch(
         error({
           code: err,
@@ -48,6 +82,8 @@ const Contact = () => {
   return (
     <Layout>
       <div className="w-full h-full pt-12 flex flex-col  justify-center items-center">
+        {/* page name */}
+        {/* <h1 className="my-8">{getText(page.properties.name.title)}</h1> */}
         <form className="w-full max-w-lg">
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full px-3">
