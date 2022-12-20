@@ -4,6 +4,7 @@ import { useLoginCheck } from "../hooks/useLoginCheck";
 import { useAppSelector } from "../hooks/useRTK";
 import { logout } from "../models/user/userApplicationService";
 import { siteConfig } from "../site.config";
+import Breadcrumb from "./Breadcrumb";
 
 const Navbar = () => {
   const isLogin = useLoginCheck()
@@ -16,12 +17,15 @@ const Navbar = () => {
     <nav className="relative w-full flex flex-wrap items-center justify-between py-3  text-white hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-gray-900">
       <div className="grid grid-cols-10 container-fluid w-full px-6">
         <div
-          className="bg-grey-light rounded-md w-full col-span-9 p-2"
+          className="flex bg-grey-light rounded-md w-full col-span-9 p-2"
           aria-label="breadcrumb1"
         >
           <Link href={`/`} className="text-white hover:text-gray-100">
             {siteConfig.title}
           </Link>
+          <div className="pl-4">
+            <Breadcrumb />
+          </div>
         </div>
         <div
           className="bg-grey-light rounded-md w-full col-span-1 p-2 grid grid-cols-1"

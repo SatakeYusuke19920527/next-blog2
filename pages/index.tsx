@@ -26,11 +26,11 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   
   return (
     <Layout>
-      <div className="w-full pt-8 grid grid-cols-10 container-fluid gap-6">
-        <div className="rounded-md col-span-2 gap-6 h-full">
+      <div className="w-full pt-8 grid lg:grid-cols-10 md:grid-cols-1  container-fluid gap-6">
+        <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
           <Search />
         </div>
-        <div className="grid col-span-8 md:grid-cols-3 w-full gap-6">
+        <div className="grid lg:col-span-8 lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
           {/* Card */}
           {pages.map((page, index) => (
             <Card key={index} page={page} />
