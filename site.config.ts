@@ -17,12 +17,24 @@ export const searchConfig = {
 
 export const categoryConfig = [
   { name: "成形設備" },
-  { name: "金型屋" },
-  { name: "成形屋" },
+  { name: "金型メーカー" },
+  { name: "成形会社" },
   { name: "樹脂" },
   { name: "展示会" },
-  { name: "その他"}
+  { name: "その他" },
+  { name: "選択なし"},
 ]
+
+
+export const moldingEquipmentConfig = ["射出成形機", "取出機", "乾燥機", "温調機", "輸送機", "混合機", "コンベア", "ストッカー", "クランプ", "粉砕機", "チラー", "その他"]
+
+export const clampingForceConfig = [`10t未満`, `10t〜49t`, `50t〜99t`, `100t〜249t`, `250t〜499t`, `500t〜999t`, `1000t〜1399t`, `1400t以上`]
+
+export const subsidyConfig = [`補助金対象`, `補助金対象外`]
+
+export const industryTypeConfig = [`家電`, `自動車`, `OA通信`, `電子部品`, `工業部品`, `容器`, `医療`, `雑貨`, `その他`]
+
+export const resinUsedConfig = [`PE`, `PP`, `PS`, `ABS`, `PVC`, `PMMA`, `PET`, `PA`, `POM`, `PC`, `PPE`, `PPS`, `PI`, `PEI`, `PEEK`, `PTFE`, `フッ素樹脂`, `エラストマー`, `生分解性プラスチック`, `熱効果樹脂`, `プラマグ樹脂`, `その他`]
 
 export const colorConfig = {
   molding_shop: {

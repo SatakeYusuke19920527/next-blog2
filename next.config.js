@@ -9,7 +9,9 @@ const nextConfig = {
       'ishida-mold.com',
       "www.kyoritsu-pla.co.jp",
       'matsui.net',
-      'www.stertec.co.jp'
+      'www.stertec.co.jp',
+      'www.kawata.cc',
+      'www.pascaleng.co.jp'
     ],
   },
 }

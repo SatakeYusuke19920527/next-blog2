@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import ArticleMeta from '../../components/ArticleMeta';
 import Layout from '../../components/Layout';
 import { selectError } from "../../features/errorSlice";
-import { selectPageInfo } from "../../features/pageSlice";
+import { selectPageInfo } from "../../features/selectedPageSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRTK";
 import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
 import { fetchBlocksByPageId, fetchPages } from "../../utils/notion";

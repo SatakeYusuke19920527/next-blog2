@@ -1,33 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
-import { SelectPageInfoType } from '../types/types';
+import { PageType } from '../types/types';
 
 type InitialStateType = {
-  pageInfo: SelectPageInfoType
+  pages: PageType[]
 }
 
 const initialState:InitialStateType = {
-  pageInfo: {
-    title: "",
-    url: ""
-  }
+  pages: []
 }
 
 export const pageSlice = createSlice({
-  name: 'page',
+  name: 'pages',
   initialState,
   reducers: {
-    selectPageInfo: (state, action) => {
-      state.pageInfo = action.payload
-    },
-    refreshPageInfo: (state) => {
-      state.pageInfo = initialState.pageInfo
+    get_pages: (state, action) => {
+      state.pages = action.payload
     }
   },
 });
 
-export const { selectPageInfo, refreshPageInfo } = pageSlice.actions;
+export const { get_pages } = pageSlice.actions;
 
-export const selectPage = (state: RootState) => state.page.pageInfo;
+export const selectPage = (state: RootState) => state.page.pages;
 
 export default pageSlice.reducer;

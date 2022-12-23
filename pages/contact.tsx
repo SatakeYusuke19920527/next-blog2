@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import { error, no_error, selectError } from '../features/errorSlice';
-import { selectPage } from '../features/pageSlice';
+import { selectedPage } from '../features/selectedPageSlice';
 import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
 import { getErrorText } from '../models/error/errorApplicationService';
 import { sendEmail } from '../models/mail/mailApplicationService';
@@ -14,7 +14,7 @@ const Contact = () => {
   const [content, setContent] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('')
   const dispatch = useAppDispatch();
-  const page = useAppSelector(selectPage);
+  const page = useAppSelector(selectedPage);
   const err = useAppSelector(selectError);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

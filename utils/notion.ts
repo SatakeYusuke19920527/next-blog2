@@ -52,3 +52,40 @@ export const fetchPages = async ({slug, tag}: {slug?:string, tag?:string}) => {
 export const fetchBlocksByPageId = async (pageId: string) => {
   return await notion.blocks.children.list({ block_id: pageId });
 };
+
+export const searchPages = async (search_name: string) => {
+  const or: any = [
+        {
+          property: "isPublished",
+          checkbox: {
+            equals: true
+          }
+        },
+        {
+          property: "slug",
+          rich_text: {
+            is_not_empty: true
+          }
+        }
+  ]
+   if (search_name) {
+    or.push({
+      property: "name",
+      title: {
+        contains: search_name,
+      },
+    });
+   }
+  return await notion.databases.query({
+    database_id: DATABASE_ID,
+    filter: {
+      or
+    },
+    sorts: [
+      {
+        property: 'published',
+        direction: 'descending',
+      },
+    ],
+  })
+}
