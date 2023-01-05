@@ -54,7 +54,7 @@ export const fetchBlocksByPageId = async (pageId: string) => {
 };
 
 export const searchPages = async (search_name: string) => {
-  const or: any = [
+  const and: any = [
         {
           property: "isPublished",
           checkbox: {
@@ -69,7 +69,7 @@ export const searchPages = async (search_name: string) => {
         }
   ]
    if (search_name) {
-    or.push({
+    and.push({
       property: "name",
       title: {
         contains: search_name,
@@ -79,7 +79,7 @@ export const searchPages = async (search_name: string) => {
   return await notion.databases.query({
     database_id: DATABASE_ID,
     filter: {
-      or
+      and
     },
     sorts: [
       {

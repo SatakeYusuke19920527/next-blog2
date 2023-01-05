@@ -55,7 +55,7 @@ const Search = ({
 
   const searchPage = () => {
     return new Promise((resolve, reject) => {
-      axios.get('/api/search')
+      axios.post('/api/search', {test: "test message"})
         .then((res) => {
           resolve(res);
         })
