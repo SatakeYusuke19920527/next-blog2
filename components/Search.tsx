@@ -43,12 +43,11 @@ const Search = ({
   const [category, setCategory] = useState<string>('成形設備');
   const [keyword, setKeyword] = useState<string>('')
   const dispatch = useAppDispatch();
-  // const [searchObj, setSearchObj] = useState<any>({});
+  const [searchObj, setSearchObj] = useState<Object>({});
 
   const startSearch = async () => {
     setIsLoading(true);
     const result: any = await searchPage();
-    console.log('🚀 ~ file: Search.tsx:51 ~ startSearch ~ test', result.data.results);
     dispatch(get_pages(result.data.results));
     setIsLoading(false);
   };
