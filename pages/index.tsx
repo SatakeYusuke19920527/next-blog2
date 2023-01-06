@@ -50,9 +50,10 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
           renderLoading()
         ) : (
           <div className="grid lg:col-span-8 lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
-            {displayPages && displayPages.map((page, index) => (
-              <Card key={index} page={page} />
-            ))}
+            {displayPages &&
+              displayPages.map((page, index) => (
+                <Card key={index} page={page} />
+              ))}
           </div>
         )}
       </div>
