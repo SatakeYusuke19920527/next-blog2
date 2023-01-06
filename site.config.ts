@@ -38,15 +38,15 @@ export const resinUsedConfig = [`PE`, `PP`, `PS`, `ABS`, `PVC`, `PMMA`, `PET`, `
 
 export const colorConfig = {
   molding_shop: {
-    name: "成形屋",
+    name: "成形会社",
     color:"#FF6666"
   },
   molding_equipment: {
     name: "成形設備",
-    color:"#BBFFFF"
+    color:"#4169e1"
   },
   molding_maker: {
     name: "金型メーカー",
-    color:"#FFFF88"
+    color:"#ffd700"
   },
 }

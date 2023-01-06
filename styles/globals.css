@@ -19,7 +19,7 @@ p {
 }
 
 main {
-  @apply min-h-screen flex flex-col items-center;
+  @apply min-h-screen flex flex-col items-center bg-gray-100;
 }
 
 .nbr-inline-code {

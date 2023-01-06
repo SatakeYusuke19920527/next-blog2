@@ -14,13 +14,13 @@ const Navbar = () => {
     if (result) await logout();
   }
   return (
-    <nav className="relative w-full flex flex-wrap items-center justify-between py-3  text-white hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-gray-900">
+    <nav className="relative w-full flex flex-wrap items-center justify-between py-3 text-gray-900 hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-white">
       <div className="grid grid-cols-10 container-fluid w-full px-6">
         <div
           className="flex bg-grey-light rounded-md w-full col-span-9 p-2"
           aria-label="breadcrumb1"
         >
-          <Link href={`/`} className="text-white hover:text-gray-100">
+          <Link href={`/`} className="hover:text-gray-600 pl-10">
             {siteConfig.title}
           </Link>
           <div className="pl-4">
@@ -36,14 +36,11 @@ const Navbar = () => {
             aria-label="breadcrumb2"
           >
             {isLogin ? (
-              <button
-                onClick={handleLogout}
-                className="text-white hover:text-gray-100"
-              >
+              <button onClick={handleLogout} className="hover:text-gray-100">
                 ログアウト
               </button>
             ) : (
-              <Link href={`/signIn`} className="text-white hover:text-gray-100">
+              <Link href={`/signIn`} className="hover:text-gray-600 pr-10">
                 ログイン
               </Link>
             )}
