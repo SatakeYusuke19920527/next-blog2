@@ -11,11 +11,11 @@ const Card: FC<CardProps> = ({ page }) => {
       className="flex justify-center "
     >
       <div
-        style={{ backgroundColor: getColor(page.properties.type.select.name) }}
+        style={{ backgroundColor: getColor(page.properties.type.multi_select[0].name) }}
         className="max-w-sm rounded overflow-hidden shadow-lg w-full my-4 md:my-0 content-between grid"
       >
         <h4 className="w-full py-2 text-center text-gray-700 font-normal text-lg">
-          {getTitle(page.properties.type.select.name)}
+          {getTitle(page.properties.type.multi_select[0].name)}
         </h4>
         {/* image */}
         <div>

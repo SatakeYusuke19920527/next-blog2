@@ -2,7 +2,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../plugins/firebase";
 import { MailType } from "../../types/types";
 
-export class UserRepository {
+export class MailRepository {
     async sendEmail(mail: MailType) {
         const { uname, email, content } = mail
         return new Promise(async (resolve, reject) => {

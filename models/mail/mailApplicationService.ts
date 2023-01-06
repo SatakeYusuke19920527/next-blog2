@@ -1,9 +1,9 @@
 import { MailType } from "../../types/types";
-import { UserRepository } from "./mailRepository";
+import { MailRepository } from "./mailRepository";
 
 export const sendEmail = async (mail: MailType) => {
     try {
-        const repo =  new UserRepository();
+        const repo =  new MailRepository();
         await repo.sendEmail(mail)
     } catch (err) {
         return err

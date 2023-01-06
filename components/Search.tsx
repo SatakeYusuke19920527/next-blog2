@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { get_pages } from '../features/pageSlice';
 import { useAppDispatch } from '../hooks/useRTK';
 import { categoryConfig, clampingForceConfig, industryTypeConfig, moldingEquipmentConfig, resinUsedConfig, searchConfig, subsidyConfig } from "../site.config";
+import Dropdown from './Dropdown';
 /*
 □共通
 □成形設備
@@ -40,21 +41,32 @@ const Search = ({
 }: {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [category, setCategory] = useState<string>('成形設備');
-  const [keyword, setKeyword] = useState<string>('')
+  const [keyword, setKeyword] = useState<string>('');
+  
+  const [category, setCategory] = useState<string>('');
+  const [location, setLocation] = useState<string>('');
   const dispatch = useAppDispatch();
-  const [searchObj, setSearchObj] = useState<Object>({});
 
   const startSearch = async () => {
     setIsLoading(true);
-    const result: any = await searchPage();
+    let searchObj = {};
+    console.log('🚀 ~ file: Search.tsx:45 ~ keyword', keyword);
+    console.log('🚀 ~ file: Search.tsx:45 ~ category', category);
+    console.log('🚀 ~ file: Search.tsx:45 ~ location', location);
+    if (keyword !== '') searchObj = { ...searchObj, keyword: keyword };      
+    if (category !== 'カテゴリを選択してください')
+      searchObj = { ...searchObj, category: category};
+    if (location !== '') searchObj = { ...searchObj, location: location };
+    const result: any = await searchPage(searchObj);
+    console.log("🚀 ~ file: Search.tsx:56 ~ startSearch ~ result", result)
     dispatch(get_pages(result.data.results));
     setIsLoading(false);
   };
 
-  const searchPage = () => {
+  const searchPage = (s_obj: Object) => {
     return new Promise((resolve, reject) => {
-      axios.post('/api/search', {test: "test message"})
+      axios
+        .post('/api/search', { search: s_obj })
         .then((res) => {
           resolve(res);
         })
@@ -74,7 +86,7 @@ const Search = ({
               <div className="grid grid-cols-8 gap-2 rounded w-full">
                 <select
                   className="col-span-8 border p-2 rounded"
-                  // onChange={(e) => setSearchObj(e.target.value)}
+                  onChange={(e) => setCategory(e.target.value)}
                 >
                   {moldingEquipmentConfig.map((mec, index) => (
                     <option key={index} value={category}>
@@ -84,18 +96,12 @@ const Search = ({
                 </select>
               </div>
             </div>
+            <div className="w-full">
+              <Dropdown dropdownProps={moldingEquipmentConfig} />
+            </div>
             {/* 型締力 〜10t未満、10t〜49t、50t〜99t、100t〜249t、250t〜499t、500t〜999t、1000t〜1399t、1400t以上 */}
             <div className="w-full">
-              <select
-                className="col-span-8 border p-2 rounded w-full"
-                // onChange={(e) => setSearchObj(e.target.value)}
-              >
-                {clampingForceConfig.map((cfc, index) => (
-                  <option key={index} value={category}>
-                    {cfc}
-                  </option>
-                ))}
-              </select>
+              <Dropdown dropdownProps={clampingForceConfig} />
             </div>
             {/* 補助金 補助金対象、補助金対象外 */}
             <div className="w-full">
@@ -263,6 +269,7 @@ const Search = ({
             id="prefecture"
             type="text"
             placeholder="所在地"
+            onChange={e => setLocation(e.target.value)}
           />
         </div>
         {renderSearchForm(category)}

@@ -24,15 +24,15 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   const dispatch = useAppDispatch();
   const displayPages = useAppSelector(selectPage);
   const [isLoading, setIsLoading] = useState<boolean>(false)
-console.log('🚀 ~ file: index.tsx:31 ~ useEffect ~ pages', pages);
+
   useEffect(() => {
     dispatch(get_pages(pages));
   },[pages])
-  console.log(
-    '🚀 ~ file: index.tsx:21 ~ isUser ~ login check : [',
-    isUser,
-    ']'
-  );
+  // console.log(
+  //   '🚀 ~ file: index.tsx:21 ~ isUser ~ login check : [',
+  //   isUser,
+  //   ']'
+  // );
 
   const renderLoading = () => (
     <div className="flex justify-center">

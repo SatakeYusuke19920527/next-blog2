@@ -16,13 +16,13 @@ export const searchConfig = {
 }
 
 export const categoryConfig = [
+  { name: "カテゴリを選択してください"},
   { name: "成形設備" },
   { name: "金型メーカー" },
   { name: "成形会社" },
   { name: "樹脂" },
   { name: "展示会" },
   { name: "その他" },
-  { name: "選択なし"},
 ]
 
 

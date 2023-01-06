@@ -53,7 +53,16 @@ export const fetchBlocksByPageId = async (pageId: string) => {
   return await notion.blocks.children.list({ block_id: pageId });
 };
 
-export const searchPages = async (search_name: string) => {
+export const searchPages = async (s_obj: any) => {
+  try {
+    const search_context = s_obj.search
+    console.log("🚀 ~ file: notion.ts:57 ~ searchPages ~ search_context ******", 'category' in search_context)
+
+    if ('category' in search_context) {
+      console.log('test message *****')
+    } else {
+      console.log('test message *****=======')
+    }
   const and: any = [
         {
           property: "isPublished",
@@ -68,14 +77,35 @@ export const searchPages = async (search_name: string) => {
           }
         }
   ]
-   if (search_name) {
+  console.log('debug1 ****')
+   if (search_context.keyword !== undefined) {
     and.push({
       property: "name",
       title: {
-        contains: search_name,
+        contains: search_context.keyword,
       },
     });
    }
+    console.log('debug2 ****')
+    if ('category' in search_context) {
+    and.push({
+      property: "type",
+      multi_select: {
+        contains: search_context.category,
+      },
+    });
+    }
+    // if (search_context.location !== undefined) {
+    // and.push({
+    //   property: "prefecture",
+    //   rich_text: {
+    //     contains: search_context.location,
+    //   },
+    // });
+    // }
+
+    console.log("🚀 ~ file: notion.ts:74 ~ searchPages ~ and", and)
+  
   return await notion.databases.query({
     database_id: DATABASE_ID,
     filter: {
@@ -88,4 +118,7 @@ export const searchPages = async (search_name: string) => {
       },
     ],
   })
+  } catch (error) {
+    console.log("🚀 ~ file: notion.ts:95 ~ searchPages ~ error", error)
+  }
 }

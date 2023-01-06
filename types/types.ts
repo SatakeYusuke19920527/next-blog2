@@ -75,7 +75,7 @@ export type PropertyType = {
   overview: { rich_text: RichTextType[] };
   isPublished: { checkbox: boolean };
   created: { created_time: string };
-  type: { select: SelectType };
+  type: { multi_select: [{ name: string }] };
 };
  
 export type PageType = {
