@@ -1,30 +1,31 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import NotionBlocks from 'notion-block-renderer';
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import ArticleMeta from '../../components/ArticleMeta';
 import Layout from '../../components/Layout';
-import { selectError } from "../../features/errorSlice";
-import { selectPageInfo } from "../../features/selectedPageSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/useRTK";
+import { selectError } from '../../features/errorSlice';
+import { selectPageInfo } from '../../features/selectedPageSlice';
+import { useLoginCheck } from '../../hooks/useLoginCheck';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRTK';
 import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
-import { fetchBlocksByPageId, fetchPages } from "../../utils/notion";
-import { getText } from "../../utils/property";
+import { fetchBlocksByPageId, fetchPages } from '../../utils/notion';
+import { getText } from '../../utils/property';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { results } = await fetchPages({})
+  const { results } = await fetchPages({});
   const paths = results.map((page: any) => {
     return {
       params: {
-        slug: getText(page.properties.slug.rich_text)
-      }
-    }
-  })
+        slug: getText(page.properties.slug.rich_text),
+      },
+    };
+  });
   return {
     paths,
-    fallback: "blocking"
-  }
-}
+    fallback: 'blocking',
+  };
+};
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { slug } = ctx.params as Params;
@@ -42,25 +43,32 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
-  console.log("🚀 ~ file: [slug].tsx:44 ~ page", page)
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const isLogin = useLoginCheck();
   const err = useAppSelector(selectError);
 
   useEffect(() => {
-    const title = getText(page.properties.name.title) as string
-    const url = `https://next-blog2-zeta.vercel.app/articles/${getText(page.properties.slug.rich_text)}`;
+    const title = getText(page.properties.name.title) as string;
+    const url = `https://next-blog2-zeta.vercel.app/articles/${getText(
+      page.properties.slug.rich_text
+    )}`;
     const pageInfoObj: SelectPageInfoType = {
       title,
       url,
     };
     dispatch(selectPageInfo(pageInfoObj));
-  },[])
+  }, []);
 
   const moveTocontact = async () => {
     router.push(`/contact`);
   };
-  return (
+
+  const moveToSignIn = () => {
+    router.push(`/signIn`);
+  }
+
+  return isLogin ? (
     <Layout>
       <article className="items-center max-w-2xl w-full mx-auto">
         {/* meta section */}
@@ -88,6 +96,21 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
               お問合せ
             </button>
           </div>
+        </div>
+      </article>
+    </Layout>
+  ) : (
+    <Layout>
+      <article className="items-center max-w-2xl w-full mx-auto">
+        <div className="w-full">
+          <h4 className="mt-10">詳細ページはログイン後閲覧可能となります。</h4>
+          <button
+            className="shadow mt-5 bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            type="button"
+            onClick={moveToSignIn}
+          >
+            ログインページへ移動
+          </button>
         </div>
       </article>
     </Layout>
