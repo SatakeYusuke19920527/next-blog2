@@ -70,22 +70,24 @@ const Footer = () => {
           )}
         </div>
         {/* 会社概要 */}
-        <div className="text-center p-4 ">
-          <Link href="/aboutUs" className="text-whitehite">
-            会社概要
-          </Link>
-        </div>
-        {/* プライバシーポリシー */}
-        <div className="text-center p-4 ">
-          <Link href="/privacyPolicy" className="text-whitehite">
-            プライバシーポリシー
-          </Link>
-        </div>
-        {/* 利用規約 */}
-        <div className="text-center p-4 ">
-          <Link href="/termsOfService" className="text-whitehite">
-            利用規約
-          </Link>
+        <div className="flex">
+          <div className="text-center p-4 ">
+            <Link href="/aboutUs" className="text-whitehite">
+              会社概要
+            </Link>
+          </div>
+          {/* プライバシーポリシー */}
+          <div className="text-center p-4 ">
+            <Link href="/privacyPolicy" className="text-whitehite">
+              プライバシーポリシー
+            </Link>
+          </div>
+          {/* 利用規約 */}
+          <div className="text-center p-4 ">
+            <Link href="/termsOfService" className="text-whitehite">
+              利用規約
+            </Link>
+          </div>
         </div>
         {/* copyright */}
         <div className="text-center p-4 ">

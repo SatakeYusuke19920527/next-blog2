@@ -58,8 +58,22 @@ export const searchPages = async (s_obj: any) => {
     const search_context = s_obj.search
     console.log("🚀 ~ file: notion.ts:59 ~ searchPages ~ search_context", search_context)
     const or: any = [];
+    const and: any = [
+        {
+          property: "isPublished",
+          checkbox: {
+            equals: true
+          }
+        },
+        {
+          property: "slug",
+          rich_text: {
+            is_not_empty: true
+          }
+        }
+  ]
    if ('keyword' in search_context) {
-     or.push({
+     and.push({
        property: "name",
        title: {
          contains: search_context.keyword,
@@ -67,7 +81,7 @@ export const searchPages = async (s_obj: any) => {
      });
    }
     if ('category' in search_context) {
-      or.push({
+      and.push({
         property: "type",
         multi_select: {
           contains: search_context.category,
@@ -89,7 +103,7 @@ export const searchPages = async (s_obj: any) => {
         if (search_context.clampingForce.length !== 0) {
           search_context.clampingForce.forEach((cf: string) => {
             or.push({
-              property: "clamping_force_2",
+              property: "clamping_force",
               multi_select: {
                 contains: cf,
               },
@@ -107,10 +121,99 @@ export const searchPages = async (s_obj: any) => {
           });
         };
       };
+
+      // 成形会社の場合
+      if (search_context.category === "成形会社") {
+        if (search_context.clampingForce.length !== 0) {
+          search_context.clampingForce.forEach((cf: string) => {
+            or.push({
+              property: "clamping_force",
+              multi_select: {
+                contains: cf,
+              },
+            });
+          });
+        };
+        if (search_context.industry.length !== 0) {
+          search_context.industry.forEach((id: string) => {
+            or.push({
+              property: "Industry",
+              multi_select: {
+                contains: id,
+              },
+            });
+          });
+        };
+        if (search_context.iso.length !== 0) {
+          search_context.iso.forEach((is: string) => {
+            or.push({
+              property: "ISO",
+              multi_select: {
+                contains: is,
+              },
+            });
+          });
+        };
+        if (search_context.resin.length !== 0) {
+          search_context.resin.forEach((rs: string) => {
+            or.push({
+              property: "resin",
+              multi_select: {
+                contains: rs,
+              },
+            });
+          });
+        };
+      }
+
+      // 金型メーカーの場合
+      if (search_context.category === "金型メーカー") {
+        if (search_context.clampingForce.length !== 0) {
+          search_context.clampingForce.forEach((cf: string) => {
+            or.push({
+              property: "clamping_force",
+              multi_select: {
+                contains: cf,
+              },
+            });
+          });
+        };
+        if (search_context.industry.length !== 0) {
+          search_context.industry.forEach((id: string) => {
+            or.push({
+              property: "Industry",
+              multi_select: {
+                contains: id,
+              },
+            });
+          });
+        };
+        if (search_context.proto.length !== 0) {
+          search_context.proto.forEach((pr: string) => {
+            or.push({
+              property: "prototype",
+              multi_select: {
+                contains: pr,
+              },
+            });
+          });
+        };
+        if (search_context.iso.length !== 0) {
+          search_context.iso.forEach((is: string) => {
+            or.push({
+              property: "ISO",
+              multi_select: {
+                contains: is,
+              },
+            });
+          });
+        };
+      };
+
     };
 
     if ('location' in search_context) {
-      or.push({
+      and.push({
         property: "prefecture",
         rich_text: {
           contains: search_context.location,
@@ -123,6 +226,7 @@ export const searchPages = async (s_obj: any) => {
   return await notion.databases.query({
     database_id: DATABASE_ID,
     filter: {
+      and,
       or
     },
     sorts: [

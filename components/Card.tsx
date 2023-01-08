@@ -10,7 +10,9 @@ const Card: FC<CardProps> = ({ page }) => {
       href={`/articles/${getText(page.properties.slug.rich_text)}`}
       className="animate-slide-in-bck-center flex justify-center"
     >
-      <div className="bg-white max-w-sm rounded-2xl overflow-hidden shadow-lg w-full my-4 md:my-0 content-between grid">
+      <div
+        style={{maxHeight: `30rem`}}
+        className="bg-white max-w-sm rounded-2xl overflow-hidden shadow-lg w-full my-4 md:my-0 content-between grid">
         <div className="w-full text-gray-700 font-normal text-lg">
           <h4
             className="w-5/12 py-2 text-center text-white font-normal text-lg"

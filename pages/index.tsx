@@ -35,27 +35,29 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   // );
 
   const renderLoading = () => (
-    <div className="flex justify-center">
+    <div className="w-full flex justify-center">
       loading...
     </div>
   );
   
   return (
     <Layout>
-      <div className="w-full pt-8 grid lg:grid-cols-10 md:grid-cols-1  container-fluid gap-6">
-        <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
-          <Search setIsLoading={setIsLoading} />
-        </div>
-        {isLoading ? (
-          renderLoading()
-        ) : (
-          <div className="grid lg:col-span-8 lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
-            {displayPages &&
-              displayPages.map((page, index) => (
-                <Card key={index} page={page} />
-              ))}
+      <div className="w-full">
+        <div className="pt-8 grid lg:grid-cols-10 md:grid-cols-1  container-fluid gap-6">
+          <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
+            <Search setIsLoading={setIsLoading} />
           </div>
-        )}
+          {isLoading ? (
+            renderLoading()
+          ) : (
+            <div className="grid lg:col-span-8 lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
+              {displayPages &&
+                displayPages.map((page, index) => (
+                  <Card key={index} page={page} />
+                ))}
+            </div>
+          )}
+        </div>
       </div>
     </Layout>
   );

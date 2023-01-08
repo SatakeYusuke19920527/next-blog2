@@ -1,8 +1,8 @@
 
 export const siteConfig = {
   title: "成形ポータル",
-  twitterUrl: "https://twitter.com/fe_js_engineer",
-  instagramUrl: "https://www.instagram.com/sat_yusuke/",
+  twitterUrl: "https://twitter.com/seikei_poratl",
+  instagramUrl: "https://www.instagram.com/seikei_portal/",
   githubUrl: "https://github.com/SatakeYusuke19920527"
 }
 
@@ -20,9 +20,9 @@ export const categoryConfig = [
   { name: "成形設備" },
   { name: "金型メーカー" },
   { name: "成形会社" },
-  { name: "樹脂" },
-  { name: "展示会" },
-  { name: "その他" },
+  // { name: "樹脂" },
+  // { name: "展示会" },
+  // { name: "その他" },
 ]
 
 
@@ -31,6 +31,10 @@ export const moldingEquipmentConfig = ["射出成形機", "取出機", "乾燥�
 export const clampingForceConfig = [`10t未満`, `10t〜49t`, `50t〜99t`, `100t〜249t`, `250t〜499t`, `500t〜999t`, `1000t〜1399t`, `1400t以上`]
 
 export const subsidyConfig = [`補助金対象`, `補助金対象外`]
+
+export const isoConfig = [`ISO9001`, `ISO14001`]
+
+export const isPrototypeMoldingMachineConfig = [`試作成形機あり`,`試作成形機なし`]
 
 export const industryTypeConfig = [`家電`, `自動車`, `OA通信`, `電子部品`, `工業部品`, `容器`, `医療`, `雑貨`, `その他`]
 
