@@ -219,15 +219,14 @@ export const searchPages = async (s_obj: any) => {
           contains: search_context.location,
         },
       });
-    }; 
-    
-    console.log("🚀 ~ file: notion.ts:74 ~ searchPages ~ or", or)
+    };
+
+    and.push({or: or});
   
   return await notion.databases.query({
     database_id: DATABASE_ID,
     filter: {
       and,
-      or
     },
     sorts: [
       {
