@@ -2,6 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import NotionBlocks from 'notion-block-renderer';
 import { useEffect } from 'react';
+import Youtube from 'react-youtube';
 import ArticleMeta from '../../components/ArticleMeta';
 import Layout from '../../components/Layout';
 import { selectError } from '../../features/errorSlice';
@@ -10,7 +11,7 @@ import { useLoginCheck } from '../../hooks/useLoginCheck';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRTK';
 import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
 import { fetchBlocksByPageId, fetchPages } from '../../utils/notion';
-import { getText } from '../../utils/property';
+import { getText, getVideoId } from '../../utils/property';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { results } = await fetchPages({});
@@ -43,7 +44,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
-  console.log("🚀 ~ file: [slug].tsx:46 ~ blocks", blocks)
   const router = useRouter();
   const dispatch = useAppDispatch();
   const isLogin = useLoginCheck();
@@ -84,6 +84,11 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
             // syntaxHighlighterCSS={tomorrowNightBright}
           />
         </div>
+        <div className="my-12 w-full">
+          {getVideoId(blocks) !== '' ? (
+            <Youtube videoId={getVideoId(blocks)} />
+          ) : null}
+        </div>
         <div className="w-full px-3 md:flex md:items-center">
           {err.message !== '' ? (
             <div className="text-sm font-semibold mt-2 pt-1 mb-0">
@@ -102,6 +107,7 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
             </button>
           </div>
         </div>
+        <br />
       </article>
     </Layout>
   ) : (

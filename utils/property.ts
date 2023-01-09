@@ -1,3 +1,4 @@
+import { BlockType } from "notion-block-renderer";
 import { colorConfig } from "../site.config";
 import { PageType, RichTextType } from "../types/types";
 
@@ -85,5 +86,21 @@ export const getColor = (type: string) => {
     }
   } catch (error) {
     console.log("🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error", error)
+  }
+}
+
+export const getVideoId = (blocks: BlockType[]) => {
+  let videoUrl = ""
+  try {
+    blocks.forEach(block => {
+      if (block.type === "video") {
+        console.log("🚀 ~ file: property.ts:100 ~ getVideoId ~ block", block.video.external.url.substring(block.video.external.url.indexOf('v=') + 2))
+        const videoFullUrl = block.video.external.url
+        videoUrl = videoFullUrl.substring(videoFullUrl.indexOf('v=') + 2)
+      }
+    });
+    return videoUrl
+  } catch (error) {
+    console.log("🚀 ~ file: property.ts:96 ~ getVideoId ~ error", error)
   }
 }

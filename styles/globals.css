@@ -22,6 +22,10 @@ main {
   @apply min-h-screen flex flex-col items-center bg-gray-100;
 }
 
+iframe {
+  @apply m-auto
+}
+
 .nbr-inline-code {
   @apply text-pink-500 text-sm px-2 py-1 font-normal bg-gray-100 rounded break-words;
 }
@@ -74,4 +78,20 @@ main {
 }
 .nbr-block-table_of_contents a {
   @apply underline text-gray-600;
+}
+
+.nbr-block-video{
+  @apply relative w-full h-0 overflow-hidden
+}
+
+.nbr-block-video .nbr-video {
+  @apply relative w-full h-full overflow-hidden
+}
+
+.nbr-video > video {
+  @apply absolute w-full h-full overflow-hidden
+}
+
+.nbr-video video source {
+  @apply w-full h-full
 }
