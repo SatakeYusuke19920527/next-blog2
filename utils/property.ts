@@ -10,8 +10,14 @@ export const getTitle = (type: string) => {
         return colorConfig.molding_shop.name;
       case colorConfig.molding_maker.name:
         return colorConfig.molding_maker.name;
+      case colorConfig.exhibition.name:
+        return colorConfig.exhibition.name;
+      case colorConfig.resin.name:
+        return colorConfig.resin.name;
+      case colorConfig.subsidy.name:
+        return colorConfig.subsidy.name;
       default:
-        return ""
+        return "その他"
     }
   } catch (error) {
     console.log("🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error", error)
@@ -33,9 +39,9 @@ export const getCover = (cover: PageType["cover"]) => {
   return "/noimage.png"
 }
 
-export const getDate = (date: { start: string }) => {
+export const getDate = (date: string ) => {
   try {
-    return date.start;
+    return date;
   } catch (err) {
     console.log("🚀 ~ file: property.ts ~ line 22 ~ getDate ~ err", err)
   }
@@ -68,6 +74,12 @@ export const getColor = (type: string) => {
         return colorConfig.molding_shop.color;
       case colorConfig.molding_maker.name:
         return colorConfig.molding_maker.color;
+      case colorConfig.exhibition.name:
+        return colorConfig.exhibition.color;
+      case colorConfig.resin.name:
+        return colorConfig.resin.color;
+      case colorConfig.subsidy.name:
+        return colorConfig.subsidy.color;
       default:
         return "white"
     }

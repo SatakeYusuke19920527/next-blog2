@@ -70,7 +70,7 @@ export type PropertyType = {
   name: { title: RichTextType[] };
   tags: { multi_select: [{ name: string }] };
   slug: { rich_text: RichTextType[] };
-  published: { date: { start: string } };
+  published: { rich_text: RichTextType[] };
   enterprise: { rich_text: RichTextType[] };
   overview: { rich_text: RichTextType[] };
   isPublished: { checkbox: boolean };

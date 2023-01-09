@@ -43,6 +43,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
+  console.log("🚀 ~ file: [slug].tsx:46 ~ blocks", blocks)
   const router = useRouter();
   const dispatch = useAppDispatch();
   const isLogin = useLoginCheck();
@@ -77,7 +78,11 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
         </div>
         {/* article */}
         <div className="my-12">
-          <NotionBlocks blocks={blocks} isCodeHighlighter={true} />
+          <NotionBlocks
+            blocks={blocks}
+            isCodeHighlighter={false}
+            // syntaxHighlighterCSS={tomorrowNightBright}
+          />
         </div>
         <div className="w-full px-3 md:flex md:items-center">
           {err.message !== '' ? (

@@ -53,4 +53,16 @@ export const colorConfig = {
     name: "金型メーカー",
     color:"#ffd700"
   },
+  exhibition: {
+    name: "展示会",
+    color:"#e100e1"
+  },
+  resin: {
+    name: "樹脂",
+    color:"#FF3333"
+  },
+  subsidy: {
+    name: "補助金",
+    color:"#ccc"
+  },
 }

@@ -5,6 +5,11 @@ import { CardProps } from '../types/types';
 import { getColor, getCover, getMultiSelect, getOverview, getText, getTitle } from '../utils/property';
 
 const Card: FC<CardProps> = ({ page }) => {
+  console.log(
+    '***** ******',
+    getColor(page.properties.type.multi_select[0].name),
+    getTitle(page.properties.type.multi_select[0].name)
+  );
   return (
     <Link
       href={`/articles/${getText(page.properties.slug.rich_text)}`}
@@ -17,9 +22,9 @@ const Card: FC<CardProps> = ({ page }) => {
           <h4
             className="w-5/12 py-2 text-center text-white font-normal text-lg"
             style={{
-              backgroundColor: getColor(
+              backgroundColor: `${getColor(
                 page.properties.type.multi_select[0].name
-              ),
+              )}`,
             }}
           >
             {getTitle(page.properties.type.multi_select[0].name)}

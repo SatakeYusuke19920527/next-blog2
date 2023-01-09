@@ -266,3 +266,49 @@ export const sample = {
     },
     "url": "https://www.notion.so/MJ6-i-9a01354540f6410eb91bcdda6b1cdef5"
 }
+
+
+const sample2 = {
+    "object": "block",
+    "id": "87037750-c376-4f6e-b091-e579861f9754",
+    "parent": {
+        "type": "page_id",
+        "page_id": "7b12d4ef-ada5-4c70-ad97-3916ba3a827b"
+    },
+    "created_time": "2022-12-05T07:43:00.000Z",
+    "last_edited_time": "2023-01-07T07:51:00.000Z",
+    "created_by": {
+        "object": "user",
+        "id": "611cce91-3041-46aa-ae44-c84a94753d42"
+    },
+    "last_edited_by": {
+        "object": "user",
+        "id": "b9fbbe17-4351-4737-8659-36d92c5c1f87"
+    },
+    "has_children": false,
+    "archived": false,
+    "type": "heading_2",
+    "heading_2": {
+        "rich_text": [
+            {
+                "type": "text",
+                "text": {
+                    "content": "□吸着部に新型コルゲート式ハニカムを\n　採用で低露点（−40℃）\n□熱の再利用で省エネルギー・環境配慮\n□清掃・メンテナンスが容易。\n　輸送用集塵タンク付サイクロンを標準装備。",
+                    "link": null
+                },
+                "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                },
+                "plain_text": "□吸着部に新型コルゲート式ハニカムを\n　採用で低露点（−40℃）\n□熱の再利用で省エネルギー・環境配慮\n□清掃・メンテナンスが容易。\n　輸送用集塵タンク付サイクロンを標準装備。",
+                "href": null
+            }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+    }
+}

@@ -25,7 +25,7 @@ const ArticleMeta: FC<ArticleMetaProps> = ({ page }) => {
           {/* published */}
           <div className="col-span-1">Published</div>
           <div className="col-span-2">
-            {getDate(page.properties.published.date)}
+            {getDate(page.properties.published.rich_text[0].plain_text)}
           </div>
 
           {/* author */}
