@@ -15,12 +15,12 @@ const Navbar = () => {
   }
   return (
     <nav className="relative w-full flex flex-wrap items-center justify-between py-3 text-gray-900 hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-white">
-      <div className="grid grid-cols-10 container-fluid w-full px-6">
+      <div className="grid md:grid-cols-10 grid-cols-4 container-fluid w-full px-6">
         <div
-          className="flex bg-grey-light rounded-md w-full col-span-9 p-2"
+          className="flex bg-grey-light rounded-md w-full md:col-span-9 col-span-3 p-2"
           aria-label="breadcrumb1"
         >
-          <Link href={`/`} className="hover:text-gray-600 pl-10">
+          <Link href={`/`} className="hover:text-gray-600">
             {siteConfig.title}
           </Link>
           <div className="pl-4">
@@ -32,7 +32,7 @@ const Navbar = () => {
           aria-label="breadcrumb1"
         >
           <div
-            className="bg-grey-light rounded-md w-full col-span-1 md:block hidden text-right gap-3"
+            className="bg-grey-light rounded-md w-full col-span-1 text-right gap-3"
             aria-label="breadcrumb2"
           >
             {isLogin ? (
@@ -40,7 +40,7 @@ const Navbar = () => {
                 ログアウト
               </button>
             ) : (
-              <Link href={`/signIn`} className="hover:text-gray-600 pr-10">
+              <Link href={`/signIn`} className="hover:text-gray-600">
                 ログイン
               </Link>
             )}

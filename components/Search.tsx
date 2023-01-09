@@ -60,7 +60,7 @@ const Search = ({
       isoConfigRefs.current[index] = createRef<HTMLInputElement>();
     });
 
-    // 
+    // 試作成形機の有無
     const [proto, setProto] = useState<string[]>([]);
     const isPrototypeMoldingMachineConfigRefs = useRef<
       RefObject<HTMLInputElement>[]
@@ -148,6 +148,7 @@ const Search = ({
               <div className="w-full">
                 {/* {isOpen ? ( */}
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">設備</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {moldingEquipmentConfig.map(
                       (mec: string, index: number) => {
@@ -197,6 +198,7 @@ const Search = ({
               {/* 型締力 〜10t未満、10t〜49t、50t〜99t、100t〜249t、250t〜499t、500t〜999t、1000t〜1399t、1400t以上 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">型締力</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {clampingForceConfig.map((cfc: string, index: number) => {
                       const selectWeight = () => {
@@ -240,6 +242,7 @@ const Search = ({
               {/* 補助金 補助金対象、補助金対象外 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">補助金対象</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {subsidyConfig.map((sc: string, index: number) => {
                       const selectSubsidy = () => {
@@ -280,9 +283,10 @@ const Search = ({
         case '成形会社':
           return (
             <>
-              {/* 業種 家電、自動車、OA通信、電子部品、工業部品、容器、医療、雑貨、その他 */}
+              {/* 業界 家電、自動車、OA通信、電子部品、工業部品、容器、医療、雑貨、その他 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">業界</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {industryTypeConfig.map((itc: string, index: number) => {
                       const selectIndustryType = () => {
@@ -323,6 +327,7 @@ const Search = ({
               {/* 使用樹脂 `PE`, `PP`, `PS`, `ABS`, `PVC`, `PMMA`, `PET`, `PA`, `POM`, `PC`, `PPE`, `PPS`, `PI`, `PEI`, `PEEK`, `PTFE`, `フッ素樹脂`, `エラストマー`, `生分解性プラスチック`, `熱効果樹脂`, `プラマグ樹脂`, `その他` */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">樹脂</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {resinUsedConfig.map((ruc: string, index: number) => {
                       const selectResinUsedType = () => {
@@ -363,6 +368,7 @@ const Search = ({
               {/* 型締力 〜10t未満、10t〜49t、50t〜99t、100t〜249t、250t〜499t、500t〜999t、1000t〜1399t、1400t以上 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">型締力</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {clampingForceConfig.map((cfc: string, index: number) => {
                       const selectWeight = () => {
@@ -406,6 +412,7 @@ const Search = ({
               {/* ISO ISO9001,ISO14001 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">ISO</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {isoConfig.map((ic: string, index: number) => {
                       const selectIso = () => {
@@ -446,9 +453,10 @@ const Search = ({
         case '金型メーカー':
           return (
             <>
-              {/* 業種 家電、自動車、OA通信、電子部品、工業部品、容器、医療、雑貨、その他 */}
+              {/* 業界 家電、自動車、OA通信、電子部品、工業部品、容器、医療、雑貨、その他 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">業界</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {industryTypeConfig.map((itc: string, index: number) => {
                       const selectIndustryType = () => {
@@ -489,6 +497,7 @@ const Search = ({
               {/* 型締力 〜10t未満、10t〜49t、50t〜99t、100t〜249t、250t〜499t、500t〜999t、1000t〜1399t、1400t以上 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">型締力</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {clampingForceConfig.map((cfc: string, index: number) => {
                       const selectWeight = () => {
@@ -532,51 +541,59 @@ const Search = ({
               {/* 試作成形機あり,試作成形機なし */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">
+                    試作成形機の有無
+                  </h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
-                    {isPrototypeMoldingMachineConfig.map((ipmm: string, index: number) => {
-                      const selectProto = () => {
-                        if (
-                          isPrototypeMoldingMachineConfigRefs.current[index]
-                            .current?.checked
-                        ) {
-                          setProto([...proto, ipmm]);
-                        } else {
-                          setProto(proto.filter((me) => me !== ipmm));
-                        }
-                      };
-                      return (
-                        <li
-                          key={index}
-                          className="w-full border-b  border-white rounded-t-lg"
-                        >
-                          <div className="flex items-center pl-3">
-                            <input
-                              id={`${ipmm}-${index}`}
-                              type="checkbox"
-                              value={ipmm}
-                              ref={
-                                isPrototypeMoldingMachineConfigRefs.current[
-                                  index
-                                ]
-                              }
-                              onChange={() => selectProto()}
-                            />
-                            <label
-                              htmlFor={`${ipmm}-${index}`}
-                              className="w-full ml-2 text-sm font-medium"
-                            >
-                              {`${ipmm}`}
-                            </label>
-                          </div>
-                        </li>
-                      );
-                    })}
+                    {isPrototypeMoldingMachineConfig.map(
+                      (ipmm: string, index: number) => {
+                        const selectProto = () => {
+                          if (
+                            isPrototypeMoldingMachineConfigRefs.current[index]
+                              .current?.checked
+                          ) {
+                            setProto([...proto, ipmm]);
+                          } else {
+                            setProto(proto.filter((me) => me !== ipmm));
+                          }
+                        };
+                        return (
+                          <li
+                            key={index}
+                            className="w-full border-b  border-white rounded-t-lg"
+                          >
+                            <div className="flex items-center pl-3">
+                              <input
+                                id={`${ipmm}-${index}`}
+                                type="checkbox"
+                                value={ipmm}
+                                ref={
+                                  isPrototypeMoldingMachineConfigRefs.current[
+                                    index
+                                  ]
+                                }
+                                onChange={() => selectProto()}
+                              />
+                              <label
+                                htmlFor={`${ipmm}-${index}`}
+                                className="w-full ml-2 text-sm font-medium"
+                              >
+                                {`${ipmm}`}
+                              </label>
+                            </div>
+                          </li>
+                        );
+                      }
+                    )}
                   </ul>
                 </div>
               </div>
               {/* ISO ISO9001,ISO14001 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">
+                    ISO
+                  </h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {isoConfig.map((ic: string, index: number) => {
                       const selectIso = () => {
