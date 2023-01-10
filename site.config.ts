@@ -25,6 +25,9 @@ export const categoryConfig = [
   // { name: "その他" },
 ]
 
+export const innerNavbarConfig = [
+  "すべて","成形設備","金型メーカー","成形会社"
+]
 
 export const moldingEquipmentConfig = ["射出成形機", "取出機", "乾燥機", "温調機", "輸送機", "混合機", "コンベア", "ストッカー", "クランプ", "粉砕機", "チラー", "その他"]
 

@@ -94,7 +94,6 @@ export const getVideoId = (blocks: BlockType[]) => {
   try {
     blocks.forEach(block => {
       if (block.type === "video") {
-        console.log("🚀 ~ file: property.ts:100 ~ getVideoId ~ block", block.video.external.url.substring(block.video.external.url.indexOf('v=') + 2))
         const videoFullUrl = block.video.external.url
         videoUrl = videoFullUrl.substring(videoFullUrl.indexOf('v=') + 2)
       }

@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Card from '../components/Card';
+import InnerNavbar from '../components/InnerNavbar';
 import Layout from '../components/Layout';
 import Search from '../components/Search';
 import { get_pages, selectPage } from '../features/pageSlice';
@@ -36,7 +37,9 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
 
   const renderLoading = () => (
     <div className="w-full flex justify-center">
-      loading...
+      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
+      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full mx-4"></div>
+      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
     </div>
   );
   
@@ -47,16 +50,19 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
           <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
             <Search setIsLoading={setIsLoading} />
           </div>
-          {isLoading ? (
-            renderLoading()
-          ) : (
-            <div className="grid lg:col-span-8 lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
-              {displayPages &&
-                displayPages.map((page, index) => (
-                  <Card key={index} page={page} />
-                ))}
-            </div>
-          )}
+          <div className="grid lg:col-span-8 ">
+            <InnerNavbar setIsLoading={setIsLoading} />
+            {isLoading ? (
+              renderLoading()
+            ) : (
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
+                {displayPages &&
+                  displayPages.map((page, index) => (
+                    <Card key={index} page={page} />
+                  ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </Layout>

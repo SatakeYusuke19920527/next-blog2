@@ -90,16 +90,17 @@ export const searchPages = async (s_obj: any) => {
 
       // 成形設備の場合
       if (search_context.category === "成形設備") {
-        if (search_context.modalEquipments.length !== 0) {
-          search_context.modalEquipments.forEach((modalEquipment: string) => {
-            or.push({
-              property: "facility",
-              multi_select: {
-                contains: modalEquipment,
-              },
+        if ('modalEquipments' in search_context && 'clampingForce' in search_context && 'subsidy' in search_context) { 
+          if (search_context.modalEquipments.length !== 0) {
+            search_context.modalEquipments.forEach((modalEquipment: string) => {
+              or.push({
+                property: "facility",
+                multi_select: {
+                  contains: modalEquipment,
+                },
+              });
             });
-          });
-        };
+          };
         if (search_context.clampingForce.length !== 0) {
           search_context.clampingForce.forEach((cf: string) => {
             or.push({
@@ -119,12 +120,14 @@ export const searchPages = async (s_obj: any) => {
               },
             });
           });
+          };
         };
       };
 
       // 成形会社の場合
       if (search_context.category === "成形会社") {
-        if (search_context.clampingForce.length !== 0) {
+        if ('industry' in search_context && 'clampingForce' in search_context && 'iso' in search_context && 'resin' in search_context) { 
+          if (search_context.clampingForce.length !== 0) {
           search_context.clampingForce.forEach((cf: string) => {
             or.push({
               property: "clamping_force",
@@ -163,12 +166,14 @@ export const searchPages = async (s_obj: any) => {
               },
             });
           });
-        };
+        }; 
+        }
       }
 
       // 金型メーカーの場合
       if (search_context.category === "金型メーカー") {
-        if (search_context.clampingForce.length !== 0) {
+        if ('industry' in search_context && 'clampingForce' in search_context && 'proto' in search_context && 'iso' in search_context) {
+          if (search_context.clampingForce.length !== 0) {
           search_context.clampingForce.forEach((cf: string) => {
             or.push({
               property: "clamping_force",
@@ -208,8 +213,8 @@ export const searchPages = async (s_obj: any) => {
             });
           });
         };
+        }
       };
-
     };
 
     if ('location' in search_context) {
