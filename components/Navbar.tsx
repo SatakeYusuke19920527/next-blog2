@@ -37,7 +37,7 @@ const Navbar = () => {
           >
             {isLogin ? (
               <button onClick={handleLogout} className="hover:text-gray-100">
-                ログアウト
+                {user.displayName}
               </button>
             ) : (
               <Link href={`/signIn`} className="hover:text-gray-600">
