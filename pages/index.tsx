@@ -36,7 +36,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   // );
 
   const renderLoading = () => (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-center items-center h-60">
       <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
       <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full mx-4"></div>
       <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
@@ -46,12 +46,12 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   return (
     <Layout>
       <div className="w-full">
-        <div className="pt-8 grid lg:grid-cols-10 md:grid-cols-1  container-fluid gap-6">
+        <div className="pt-8 grid lg:grid-cols-10 md:grid-cols-1 items-start container-fluid gap-6">
           <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
             <Search setIsLoading={setIsLoading} />
           </div>
           <div className="grid lg:col-span-8 ">
-              <InnerNavbar setIsLoading={setIsLoading} />
+            <InnerNavbar setIsLoading={setIsLoading} />
             {isLoading ? (
               renderLoading()
             ) : (
