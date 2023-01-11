@@ -2,17 +2,22 @@ import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import { CardProps } from '../types/types';
-import { getColor, getCover, getMultiSelect, getOverview, getText, getTitle } from '../utils/property';
+import { getColor, getCover, getDate, getMultiSelect, getOverview, getText, getTitle } from '../utils/property';
 
 const Card: FC<CardProps> = ({ page }) => {
+  console.log(
+    '🚀 ~ file: Card.tsx:8 ~ getDate(page.properties.published.rich_text[0].plain_text)',
+    getDate(page.properties.published.rich_text[0].plain_text)
+  );
   return (
     <Link
       href={`/articles/${getText(page.properties.slug.rich_text)}`}
       className="animate-slide-in-bck-center flex justify-center"
     >
       <div
-        style={{maxHeight: `30rem`}}
-        className="bg-white max-w-sm rounded-2xl overflow-hidden shadow-lg w-full my-4 md:my-0 content-between grid">
+        style={{ maxHeight: `30rem` }}
+        className="bg-white max-w-sm rounded-2xl overflow-hidden shadow-lg w-full my-4 md:my-0 content-between grid"
+      >
         <div className="w-full text-gray-700 font-normal text-lg">
           <h4
             className="w-5/12 py-2 text-center text-white font-normal text-lg"
@@ -41,6 +46,9 @@ const Card: FC<CardProps> = ({ page }) => {
 
         {/* title & overview*/}
         <div className="px-6 pt-4">
+          <p className="text-red-500 text-xs">
+            {getDate(page.properties.published.rich_text[0].plain_text)}
+          </p>
           <h2 className="text-base font-medium mb-3">
             {getText(page.properties.name.title)}
           </h2>

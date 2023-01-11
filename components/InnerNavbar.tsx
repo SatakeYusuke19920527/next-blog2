@@ -43,8 +43,8 @@ const InnerNavbar = ({
     });
   };
   return (
-    <div className="w-full">
-      <ul className="flex mb-3">
+    <div className="w-full mb-3">
+      <ul className="flex">
         {innerNavbarConfig.map((inc, index) => {
           return (
             <li
@@ -54,7 +54,7 @@ const InnerNavbar = ({
                 activeMenu === inc ? 'text-blue-500' : 'text-gray-400'
               } hover:bg-blue-50 hover:text-blue-600 rounded cursor-pointer border-r ${
                 activeMenu === inc ? 'bg-white' : 'bg-gray'
-                }`}
+              }`}
             >
               {inc}
             </li>

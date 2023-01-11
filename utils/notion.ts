@@ -56,7 +56,6 @@ export const fetchBlocksByPageId = async (pageId: string) => {
 export const searchPages = async (s_obj: any) => {
   try {
     const search_context = s_obj.search
-    console.log("🚀 ~ file: notion.ts:59 ~ searchPages ~ search_context", search_context)
     const or: any = [];
     const and: any = [
         {

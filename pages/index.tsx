@@ -51,7 +51,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
             <Search setIsLoading={setIsLoading} />
           </div>
           <div className="grid lg:col-span-8 ">
-            <InnerNavbar setIsLoading={setIsLoading} />
+              <InnerNavbar setIsLoading={setIsLoading} />
             {isLoading ? (
               renderLoading()
             ) : (
