@@ -34,8 +34,7 @@ const AboutUs = () => {
         </ol>
         <p className="my-5 p-3" style={{ backgroundColor: '#FBECDD' }}>
           成形ポータルは<span className="text-red-500">無料</span>
-          で登録可能です！！
-          <br />
+          で登録可能です！！<br />
           成形会社の情報取得を無償でサポートします！！
         </p>
         <h3 className="w-full p-3 mb-5" style={{ backgroundColor: '#E7F3F8' }}>
