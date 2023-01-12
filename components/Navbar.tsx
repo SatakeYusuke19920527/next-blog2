@@ -4,7 +4,6 @@ import { useLoginCheck } from "../hooks/useLoginCheck";
 import { useAppSelector } from "../hooks/useRTK";
 import { logout } from "../models/user/userApplicationService";
 import { siteConfig } from "../site.config";
-import Breadcrumb from "./Breadcrumb";
 
 const Navbar = () => {
   const isLogin = useLoginCheck()
@@ -23,9 +22,9 @@ const Navbar = () => {
           <Link href={`/`} className="hover:text-gray-600">
             {siteConfig.title}
           </Link>
-          <div className="pl-4">
+          {/* <div className="pl-4">
             <Breadcrumb />
-          </div>
+          </div> */}
         </div>
         <div
           className="bg-grey-light rounded-md w-full col-span-1 p-2 grid grid-cols-1"
