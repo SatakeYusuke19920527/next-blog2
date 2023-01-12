@@ -125,7 +125,7 @@ export const searchPages = async (s_obj: any) => {
 
       // 成形会社の場合
       if (search_context.category === "成形会社") {
-        if ('industry' in search_context && 'clampingForce' in search_context && 'iso' in search_context && 'resin' in search_context) { 
+        if ('industry' in search_context && 'clampingForce' in search_context && 'iso' in search_context && 'resin' in search_context && 'cleanRoom' in search_context) { 
           if (search_context.clampingForce.length !== 0) {
           search_context.clampingForce.forEach((cf: string) => {
             or.push({
@@ -165,7 +165,17 @@ export const searchPages = async (s_obj: any) => {
               },
             });
           });
-        }; 
+        };
+        if (search_context.cleanRoom.length !== 0) {
+          search_context.cleanRoom.forEach((cr: string) => {
+            or.push({
+              property: "clean_room",
+              multi_select: {
+                contains: cr,
+              },
+            });
+          });
+        };  
         }
       }
 
@@ -225,7 +235,7 @@ export const searchPages = async (s_obj: any) => {
       });
     };
 
-    and.push({or: or});
+    and.push({ or: or });
   
   return await notion.databases.query({
     database_id: DATABASE_ID,

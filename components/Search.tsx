@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createRef, Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import { get_pages } from '../features/pageSlice';
 import { useAppDispatch } from '../hooks/useRTK';
-import { categoryConfig, clampingForceConfig, industryTypeConfig, isoConfig, isPrototypeMoldingMachineConfig, moldingEquipmentConfig, resinUsedConfig, searchConfig, subsidyConfig } from "../site.config";
+import { categoryConfig, clampingForceConfig, cleanRoomConfig, industryTypeConfig, isoConfig, isPrototypeMoldingMachineConfig, moldingEquipmentConfig, resinUsedConfig, searchConfig, subsidyConfig } from "../site.config";
 
 const Search = ({
   setIsLoading,
@@ -70,6 +70,13 @@ const Search = ({
         createRef<HTMLInputElement>();
     });
 
+    // クリーンルームの有無
+    const [cleanRoom, setCleanRoom] = useState<string[]>([]);
+    const cleanRoomConfigRefs = useRef<RefObject<HTMLInputElement>[]>([]);
+    cleanRoomConfig.forEach((_, index) => {
+      cleanRoomConfigRefs.current[index] = createRef<HTMLInputElement>();
+    });
+
     useEffect(() => {
       initializeState();
     }, [category]);
@@ -115,6 +122,7 @@ const Search = ({
         searchObj = { ...searchObj, resin };
         searchObj = { ...searchObj, clampingForce };
         searchObj = { ...searchObj, iso };
+        searchObj = { ...searchObj, cleanRoom };
       }
 
       console.log(
@@ -448,6 +456,47 @@ const Search = ({
                   </ul>
                 </div>
               </div>
+              {/* クリーンルーム あり,なし */}
+              <div className="w-full">
+                <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">クリーンルームの有無</h4>
+                  <ul className="w-full col-span-8 border p-2 rounded">
+                    {cleanRoomConfig.map((crc: string, index: number) => {
+                      const selectCleanRoom = () => {
+                        if (
+                          cleanRoomConfigRefs.current[index].current?.checked
+                        ) {
+                          setCleanRoom([...cleanRoom, crc]);
+                        } else {
+                          setCleanRoom(cleanRoom.filter((me) => me !== crc));
+                        }
+                      };
+                      return (
+                        <li
+                          key={index}
+                          className="w-full border-b  border-white rounded-t-lg"
+                        >
+                          <div className="flex items-center pl-3">
+                            <input
+                              id={`${crc}-${index}`}
+                              type="checkbox"
+                              value={crc}
+                              ref={cleanRoomConfigRefs.current[index]}
+                              onChange={() => selectCleanRoom()}
+                            />
+                            <label
+                              htmlFor={`${crc}-${index}`}
+                              className="w-full ml-2 text-sm font-medium"
+                            >
+                              {`${crc}`}
+                            </label>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
             </>
           );
         case '金型メーカー':
@@ -591,9 +640,7 @@ const Search = ({
               {/* ISO ISO9001,ISO14001 */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
-                  <h4 className="w-full col-span-8 rounded m-0">
-                    ISO
-                  </h4>
+                  <h4 className="w-full col-span-8 rounded m-0">ISO</h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {isoConfig.map((ic: string, index: number) => {
                       const selectIso = () => {

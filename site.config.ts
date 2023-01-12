@@ -37,7 +37,9 @@ export const subsidyConfig = [`補助金対象`, `補助金対象外`]
 
 export const isoConfig = [`ISO9001`, `ISO14001`]
 
-export const isPrototypeMoldingMachineConfig = [`試作成形機あり`,`試作成形機なし`]
+export const isPrototypeMoldingMachineConfig = [`試作成形機あり`, `試作成形機なし`]
+
+export const cleanRoomConfig = [`クリーンルームあり`,`クリーンルームなし`]
 
 export const industryTypeConfig = [`家電`, `自動車`, `OA通信`, `電子部品`, `工業部品`, `容器`, `医療`, `雑貨`, `その他`]
 
