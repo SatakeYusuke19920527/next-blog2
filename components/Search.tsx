@@ -90,6 +90,7 @@ const Search = ({
       setResin([]);
       setIso([]);
       setProto([]);
+      setCleanRoom([]);
     };
 
     const startSearch = async () => {

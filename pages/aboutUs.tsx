@@ -33,9 +33,9 @@ const AboutUs = () => {
           <li>3.生産設備、金型メーカー、成形会社など各カテゴリで検索が可能</li>
         </ol>
         <p className="my-5 p-3" style={{ backgroundColor: '#FBECDD' }}>
-          成形ポータルは<span className="text-red-500">無料</span>
-          で登録可能です！！<br />
-          成形会社の情報取得を無償でサポートします！！
+          <span className="mr-3">💡</span>成形ポータルは
+          <span className="text-red-500">無料</span>
+          で登録可能です！！成形会社の情報取得を無償でサポートします！！
         </p>
         <h3 className="w-full p-3 mb-5" style={{ backgroundColor: '#E7F3F8' }}>
           成形ポータルへ掲載を希望される会社様へ
@@ -48,7 +48,8 @@ const AboutUs = () => {
           営業活動の選択肢を増やしませんか？
         </p>
         <p className="my-5 p-3" style={{ backgroundColor: '#FBECDD' }}>
-          掲載料は<span className="text-red-500">月額1万円</span>
+          <span className="mr-3">💡</span>掲載料は
+          <span className="text-red-500">月額1万円</span>
           ※初月のみ3万円となります。
         </p>
         <p>まずはお気軽にご相談ください。</p>
