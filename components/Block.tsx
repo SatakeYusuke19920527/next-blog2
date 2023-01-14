@@ -2,15 +2,9 @@ import Link from 'next/link';
 import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps } from '../types/types';
-import { renderNotionTable } from '../utils/notion';
 import { getBackgroundColor, getText } from '../utils/property';
 
 const Block: FC<BlockProps> = ({ blocks }) => {
-  console.log("🚀 ~ file: Block.tsx:6 ~ blocks", blocks)
-  const getData = async () => {
-    const res = await renderNotionTable();
-    console.log("🚀 ~ file: Block.tsx:12 ~ getData ~ res", res)
-  }
   const renderNotionBlock = (block: any) => {
     switch (block.type) {
       case 'heading_1':
@@ -63,7 +57,7 @@ const Block: FC<BlockProps> = ({ blocks }) => {
       case 'image':
         return (
           <div className="w-full my-3">
-            <img src={block.image.file.url} alt={block.image.file.url} />
+            <img src={block.image.file.url} alt={block.image.type} />
           </div>
         );
       case 'video':
@@ -87,15 +81,40 @@ const Block: FC<BlockProps> = ({ blocks }) => {
             </p>
           </div>
         );
-      // case 'table':
-      //   return (
-      //     <div className="border-l-2 border-gray-900">
-      //       {/* {block.table.children.map((td: any, index: number) => {
-      //         return (<div>{td}</div>)
-      //       })} */}
-      //       table 予定地
-      //     </div>
-      //   );
+      case 'table':
+        // const renderHeader = () => {
+        //   return tableData.results[0].table_row.cells.map((tr, index) => {
+        //     return (
+        //       <th scope="col" className="px-6 py-3" key={index}>
+        //         {tr[0].text.content}
+        //       </th>
+        //     );
+        //   });
+        // }
+        
+        // const renderBody = () => (
+        //   tableData.results.map((tr) => {
+        //     const renderTd = () => {
+        //       for (let i = 0; i <= block.table.table_width; i++) {
+        //         return <td>test</td>;
+        //       }
+        //     }
+        //     return <tr>{renderTd()}</tr>;
+        //   })
+        // )
+        // return (
+        //   <div className="my-5">
+        //     <table className="w-full text-sm text-left text-gray-500 ">
+        //       <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+        //         <tr>{renderHeader()}</tr>
+        //       </thead>
+        //       <tbody>
+        //         {/* <tr className="bg-white border-b">{renderBody()}</tr> */}
+        //           {renderBody()}
+        //       </tbody>
+        //     </table>
+        //   </div>
+        // );
       default:
         console.log(`unknoen block type: ${block.type}`);
         return <div>unknown blockType : {block.type}</div>;
@@ -103,7 +122,6 @@ const Block: FC<BlockProps> = ({ blocks }) => {
   };
   return (
     <div>
-      <button onClick={getData}>test</button>
       {blocks.map((block, index) => {
         return <div key={index}>{renderNotionBlock(block)}</div>;
       })}
