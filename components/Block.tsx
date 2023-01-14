@@ -93,7 +93,7 @@ const Block: FC<BlockProps> = ({ blocks }) => {
       //   );
       default:
         console.log(`unknoen block type: ${block.type}`);
-        return <div>unknown blockType : {block.type}</div>;
+        // return <div>unknown blockType : {block.type}</div>;
     }
   };
   return (
