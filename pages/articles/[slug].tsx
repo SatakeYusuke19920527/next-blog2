@@ -87,9 +87,9 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
               </p>
             </div>
           ) : null}
-          <div className="w-full">
+          <div className="w-full flex justify-center items-center">
             <button
-              className="w-full shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+              className="w-8/12 shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
               type="button"
               onClick={moveTocontact}
             >

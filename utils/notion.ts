@@ -254,19 +254,21 @@ export const searchPages = async (s_obj: any) => {
   }
 }
 
-// export const renderNotionTable = async () => {
-//   return new Promise(async (resolve, reject) => {
-//     try {
-//       const blockId = '611cce91-3041-46aa-ae44-c84a94753d42';
-//       const response = await notion.blocks.children.list({
-//         block_id: blockId,
-//         page_size: 100,
-//       });
-//       console.log("🚀 ~ file: notion.ts:263 ~ renderTable ~ response", response)
-//       resolve(response)
-//     } catch (error) {
-//       console.log("🚀 ~ file: notion.ts:268 ~ returnnewPromise ~ error", error)
-//       reject("不明なエラーです。")
-//     }
-//   });
-// };
+export const renderNotionTable = async () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const blockId = "35faf4d1-d31a-44f4-b9b2-1557315233f1";
+      const response:any = await notion.blocks.children.list({
+        block_id: blockId,
+        page_size: 100,
+      });
+      console.log("🚀 ~ file: notion.ts:263 ~ renderTable ~ response", response)
+      resolve(response)
+    } catch (error) {
+      console.log("🚀 ~ file: notion.ts:268 ~ returnnewPromise ~ error", error)
+      reject(error)
+    }
+  });
+};
+
+

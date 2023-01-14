@@ -2,10 +2,15 @@ import Link from 'next/link';
 import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps } from '../types/types';
+import { renderNotionTable } from '../utils/notion';
 import { getBackgroundColor, getText } from '../utils/property';
 
 const Block: FC<BlockProps> = ({ blocks }) => {
   console.log("🚀 ~ file: Block.tsx:6 ~ blocks", blocks)
+  const getData = async () => {
+    const res = await renderNotionTable();
+    console.log("🚀 ~ file: Block.tsx:12 ~ getData ~ res", res)
+  }
   const renderNotionBlock = (block: any) => {
     switch (block.type) {
       case 'heading_1':
@@ -93,16 +98,17 @@ const Block: FC<BlockProps> = ({ blocks }) => {
       //   );
       default:
         console.log(`unknoen block type: ${block.type}`);
-        // return <div>unknown blockType : {block.type}</div>;
+        return <div>unknown blockType : {block.type}</div>;
     }
   };
   return (
     <div>
+      <button onClick={getData}>test</button>
       {blocks.map((block, index) => {
         return <div key={index}>{renderNotionBlock(block)}</div>;
       })}
     </div>
-  )
+  );
   
 };
 
