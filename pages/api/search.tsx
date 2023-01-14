@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { searchPages } from '../../utils/notion';
-// import { searchPages } from '../../utils/notion';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader('content-type', 'application/json;');

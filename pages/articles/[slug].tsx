@@ -1,9 +1,8 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import NotionBlocks from 'notion-block-renderer';
 import { useEffect } from 'react';
-import Youtube from 'react-youtube';
 import ArticleMeta from '../../components/ArticleMeta';
+import Block from '../../components/Block';
 import Layout from '../../components/Layout';
 import { selectError } from '../../features/errorSlice';
 import { selectPageInfo } from '../../features/selectedPageSlice';
@@ -11,7 +10,7 @@ import { useLoginCheck } from '../../hooks/useLoginCheck';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRTK';
 import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
 import { fetchBlocksByPageId, fetchPages } from '../../utils/notion';
-import { getText, getVideoId } from '../../utils/property';
+import { getText } from '../../utils/property';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { results } = await fetchPages({});
@@ -78,16 +77,7 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
         </div>
         {/* article */}
         <div className="my-12">
-          <NotionBlocks
-            blocks={blocks}
-            isCodeHighlighter={false}
-            // syntaxHighlighterCSS={tomorrowNightBright}
-          />
-        </div>
-        <div className="my-12 w-full">
-          {getVideoId(blocks) !== '' ? (
-            <Youtube videoId={getVideoId(blocks)} />
-          ) : null}
+          <Block blocks={blocks} />
         </div>
         <div className="w-full px-3 md:flex md:items-center">
           {err.message !== '' ? (

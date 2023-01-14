@@ -253,3 +253,20 @@ export const searchPages = async (s_obj: any) => {
     console.log("🚀 ~ file: notion.ts:95 ~ searchPages ~ error", error)
   }
 }
+
+// export const renderNotionTable = async () => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const blockId = '611cce91-3041-46aa-ae44-c84a94753d42';
+//       const response = await notion.blocks.children.list({
+//         block_id: blockId,
+//         page_size: 100,
+//       });
+//       console.log("🚀 ~ file: notion.ts:263 ~ renderTable ~ response", response)
+//       resolve(response)
+//     } catch (error) {
+//       console.log("🚀 ~ file: notion.ts:268 ~ returnnewPromise ~ error", error)
+//       reject("不明なエラーです。")
+//     }
+//   });
+// };

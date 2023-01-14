@@ -23,6 +23,7 @@ export type ArticleProps = {
   page: PageType,
   blocks: BlockType[]
 };
+
 export type ArticleMetaProps = CardProps;
 
 export type IndexProps = {
@@ -33,7 +34,9 @@ export type TagProps = IndexProps & {
   tag: string
 }
 
-export type BlockProps = { block: BlockType };
+export type BlockProps = {
+  blocks: BlockType[]
+};
  
 export type Params = ParsedUrlQuery & {
   slug?: string;
@@ -116,3 +119,25 @@ export type SelectPageInfoType = {
   title: string,
   url: string
 }
+
+export type BackgroundColorType = {
+  default: "default",
+  gray: "gray",
+  brown: "brown",
+  orange: "orange",
+  yellow: "yellow",
+  green: "green",
+  blue: "blue",
+  purple: "purple",
+  pink: "pink",
+  red: "red",
+  gray_background: "gray_background",
+  brown_background: "brown_background",
+  orange_background: "orange_background",
+  yellow_background: "yellow_background",
+  green_background: "green_background",
+  blue_background: "#E7F3F8",
+  purple_background: "purple_background",
+  pink_background: "pink_background",
+  red_background: "red_background"
+};

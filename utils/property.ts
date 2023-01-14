@@ -103,3 +103,18 @@ export const getVideoId = (blocks: BlockType[]) => {
     console.log("🚀 ~ file: property.ts:96 ~ getVideoId ~ error", error)
   }
 }
+
+export const getBackgroundColor = (color: string) => {
+  try {
+    switch (color) {
+      case "blue_background":
+        return "#E7F3F8";
+      case "blue":
+        return "#337EA9"
+      default:
+        return "#37362F"
+    }
+  } catch (error) {
+    console.log("🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error", error)
+  }
+}
