@@ -43,7 +43,9 @@ const Block: FC<BlockProps> = ({ blocks }) => {
             }}
             className="p-5 my-3"
           >
-            <p className="mb-0">{getText(block.code.rich_text)}</p>
+            <pre className="whitespace-pre-wrap mb-0">
+              {getText(block.code.rich_text)}
+            </pre>
           </div>
         );
       case 'bulleted_list_item':
