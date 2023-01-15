@@ -44,7 +44,7 @@ const InnerNavbar = ({
   };
   return (
     <div className="w-full mb-3">
-      <ul className="grid grid-cols-4">
+      <ul className="grid grid-cols-5">
         {innerNavbarConfig.map((inc, index) => {
           return (
             <li

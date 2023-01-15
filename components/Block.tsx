@@ -66,7 +66,14 @@ const Block: FC<BlockProps> = ({ blocks }) => {
         let videoUrl = '';
         const videoFullUrl = block.video.external.url;
         videoUrl = videoFullUrl.substring(videoFullUrl.indexOf('v=') + 2);
-        return <Youtube videoId={videoUrl} />;
+        return (
+          <div className="w-full">
+            <Youtube
+              iframeClassName="w-full sm:h-96 h-full"
+              videoId={videoUrl}
+            />
+          </div>
+        );
       case 'bookmark':
         return (
           <div>
