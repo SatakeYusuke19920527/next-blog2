@@ -16,7 +16,7 @@ const Block: FC<BlockProps> = ({ blocks }) => {
           </h2>
         );
       case 'paragraph':
-        return <p>{getText(block.paragraph.rich_text)}</p>;
+        return <p className="text-lg">{getText(block.paragraph.rich_text)}</p>;
       case 'divider':
         return (
           <hr className="h-px my-3 bg-gray-200 border-0 dark:bg-gray-300" />
@@ -29,8 +29,10 @@ const Block: FC<BlockProps> = ({ blocks }) => {
             }}
             className="flex justify-start items-start"
           >
-            <p className="mb-0 p-3">{block.callout.icon.emoji}</p>
-            <p className="mb-0 p-3">{getText(block.callout.rich_text)}</p>
+            <p className="mb-0 p-3 text-lg">{block.callout.icon.emoji}</p>
+            <p className="mb-0 p-3 text-lg">
+              {getText(block.callout.rich_text)}
+            </p>
           </div>
         );
       case 'code':
