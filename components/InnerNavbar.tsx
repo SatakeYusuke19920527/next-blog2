@@ -20,7 +20,6 @@ const InnerNavbar = ({
     if (category !== "すべて") {
       searchObj = { ...searchObj, category: category };  
     }
-    
     console.log(
       '🚀 ~ file: Search.tsx:38 ~ startSearch ~ searchObj',
       searchObj

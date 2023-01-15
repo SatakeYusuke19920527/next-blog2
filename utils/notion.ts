@@ -80,12 +80,34 @@ export const searchPages = async (s_obj: any) => {
      });
    }
     if ('category' in search_context) {
-      and.push({
+      // その他の場合
+      if (search_context.category === "その他") {
+        and.push({
+        property: "type",
+        multi_select: {
+          does_not_contain: "成形設備",
+        },
+        });
+        and.push({
+        property: "type",
+        multi_select: {
+          does_not_contain: "金型メーカー",
+        },
+        });
+        and.push({
+        property: "type",
+        multi_select: {
+          does_not_contain: "成形会社",
+        },
+      });
+      } else {
+        and.push({
         property: "type",
         multi_select: {
           contains: search_context.category,
         },
       });
+      }
 
       // 成形設備の場合
       if (search_context.category === "成形設備") {
@@ -236,6 +258,7 @@ export const searchPages = async (s_obj: any) => {
     };
 
     and.push({ or: or });
+    console.log("🚀 ~ file: notion.ts:249 ~ searchPages ~ and", and)
   
   return await notion.databases.query({
     database_id: DATABASE_ID,
