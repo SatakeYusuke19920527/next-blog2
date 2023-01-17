@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps } from '../types/types';
@@ -59,9 +58,13 @@ const Block: FC<BlockProps> = ({ blocks }) => {
           </ul>
         );
       case 'image':
-        return (
+        return block.image.file ? (
           <div className="w-full my-3">
             <img src={block.image.file.url} alt={block.image.type} />
+          </div>
+        ) : (
+          <div className="w-full my-3">
+            <img src={block.image.external.url} alt={block.image.type} />
           </div>
         );
       case 'video':
@@ -77,11 +80,12 @@ const Block: FC<BlockProps> = ({ blocks }) => {
           </div>
         );
       case 'bookmark':
+        console.log('🚀 ~ file: Block.tsx:8 ~ block', block);
         return (
-          <div>
-            <Link className="text-blue-700 underline" href={block.bookmark.url}>
-              {block.bookmark.url}
-            </Link>
+          <div className="w-full my-5">
+            {/* <a href={block.bookmark.url}>
+              {block.bookmark.caption[0].plain_text}
+            </a> */}
           </div>
         );
       case 'quote':
