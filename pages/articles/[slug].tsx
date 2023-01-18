@@ -9,7 +9,7 @@ import { selectPageInfo } from '../../features/selectedPageSlice';
 import { useLoginCheck } from '../../hooks/useLoginCheck';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRTK';
 import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
-import { fetchBlocksByPageId, fetchPages } from '../../utils/notion';
+import { fetchBlocksByPageId, fetchPages, getChildrenAllInBlockByBlocks } from '../../utils/notion';
 import { getText } from '../../utils/property';
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -47,16 +47,18 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const page = results[0];
   const pageId = page.id;
   const { results: blocks } = await fetchBlocksByPageId(pageId);
+  const tableData = await getChildrenAllInBlockByBlocks(blocks);
   return {
     props: {
       page: page,
       blocks: blocks,
+      tableData: tableData,
     },
     revalidate: 10,
   };
 };
 
-const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
+const Article: NextPage<ArticleProps> = ({ page, blocks, tableData }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const isLogin = useLoginCheck();
@@ -80,7 +82,7 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
 
   const moveToSignIn = () => {
     router.push(`/signIn`);
-  }
+  };
 
   return isLogin ? (
     <Layout>
@@ -91,7 +93,7 @@ const Article: NextPage<ArticleProps> = ({ page, blocks }) => {
         </div>
         {/* article */}
         <div className="my-12">
-          <Block blocks={blocks} />
+          <Block blocks={blocks} tableData={tableData} />
         </div>
         <div className="w-full px-3 md:flex md:items-center">
           {err.message !== '' ? (

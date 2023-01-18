@@ -2,12 +2,14 @@ import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps } from '../types/types';
 import { getBackgroundColor, getText } from '../utils/property';
+import Heading1 from './notion/Heading1';
+import Table from './notion/Table';
 
-const Block: FC<BlockProps> = ({ blocks }) => {
+const Block: FC<BlockProps> = ({ blocks, tableData }) => {
   const renderNotionBlock = (block: any) => {
     switch (block.type) {
       case 'heading_1':
-        return <h1>{getText(block.heading_1.rich_text)}</h1>;
+        return <Heading1 block={block} />;
       case 'heading_2':
         return (
           <h2 style={{ color: getBackgroundColor(block.heading_2.color) }}>
@@ -59,11 +61,11 @@ const Block: FC<BlockProps> = ({ blocks }) => {
         );
       case 'image':
         if (block.image.file) {
-          return  (
+          return (
             <div className="w-full my-3">
               <img src={block.image.file.url} alt={block.image.type} />
             </div>
-          )
+          );
         } else if (block.image.external) {
           return (
             <div className="w-full my-3">
@@ -71,7 +73,7 @@ const Block: FC<BlockProps> = ({ blocks }) => {
             </div>
           );
         } else {
-          return null
+          return null;
         }
       case 'video':
         let videoUrl = '';
@@ -86,30 +88,30 @@ const Block: FC<BlockProps> = ({ blocks }) => {
           </div>
         );
       case 'bookmark':
-        let bookmarkName: string = ""
+        let bookmarkName: string = '';
         if (block.bookmark.caption.length !== 0) {
           bookmarkName = block.bookmark.caption[0].plain_text;
         } else {
           bookmarkName = block.bookmark.url;
         }
-          return (
-            <div className="w-full my-5">
-              <a
-                href={block.bookmark.url}
-                className="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100"
-              >
-                <div className="flex-grow-0 mr-2">
-                  <img
-                    src={`http://www.google.com/s2/favicons?domain=${block.bookmark.url}`}
-                    alt="block.bookmark.url"
-                  />
-                </div>
-                <p className="flex-grow-1 font-normal mb-0 text-blue-700 truncate whitespace-nowrap">
-                  {bookmarkName}
-                </p>
-              </a>
-            </div>
-          );
+        return (
+          <div className="w-full my-5">
+            <a
+              href={block.bookmark.url}
+              className="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100"
+            >
+              <div className="flex-grow-0 mr-2">
+                <img
+                  src={`http://www.google.com/s2/favicons?domain=${block.bookmark.url}`}
+                  alt="block.bookmark.url"
+                />
+              </div>
+              <p className="flex-grow-1 font-normal mb-0 text-blue-700 truncate whitespace-nowrap">
+                {bookmarkName}
+              </p>
+            </a>
+          </div>
+        );
       case 'quote':
         return (
           <div className="border-l-2 border-gray-900">
@@ -119,39 +121,7 @@ const Block: FC<BlockProps> = ({ blocks }) => {
           </div>
         );
       case 'table':
-        // const renderHeader = () => {
-        //   return tableData.results[0].table_row.cells.map((tr, index) => {
-        //     return (
-        //       <th scope="col" className="px-6 py-3" key={index}>
-        //         {tr[0].text.content}
-        //       </th>
-        //     );
-        //   });
-        // }
-        
-        // const renderBody = () => (
-        //   tableData.results.map((tr) => {
-        //     const renderTd = () => {
-        //       for (let i = 0; i <= block.table.table_width; i++) {
-        //         return <td>test</td>;
-        //       }
-        //     }
-        //     return <tr>{renderTd()}</tr>;
-        //   })
-        // )
-        // return (
-        //   <div className="my-5">
-        //     <table className="w-full text-sm text-left text-gray-500 ">
-        //       <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-        //         <tr>{renderHeader()}</tr>
-        //       </thead>
-        //       <tbody>
-        //         {/* <tr className="bg-white border-b">{renderBody()}</tr> */}
-        //           {renderBody()}
-        //       </tbody>
-        //     </table>
-        //   </div>
-        // );
+        return <Table block={block} tableData={tableData} />;
       default:
         console.log(`unknoen block type: ${block.type}`);
         return <div>unknown blockType : {block.type}</div>;
@@ -164,7 +134,6 @@ const Block: FC<BlockProps> = ({ blocks }) => {
       })}
     </div>
   );
-  
 };
 
 export default Block;

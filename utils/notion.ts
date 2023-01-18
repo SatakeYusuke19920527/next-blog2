@@ -1,4 +1,5 @@
 import { Client } from '@notionhq/client'
+import { ListBlockChildrenParameters, ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
 
 const notion = new Client({ auth: process.env.NOTION_KEY as string })
 
@@ -277,21 +278,52 @@ export const searchPages = async (s_obj: any) => {
   }
 }
 
-export const renderNotionTable = async () => {
+/**
+ * Blockの中のchildrenを取得
+ * @param block_id BlockのID
+ * @param page_size 取得するchildrenの上限
+ */
+export const getChildrenInBlock = async (params: ListBlockChildrenParameters) => notion.blocks.children.list(params);
+
+/**
+ * Blockの中のchildrenをすべて取得
+ * @param block_id BlockのID
+ * @param page_size 取得するchildrenの上限
+ */
+export const getChildrenAllInBlock = async (block_id: string) => {
+  const blocks = [];
+  let nextCursor: string | undefined = undefined;
+
+  do {
+    const response: ListBlockChildrenResponse = await getChildrenInBlock({
+      block_id,
+      start_cursor: nextCursor,
+    });
+    blocks.push(response.results);
+    if (response.has_more && response.next_cursor) {
+      nextCursor = response.next_cursor;
+    } else {
+      nextCursor = undefined;
+    }
+  } while (nextCursor);
+
+  return blocks.flat();
+};
+
+export const getChildrenAllInBlockByBlocks = (blocks: any[]) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const blockId = "35faf4d1-d31a-44f4-b9b2-1557315233f1";
-      const response:any = await notion.blocks.children.list({
-        block_id: blockId,
-        page_size: 100,
+      let tableData: any[] = [];
+      blocks.forEach(async (block: any) => {
+        if (block.type === 'table') {
+          tableData = await getChildrenAllInBlock(block.id);
+          resolve(tableData)
+        }
       });
-      console.log("🚀 ~ file: notion.ts:263 ~ renderTable ~ response", response)
-      resolve(response)
     } catch (error) {
-      console.log("🚀 ~ file: notion.ts:268 ~ returnnewPromise ~ error", error)
       reject(error)
     }
   });
-};
+}
 
 

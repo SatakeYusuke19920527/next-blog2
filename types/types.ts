@@ -21,7 +21,8 @@ export type CardProps = {
 };
 export type ArticleProps = {
   page: PageType,
-  blocks: BlockType[]
+  blocks: BlockType[],
+  tableData: TableType[]
 };
 
 export type ArticleMetaProps = CardProps;
@@ -36,6 +37,7 @@ export type TagProps = IndexProps & {
 
 export type BlockProps = {
   blocks: BlockType[]
+  tableData: TableType[]
 };
  
 export type Params = ParsedUrlQuery & {
@@ -141,3 +143,20 @@ export type BackgroundColorType = {
   pink_background: "pink_background",
   red_background: "red_background"
 };
+
+export type TableType = {
+  object: string,
+    id: string,
+    parent: {
+      type: string,
+      block_id: string
+    },
+    created_time:string,
+    last_edited_time: string,
+    created_by: { object: string, id: string },
+    last_edited_by: { object: string, id: string },
+    has_children: boolean,
+    archived: boolean,
+    type: string,
+    table_row: { cells: [] }
+}
