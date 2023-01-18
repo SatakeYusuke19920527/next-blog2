@@ -2,14 +2,13 @@ import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps } from '../types/types';
 import { getBackgroundColor, getText } from '../utils/property';
-import Heading1 from './notion/Heading1';
 import Table from './notion/Table';
 
 const Block: FC<BlockProps> = ({ blocks, tableData }) => {
   const renderNotionBlock = (block: any) => {
     switch (block.type) {
       case 'heading_1':
-        return <Heading1 block={block} />;
+        return <h1>{getText(block.heading_1.rich_text)}</h1>;
       case 'heading_2':
         return (
           <h2 style={{ color: getBackgroundColor(block.heading_2.color) }}>
@@ -80,7 +79,7 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
         const videoFullUrl = block.video.external.url;
         videoUrl = videoFullUrl.substring(videoFullUrl.indexOf('v=') + 2);
         return (
-          <div className="w-full">
+          <div className="w-full my-3">
             <Youtube
               iframeClassName="w-full sm:h-96 h-full"
               videoId={videoUrl}

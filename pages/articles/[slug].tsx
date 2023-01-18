@@ -90,7 +90,7 @@ const Article: NextPage<ArticleProps> = ({ page, blocks, tableData }) => {
 
   return isLogin ? (
     <Layout>
-      <article className="items-center max-w-2xl w-full mx-auto bg-white m-5 p-10">
+      <article className="items-center max-w-2xl w-full mx-auto bg-white m-5 md:p-10 p-3">
         {/* meta section */}
         <div className="my-12">
           <ArticleMeta page={page} />
