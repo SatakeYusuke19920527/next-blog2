@@ -58,15 +58,21 @@ const Block: FC<BlockProps> = ({ blocks }) => {
           </ul>
         );
       case 'image':
-        return block.image.file ? (
-          <div className="w-full my-3">
-            <img src={block.image.file.url} alt={block.image.type} />
-          </div>
-        ) : (
-          <div className="w-full my-3">
-            <img src={block.image.external.url} alt={block.image.type} />
-          </div>
-        );
+        if (block.image.file) {
+          return  (
+            <div className="w-full my-3">
+              <img src={block.image.file.url} alt={block.image.type} />
+            </div>
+          )
+        } else if (block.image.external) {
+          return (
+            <div className="w-full my-3">
+              <img src={block.image.external.url} alt={block.image.type} />
+            </div>
+          );
+        } else {
+          return null
+        }
       case 'video':
         let videoUrl = '';
         const videoFullUrl = block.video.external.url;
@@ -80,14 +86,30 @@ const Block: FC<BlockProps> = ({ blocks }) => {
           </div>
         );
       case 'bookmark':
-        console.log('🚀 ~ file: Block.tsx:8 ~ block', block);
-        return (
-          <div className="w-full my-5">
-            {/* <a href={block.bookmark.url}>
-              {block.bookmark.caption[0].plain_text}
-            </a> */}
-          </div>
-        );
+        let bookmarkName:string = ""
+        if (block.bookmark.caption[0].length !== 0) {
+          bookmarkName = block.bookmark.caption[0].plain_text;
+        } else {
+          bookmarkName = block.bookmark.url;
+        }
+          return (
+            <div className="w-full my-5">
+              <a
+                href={block.bookmark.url}
+                className="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100"
+              >
+                <div className="flex-grow-0 mr-2">
+                  <img
+                    src={`http://www.google.com/s2/favicons?domain=${block.bookmark.url}`}
+                    alt="block.bookmark.url"
+                  />
+                </div>
+                <p className="flex-grow-1 font-normal mb-0 text-blue-700 truncate whitespace-nowrap">
+                  {bookmarkName}
+                </p>
+              </a>
+            </div>
+          );
       case 'quote':
         return (
           <div className="border-l-2 border-gray-900">
