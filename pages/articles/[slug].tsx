@@ -27,6 +27,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const { slug } = ctx.params as Params;
+//   const { results } = await fetchPages({ slug: slug });
+//   const page = results[0];
+//   const pageId = page.id;
+//   const { results: blocks } = await fetchBlocksByPageId(pageId);
+//   return {
+//     props: {
+//       page: page,
+//       blocks: blocks,
+//     },
+//   };
+// };
+
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { slug } = ctx.params as Params;
   const { results } = await fetchPages({ slug: slug });

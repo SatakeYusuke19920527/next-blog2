@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import InnerNavbar from '../components/InnerNavbar';
 import Layout from '../components/Layout';
+import Loader from '../components/Loader';
 import Search from '../components/Search';
 import { get_pages, selectPage } from '../features/pageSlice';
 import { useLoginCheck } from '../hooks/useLoginCheck';
@@ -19,6 +20,15 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 10
   }
 }
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const { results } = await fetchPages({});
+//   return {
+//     props: {
+//       pages: results ? results : [],
+//     },
+//   };
+// };
 
 const Home: NextPage<IndexProps> = ({ pages }) => {
   const isUser = useLoginCheck();
@@ -52,6 +62,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
           </div>
           <div className="grid lg:col-span-8 ">
             <InnerNavbar setIsLoading={setIsLoading} />
+            <Loader />
             {isLoading ? (
               renderLoading()
             ) : (

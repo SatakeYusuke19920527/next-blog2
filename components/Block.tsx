@@ -86,8 +86,8 @@ const Block: FC<BlockProps> = ({ blocks }) => {
           </div>
         );
       case 'bookmark':
-        let bookmarkName:string = ""
-        if (block.bookmark.caption[0].length !== 0) {
+        let bookmarkName: string = ""
+        if (block.bookmark.caption.length !== 0) {
           bookmarkName = block.bookmark.caption[0].plain_text;
         } else {
           bookmarkName = block.bookmark.url;

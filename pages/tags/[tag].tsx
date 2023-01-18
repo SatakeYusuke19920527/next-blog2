@@ -41,6 +41,17 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   };
 };
 
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const { tag } = ctx.params as Params;
+//   const { results } = await fetchPages({ tag: tag });
+//   return {
+//     props: {
+//       pages: results ? results : [],
+//       tag: tag,
+//     },
+//   };
+// };
+
 const Tag: NextPage<TagProps> = ({ pages, tag }) => {
   return (
     <Layout>
