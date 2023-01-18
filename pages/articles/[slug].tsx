@@ -9,7 +9,11 @@ import { selectPageInfo } from '../../features/selectedPageSlice';
 import { useLoginCheck } from '../../hooks/useLoginCheck';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRTK';
 import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
-import { fetchBlocksByPageId, fetchPages, getChildrenAllInBlockByBlocks } from '../../utils/notion';
+import {
+  fetchBlocksByPageId,
+  fetchPages,
+  getChildrenAllInBlockByBlocks
+} from '../../utils/notion';
 import { getText } from '../../utils/property';
 
 export const getStaticPaths: GetStaticPaths = async () => {

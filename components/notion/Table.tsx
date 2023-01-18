@@ -1,10 +1,11 @@
 import { FC } from 'react';
 const Table: FC<any> = ({ tableData }) => {
+  console.log("🚀 ~ file: Table.tsx:3 ~ tableData", tableData)
   return tableData ? (
     <table className="w-full text-sm text-left text-gray-500 my-5">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
-          {tableData[0].table_row.cells.map((cell: any, index: number) => {
+          {tableData.length > 0 && tableData[0].table_row.cells.map((cell: any, index: number) => {
             return (
               <th className='col p-3' key={index}>
                 <pre>{cell[0].plain_text}</pre>

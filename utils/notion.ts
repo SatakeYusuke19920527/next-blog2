@@ -311,7 +311,16 @@ export const getChildrenAllInBlock = async (block_id: string) => {
 };
 
 export const getChildrenAllInBlockByBlocks = (blocks: any[]) => {
-  return new Promise(async (resolve, reject) => {
+  let checkCount = 0
+  blocks.forEach(async (block: any) => {
+        if (block.type === 'table') {
+          checkCount++
+        }
+  });
+  console.log("🚀 ~ file: notion.ts:322 ~ getChildrenAllInBlockByBlocks ~ checkCount", checkCount)
+  if (checkCount !== 0) {
+    console.log('こちらにきている①*****')
+    return new Promise(async (resolve, reject) => {
     try {
       let tableData: any[] = [];
       blocks.forEach(async (block: any) => {
@@ -324,6 +333,11 @@ export const getChildrenAllInBlockByBlocks = (blocks: any[]) => {
       reject(error)
     }
   });
+  } else {
+    console.log('こちらにきている②=====')
+    return []
+  }
+  
 }
 
 
