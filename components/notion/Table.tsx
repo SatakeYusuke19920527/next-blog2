@@ -1,6 +1,5 @@
 import { FC } from 'react';
 const Table: FC<any> = ({ tableData }) => {
-  console.log("🚀 ~ file: Table.tsx:3 ~ tableData", tableData)
   return tableData ? (
     <div className="w-full mt-3 mb-5">
       <div className="relative overflow-x-auto">

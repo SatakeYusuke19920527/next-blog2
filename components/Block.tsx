@@ -123,7 +123,9 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
         return <Table block={block} tableData={tableData} />;
       default:
         console.log(`unknoen block type: ${block.type}`);
-        return <div>unknown blockType : {block.type}</div>;
+        return null
+        // debug用
+        // return <div>unknown blockType : {block.type}</div>;
     }
   };
   return (

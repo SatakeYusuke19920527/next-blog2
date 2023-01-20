@@ -1,4 +1,4 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import ArticleMeta from '../../components/ArticleMeta';
@@ -16,36 +16,39 @@ import {
 } from '../../utils/notion';
 import { getText } from '../../utils/property';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { results } = await fetchPages({});
-  const paths = results.map((page: any) => {
-    return {
-      params: {
-        slug: getText(page.properties.slug.rich_text),
-      },
-    };
-  });
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const { results } = await fetchPages({});
+//   const paths = results.map((page: any) => {
+//     return {
+//       params: {
+//         slug: getText(page.properties.slug.rich_text),
+//       },
+//     };
+//   });
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   };
+// };
 
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+// export const getStaticProps: GetStaticProps = async (ctx) => {
 //   const { slug } = ctx.params as Params;
 //   const { results } = await fetchPages({ slug: slug });
 //   const page = results[0];
 //   const pageId = page.id;
 //   const { results: blocks } = await fetchBlocksByPageId(pageId);
+//   const tableData = await getChildrenAllInBlockByBlocks(blocks);
 //   return {
 //     props: {
 //       page: page,
 //       blocks: blocks,
+//       tableData: tableData,
 //     },
+//     revalidate: 10,
 //   };
 // };
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { slug } = ctx.params as Params;
   const { results } = await fetchPages({ slug: slug });
   const page = results[0];
@@ -58,7 +61,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       blocks: blocks,
       tableData: tableData,
     },
-    revalidate: 10,
   };
 };
 

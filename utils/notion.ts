@@ -317,9 +317,7 @@ export const getChildrenAllInBlockByBlocks = (blocks: any[]) => {
           checkCount++
         }
   });
-  console.log("🚀 ~ file: notion.ts:322 ~ getChildrenAllInBlockByBlocks ~ checkCount", checkCount)
   if (checkCount !== 0) {
-    console.log('こちらにきている①*****')
     return new Promise(async (resolve, reject) => {
     try {
       let tableData: any[] = [];
@@ -334,10 +332,8 @@ export const getChildrenAllInBlockByBlocks = (blocks: any[]) => {
     }
   });
   } else {
-    console.log('こちらにきている②=====')
     return []
   }
-  
 }
 
 

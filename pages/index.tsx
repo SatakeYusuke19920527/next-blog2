@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import InnerNavbar from '../components/InnerNavbar';
@@ -11,24 +11,24 @@ import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
 import { IndexProps } from '../types/types';
 import { fetchPages } from '../utils/notion';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const {results} = await fetchPages({});
-  return {
-    props: {
-      pages: results ? results : []
-    },
-    revalidate: 10
-  }
-}
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const { results } = await fetchPages({});
+// export const getStaticProps: GetStaticProps = async () => {
+//   const {results} = await fetchPages({});
 //   return {
 //     props: {
-//       pages: results ? results : [],
+//       pages: results ? results : []
 //     },
-//   };
-// };
+//     revalidate: 10
+//   }
+// }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { results } = await fetchPages({});
+  return {
+    props: {
+      pages: results ? results : [],
+    },
+  };
+};
 
 const Home: NextPage<IndexProps> = ({ pages }) => {
   const isUser = useLoginCheck();
@@ -38,12 +38,12 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
 
   useEffect(() => {
     dispatch(get_pages(pages));
+    console.log(
+      '🚀 ~ file: index.tsx:21 ~ isUser ~ login check : [',
+      isUser,
+      ']'
+    );
   },[pages])
-  // console.log(
-  //   '🚀 ~ file: index.tsx:21 ~ isUser ~ login check : [',
-  //   isUser,
-  //   ']'
-  // );
 
   const renderLoading = () => (
     <div className="w-full flex justify-center items-center h-60">
