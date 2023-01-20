@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 const TermsOfService = () => {
   return (
     <Layout>
-      <div className="w-9/12 h-full pt-12 flex flex-col  justify-center items-center">
+      <div className="w-full md:w-9/12 h-full pt-12 flex flex-col  justify-center items-center bg-white p-5 mt-5">
         <p>
           本利用規約(以下「本規約」と言います。)は，本サービスを利用するに当たって遵守頂きたい事項及び株式会社ピボーテ
           (以下「当社」と言います。)と，登録ユーザー及び利用者との間の権利義務関係を定めています。本サービスの利用に際しては，本規約の全文をお読みいただいたうえで，本規約に同意いただく必要があります。
@@ -219,7 +219,6 @@ const TermsOfService = () => {
             2.当社およびデータ提供者は，本条に基づき当社が行なった処置に基づき登録ユーザーに損害が生じたとしても一切の責任を負いません。
           </li>
         </ol>
-        
         <br />
         <h2>第１０条 権利帰属</h2>
         <ol>

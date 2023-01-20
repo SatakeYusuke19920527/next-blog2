@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 const PrivacyPolicy = () => {
   return (
     <Layout>
-      <div className="w-9/12 h-full pt-12 flex flex-col  justify-center">
+      <div className="w-full md:w-9/12 h-full pt-12 flex flex-col  justify-center bg-white p-5 mt-5">
         <h2 className="flex w-full justify-center items-center text-blue-600 mb-5">
           株式会社ピボーテ 個人情報保護基本方針
         </h2>
