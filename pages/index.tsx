@@ -9,6 +9,7 @@ import Search from '../components/Search';
 import { get_pages, selectPage } from '../features/pageSlice';
 import { useLoginCheck } from '../hooks/useLoginCheck';
 import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
+import useWindowSize from '../hooks/useWindowSize';
 import { IndexProps } from '../types/types';
 import { fetchPages } from '../utils/notion';
 
@@ -36,6 +37,8 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   const dispatch = useAppDispatch();
   const displayPages = useAppSelector(selectPage);
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [width] = useWindowSize();
+  console.log("🚀 ~ file: index.tsx:41 ~ width", width)
 
   useEffect(() => {
     dispatch(get_pages(pages));
@@ -60,7 +63,10 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
         <div className="pt-8 grid lg:grid-cols-10 md:grid-cols-1 items-start container-fluid gap-6">
           <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
             <Search setIsLoading={setIsLoading} />
-            <div className="w-full mt-5 border-gray-300  shadow-lg rounded-lg">
+            <div
+              className="w-full mt-5 border-gray-300  shadow-lg rounded-lg"
+              style={{display: width < 600 ? "none" : "block"}}
+            >
               <Timeline
                 dataSource={{
                   sourceType: 'profile',
