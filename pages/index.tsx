@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
+import { Timeline } from 'react-twitter-widgets';
 import Card from '../components/Card';
 import InnerNavbar from '../components/InnerNavbar';
 import Layout from '../components/Layout';
@@ -59,6 +60,17 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
         <div className="pt-8 grid lg:grid-cols-10 md:grid-cols-1 items-start container-fluid gap-6">
           <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
             <Search setIsLoading={setIsLoading} />
+            <div className="w-full mt-5 border-gray-300  shadow-lg rounded-lg">
+              <Timeline
+                dataSource={{
+                  sourceType: 'profile',
+                  screenName: 'seikei_poratl',
+                }}
+                options={{
+                  height: '600',
+                }}
+              />
+            </div>
           </div>
           <div className="grid lg:col-span-8 ">
             <InnerNavbar setIsLoading={setIsLoading} />

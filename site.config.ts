@@ -45,6 +45,8 @@ export const industryTypeConfig = [`家電`, `自動車`, `OA通信`, `電子部
 
 export const resinUsedConfig = [`PE`, `PP`, `PS`, `ABS`, `PVC`, `PMMA`, `PET`, `PA`, `POM`, `PC`, `PPE`, `PPS`, `PI`, `PEI`, `PEEK`, `PTFE`, `フッ素樹脂`, `エラストマー`, `生分解性プラスチック`, `熱効果樹脂`, `プラマグ樹脂`, `その他`]
 
+export const troublesConfig = ["エネルギーの無駄を無くす","樹脂の無駄を無くす","サイクルタイムの短縮","段取り時間の短縮","黄変トラブルの解消","色ムラトラブルの解消","コンタミトラブルの解消","ガスによるトラブルの解消","水質によるトラブルの解消","寸法精度の向上","成形品の軽量化","表面品質の向上"]
+
 export const colorConfig = {
   molding_shop: {
     name: "成形会社",

@@ -8,7 +8,11 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
   const renderNotionBlock = (block: any) => {
     switch (block.type) {
       case 'heading_1':
-        return <h1>{getText(block.heading_1.rich_text)}</h1>;
+        return (
+          <h1 style={{ color: getBackgroundColor(block.heading_1.color) }}>
+            {getText(block.heading_1.rich_text)}
+          </h1>
+        );
       case 'heading_2':
         return (
           <h2 style={{ color: getBackgroundColor(block.heading_2.color) }}>
@@ -16,7 +20,25 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
           </h2>
         );
       case 'paragraph':
-        return <p className="text-lg">{getText(block.paragraph.rich_text)}</p>;
+        if (block.paragraph.rich_text.length !== 0) {
+          return (
+            <p
+              className="text-lg"
+              style={{
+                color: getBackgroundColor(
+                  block.paragraph.rich_text[0].annotations.color
+                ),
+              }}
+            >
+              {getText(block.paragraph.rich_text)}
+            </p>
+          );
+        } else {
+          return (
+            <p className="text-lg">{getText(block.paragraph.rich_text)}</p>
+          );
+        }
+          
       case 'divider':
         return (
           <hr className="h-px my-3 bg-gray-200 border-0 dark:bg-gray-300" />
@@ -113,8 +135,18 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
         );
       case 'quote':
         return (
-          <div className="border-l-2 border-gray-900">
-            <p className="my-3 text-lg pl-3">
+          <div
+            className="border-l-2 border-gray-900"
+            style={{
+              borderColor: getBackgroundColor(block.quote.color),
+            }}
+          >
+            <p
+              className="my-3 text-lg pl-3"
+              style={{
+                color: getBackgroundColor(block.quote.color),
+              }}
+            >
               {getText(block.quote.rich_text)}
             </p>
           </div>

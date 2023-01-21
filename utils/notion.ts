@@ -112,7 +112,7 @@ export const searchPages = async (s_obj: any) => {
 
       // 成形設備の場合
       if (search_context.category === "成形設備") {
-        if ('modalEquipments' in search_context && 'clampingForce' in search_context && 'subsidy' in search_context) { 
+        if ('modalEquipments' in search_context && 'clampingForce' in search_context && 'subsidy' in search_context && 'troubles' in search_context) { 
           if (search_context.modalEquipments.length !== 0) {
             search_context.modalEquipments.forEach((modalEquipment: string) => {
               or.push({
@@ -143,6 +143,16 @@ export const searchPages = async (s_obj: any) => {
             });
           });
           };
+        };
+        if (search_context.troubles.length !== 0) {
+          search_context.troubles.forEach((t: string) => {
+            or.push({
+              property: "troubles",
+              multi_select: {
+                contains: t,
+              },
+            });
+          });
         };
       };
 

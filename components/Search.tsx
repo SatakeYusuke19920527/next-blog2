@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createRef, Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import { get_pages } from '../features/pageSlice';
 import { useAppDispatch } from '../hooks/useRTK';
-import { categoryConfig, clampingForceConfig, cleanRoomConfig, industryTypeConfig, isoConfig, isPrototypeMoldingMachineConfig, moldingEquipmentConfig, resinUsedConfig, searchConfig, subsidyConfig } from "../site.config";
+import { categoryConfig, clampingForceConfig, cleanRoomConfig, industryTypeConfig, isoConfig, isPrototypeMoldingMachineConfig, moldingEquipmentConfig, resinUsedConfig, searchConfig, subsidyConfig, troublesConfig } from "../site.config";
 
 const Search = ({
   setIsLoading,
@@ -36,6 +36,13 @@ const Search = ({
     const subsidyConfigRefs = useRef<RefObject<HTMLInputElement>[]>([]);
     subsidyConfig.forEach((_, index) => {
       subsidyConfigRefs.current[index] = createRef<HTMLInputElement>();
+    });
+
+    // お困りごと
+    const [troubles, setTroubles] = useState<string[]>([]);
+    const troublesConfigRefs = useRef<RefObject<HTMLInputElement>[]>([]);
+    troublesConfig.forEach((_, index) => {
+      troublesConfigRefs.current[index] = createRef<HTMLInputElement>();
     });
 
     /** 成形会社 */
@@ -107,6 +114,7 @@ const Search = ({
         searchObj = { ...searchObj, modalEquipments };
         searchObj = { ...searchObj, clampingForce };
         searchObj = { ...searchObj, subsidy };
+        searchObj = { ...searchObj, troubles };
       }
 
       // 金型メーカー検索オブジェクト作成
@@ -279,6 +287,45 @@ const Search = ({
                               className="w-full ml-2 text-sm font-medium"
                             >
                               {`${sc}`}
+                            </label>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+              {/* お困りごと "エネルギーの無駄を無くす","樹脂の無駄を無くす","サイクルタイムの短縮","段取り時間の短縮","黄変トラブルの解消","色ムラトラブルの解消","コンタミトラブルの解消","ガスによるトラブルの解消","水質によるトラブルの解消","寸法精度の向上","成形品の軽量化","表面品質の向上" */}
+              <div className="w-full">
+                <div className="grid grid-cols-8 gap-2 rounded w-full">
+                  <h4 className="w-full col-span-8 rounded m-0">お困りごと</h4>
+                  <ul className="w-full col-span-8 border p-2 rounded">
+                    {troublesConfig.map((tc: string, index: number) => {
+                      const selectTroubles = () => {
+                        if (troublesConfigRefs.current[index].current?.checked) {
+                          setTroubles([...troubles, tc]);
+                        } else {
+                          setTroubles(troubles.filter((s) => s !== tc));
+                        }
+                      };
+                      return (
+                        <li
+                          key={index}
+                          className="w-full border-b  border-white rounded-t-lg"
+                        >
+                          <div className="flex items-center pl-3">
+                            <input
+                              id={`${tc}-${index}`}
+                              type="checkbox"
+                              value={tc}
+                              ref={troublesConfigRefs.current[index]}
+                              onChange={() => selectTroubles()}
+                            />
+                            <label
+                              htmlFor={`${tc}-${index}`}
+                              className="w-full ml-2 text-sm font-medium"
+                            >
+                              {`${tc}`}
                             </label>
                           </div>
                         </li>
@@ -460,7 +507,9 @@ const Search = ({
               {/* クリーンルーム あり,なし */}
               <div className="w-full">
                 <div className="grid grid-cols-8 gap-2 rounded w-full">
-                  <h4 className="w-full col-span-8 rounded m-0">クリーンルームの有無</h4>
+                  <h4 className="w-full col-span-8 rounded m-0">
+                    クリーンルームの有無
+                  </h4>
                   <ul className="w-full col-span-8 border p-2 rounded">
                     {cleanRoomConfig.map((crc: string, index: number) => {
                       const selectCleanRoom = () => {
