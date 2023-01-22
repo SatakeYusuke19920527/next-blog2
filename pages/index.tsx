@@ -38,7 +38,6 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   const displayPages = useAppSelector(selectPage);
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [width] = useWindowSize();
-  console.log("🚀 ~ file: index.tsx:41 ~ width", width)
 
   useEffect(() => {
     dispatch(get_pages(pages));
