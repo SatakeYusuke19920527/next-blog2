@@ -3,7 +3,6 @@ import { selectUser } from "../features/userSlice";
 import { useLoginCheck } from "../hooks/useLoginCheck";
 import { useAppSelector } from "../hooks/useRTK";
 import { logout } from "../models/user/userApplicationService";
-import { siteConfig } from "../site.config";
 
 const Navbar = () => {
   const isLogin = useLoginCheck()
@@ -13,21 +12,25 @@ const Navbar = () => {
     if (result) await logout();
   }
   return (
-    <nav className="relative w-full flex flex-wrap items-center justify-between py-3 text-gray-900 hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-white">
+    <nav className="relative w-full flex flex-wrap items-center justify-between text-gray-900 hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-white">
       <div className="grid md:grid-cols-10 grid-cols-4 container-fluid w-full px-6">
         <div
           className="flex bg-grey-light rounded-md w-full md:col-span-9 col-span-3 p-2"
           aria-label="breadcrumb1"
         >
           <Link href={`/`} className="hover:text-gray-600">
-            {siteConfig.title}
+            <img
+              className="w-full h-16"
+              src="../static/seikei-portal-icon.png"
+              alt="icon"
+            />
           </Link>
           {/* <div className="pl-4">
             <Breadcrumb />
           </div> */}
         </div>
         <div
-          className="bg-grey-light rounded-md w-full col-span-1 p-2 grid grid-cols-1"
+          className="bg-grey-light rounded-md w-full col-span-1 p-2 grid grid-cols-1 place-items-center h-full"
           aria-label="breadcrumb1"
         >
           <div
