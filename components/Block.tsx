@@ -8,14 +8,34 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
   const renderNotionBlock = (block: any) => {
     switch (block.type) {
       case 'heading_1':
+        const dicideHeading1Color = ():string => {
+          if (block.heading_1.color !== "default") {
+            return block.heading_1.color;
+          } else if (block.heading_1.rich_text[0].annotations.color !== "default") {
+            return block.heading_1.rich_text[0].annotations.color;
+          } else {
+            return "default"
+          }
+        }
         return (
-          <h1 style={{ color: getBackgroundColor(block.heading_1.color) }}>
+          <h1 style={{ color: getBackgroundColor(dicideHeading1Color()) }}>
             {getText(block.heading_1.rich_text)}
           </h1>
         );
       case 'heading_2':
+        const dicideHeading2Color = (): string => {
+          if (block.heading_2.color !== 'default') {
+            return block.heading_2.color;
+          } else if (
+            block.heading_2.rich_text[0].annotations.color !== 'default'
+          ) {
+            return block.heading_2.rich_text[0].annotations.color;
+          } else {
+            return 'default';
+          }
+        };
         return (
-          <h2 style={{ color: getBackgroundColor(block.heading_2.color) }}>
+          <h2 style={{ color: getBackgroundColor(dicideHeading2Color()) }}>
             {getText(block.heading_2.rich_text)}
           </h2>
         );
