@@ -81,16 +81,29 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
           </ul>
         );
       case 'image':
+        const renderCaption = () => {
+          if (block.image.caption.length !== 0) {
+            return (
+              <pre className="whitespace-pre-wrap mb-0 text-gray-500 text-sm">
+                {block.image.caption[0].plain_text}
+              </pre>
+            )
+          } else {
+            return null
+          }
+        }
         if (block.image.file) {
           return (
             <div className="w-full my-3">
               <img src={block.image.file.url} alt={block.image.type} />
+              {renderCaption()}
             </div>
           );
         } else if (block.image.external) {
           return (
             <div className="w-full my-3">
               <img src={block.image.external.url} alt={block.image.type} />
+              {renderCaption()}
             </div>
           );
         } else {
