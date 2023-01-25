@@ -5,6 +5,11 @@ const notion = new Client({ auth: process.env.NOTION_KEY as string })
 
 const DATABASE_ID = process.env.NOTION_DATABASE_ID as string
 
+/**
+ * Notionの記事を取得
+ * @param slug slug
+ * @param tag tag
+ */
 export const fetchPages = async ({slug, tag}: {slug?:string, tag?:string}) => {
   const and: any = [
         {
