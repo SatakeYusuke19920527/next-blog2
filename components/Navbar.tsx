@@ -38,7 +38,7 @@ const Navbar = () => {
             aria-label="breadcrumb2"
           >
             {isLogin ? (
-              <button onClick={handleLogout} className="hover:text-gray-100">
+              <button onClick={handleLogout} className="hover:text-gray-400">
                 {user.displayName}
               </button>
             ) : (

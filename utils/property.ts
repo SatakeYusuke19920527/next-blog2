@@ -60,7 +60,7 @@ export const getMultiSelect = (multiSelect: [{ name: string }]) => {
 
 export const getOverview = (overview: { rich_text: RichTextType[] }) => {
   try {
-    if (overview.rich_text[0] !== undefined) {
+    if (overview !== undefined && overview.rich_text[0] !== undefined) {
      return overview.rich_text[0].plain_text 
     } else {
      return "" 
