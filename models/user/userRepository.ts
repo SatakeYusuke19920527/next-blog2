@@ -63,7 +63,7 @@ export class UserRepository {
                 console.log("Document written with ID: ", docRef.id);  
                 resolve(user)
             } catch (error: any) {
-                console.log("🚀 ~ file: userRepository.ts:67 ~ UserRepository ~ returnnewPromise ~ error", error)
+                console.log("🚀 ~ file: userRepository.ts:67 ~ UserRepository ~ returnnewPromise ~ error", error.code)
                 reject(error.code)
             }
         });
@@ -75,7 +75,7 @@ export class UserRepository {
                 const res = await sendPasswordResetEmail(auth, email)
                 resolve(res)
             } catch (error: any) {
-                console.log("🚀 ~ file: userRepository.ts:81 ~ UserRepository ~ resetPassword ~ error", error)
+                console.log("🚀 ~ file: userRepository.ts:81 ~ UserRepository ~ resetPassword ~ error", error.code)
                 reject(error.code)
             }
         });
