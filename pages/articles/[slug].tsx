@@ -97,6 +97,7 @@ const Article: NextPage<ArticleProps> = ({ page, blocks, tableData }) => {
         <div className="my-12">
           <ArticleMeta page={page} />
         </div>
+        {/* お問合せボタン */}
         <div className="w-full flex justify-center items-center">
           <button
             className="w-8/12 shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
@@ -109,6 +110,16 @@ const Article: NextPage<ArticleProps> = ({ page, blocks, tableData }) => {
         {/* article */}
         <div className="my-12 animate-slide-in-bck-center flex justify-center">
           <Block blocks={blocks} tableData={tableData} />
+        </div>
+        {/* お問合せボタン */}
+        <div className="w-full flex justify-center items-center">
+          <button
+            className="w-8/12 shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            type="button"
+            onClick={moveTocontact}
+          >
+            カタログ依頼・お問合せ
+          </button>
         </div>
         <div className="w-full px-3 md:flex md:items-center">
           {err.message !== '' ? (
