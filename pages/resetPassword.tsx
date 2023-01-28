@@ -42,9 +42,11 @@ const ResetPassword = () => {
       );
     } else {
       dispatch(no_error());
+      window.alert(
+        'メールアドレス再設定用のメールを送信しました。メール本文のリンクよりパスワードの再設定を行ってください。'
+      );
     }
     setIsLoading(false);
-    window.alert("メールアドレス再設定用のメールを送信しました。メール本文のリンクよりパスワードの再設定を行ってください。")
   };
 
   return (
