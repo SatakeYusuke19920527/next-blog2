@@ -37,3 +37,13 @@ export const saveUserForFirestore = async (user: UserType) => {
         return err
     }
 }
+
+export const resetPassword = async (email: string) => {
+    try {
+        const repo =  new UserRepository();
+        await repo.resetPassword(email)
+    } catch (err) {
+        console.log("🚀 ~ file: userApplicationService.ts:46 ~ resetPassword ~ err", err)
+        return err
+    }
+}

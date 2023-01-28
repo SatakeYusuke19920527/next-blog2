@@ -17,6 +17,8 @@ export class ErrorRepository {
                 return errorConfig.weakPassword.message
             case errorConfig.internalError.key:
                 return errorConfig.internalError.message
+            case errorConfig.missingEmail.key:
+                return errorConfig.missingEmail.message
             default:
                 return "不明なエラーです。"
         }
@@ -31,5 +33,6 @@ const errorConfig = {
     tooManyRequests: { key: "auth/too-many-requests", message: "パスワード入力失敗回数が上限を超えました。" },
     alreadyInUse: {key: "auth/email-already-in-use", message: "入力されたメールアドレスは既に登録されています。"},
     weakPassword: { key: "auth/weak-password", message: "パスワードは6文字以上且つ大文字小文字を含む文字列にしてください。" },
-    internalError: {key: "auth/internal-error", message: "入力された値に不正があります。"},
+    internalError: { key: "auth/internal-error", message: "入力された値に不正があります。" },
+    missingEmail: { key: "auth/missing-email", message: "メールアドレスの形式に問題があります。" },
 }
