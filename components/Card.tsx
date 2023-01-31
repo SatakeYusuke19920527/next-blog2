@@ -2,7 +2,15 @@ import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import { CardProps } from '../types/types';
-import { getColor, getCover, getDate, getMultiSelect, getOverview, getText, getTitle } from '../utils/property';
+import {
+  getColor,
+  getCover,
+  getDate,
+  getMultiSelect,
+  getOverview,
+  getText,
+  getTitle,
+} from '../utils/property';
 
 const Card: FC<CardProps> = ({ page }) => {
   return (
@@ -50,9 +58,9 @@ const Card: FC<CardProps> = ({ page }) => {
           <h2 className="text-base font-medium mb-3">
             {getText(page.properties.name.title)}
           </h2>
-          <p className="text-gray-700 text-xs">
+          <pre className="text-gray-700 whitespace-pre-wrap text-xs">
             {getOverview(page.properties.overview)}
-          </p>
+          </pre>
         </div>
 
         {/* tag */}
