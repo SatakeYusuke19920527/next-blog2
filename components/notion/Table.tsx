@@ -25,15 +25,13 @@ const Table: FC<any> = ({ tableData }) => {
                   {td.table_row.cells.map((cell: any, index: number) => {
                     return cell[0].href ? (
                       <td key={index} className="px-1 py-2">
-                        <a
-                          href={cell[0].href}
-                        >
-                          {cell[0].href}
-                        </a>
+                        <a href={cell[0].href}>{cell[0].href}</a>
                       </td>
                     ) : (
                       <td key={index} className="px-1">
-                        {cell[0].plain_text}
+                        <pre className="whitespace-pre-wrap">
+                          {cell[0].plain_text}
+                        </pre>
                       </td>
                     );
                   })}
@@ -47,4 +45,4 @@ const Table: FC<any> = ({ tableData }) => {
   ) : null;
 };
 
-export default Table
+export default Table;
