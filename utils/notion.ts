@@ -3,7 +3,6 @@ import {
   ListBlockChildrenParameters,
   ListBlockChildrenResponse,
 } from '@notionhq/client/build/src/api-endpoints';
-import axios from 'axios';
 
 const notion = new Client({ auth: process.env.NOTION_KEY as string });
 
@@ -377,23 +376,30 @@ export const getChildrenAllInBlockByBlocks = (blocks: any[]) => {
   }
 };
 
-const updateNumberOfViews = () => {
-  const options = {
-    method: 'PATCH',
-    url: `https://api.notion.com/v1/databases/${DATABASE_ID}`,
-    headers: {
-      accept: 'application/json',
-      'Notion-Version': '2022-06-28',
-      'content-type': 'application/json',
-    },
-  };
-
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
+/**
+ * 閲覧数の更新
+ */
+export const updateNumberOfViews = async (s_obj: any) => {
+  const { pageId, numberOfView } = s_obj.view_count;
+  let viewCount = 0;
+  if (numberOfView.number !== null) {
+    viewCount = numberOfView.number + 1;
+  } else {
+    viewCount = 1;
+  }
+  try {
+    await notion.pages.update({
+      page_id: pageId,
+      properties: {
+        numberOfView: {
+          number: viewCount,
+        },
+      },
     });
+  } catch (error: any) {
+    console.log(
+      '🚀 ~ file: notion.ts:396 ~ updateNumberOfViews ~ error',
+      error.message
+    );
+  }
 };

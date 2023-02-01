@@ -12,7 +12,7 @@ import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
 import {
   fetchBlocksByPageId,
   fetchPages,
-  getChildrenAllInBlockByBlocks
+  getChildrenAllInBlockByBlocks,
 } from '../../utils/notion';
 import { getText } from '../../utils/property';
 
