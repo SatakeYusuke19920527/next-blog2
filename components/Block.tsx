@@ -8,15 +8,17 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
   const renderNotionBlock = (block: any) => {
     switch (block.type) {
       case 'heading_1':
-        const dicideHeading1Color = ():string => {
-          if (block.heading_1.color !== "default") {
+        const dicideHeading1Color = (): string => {
+          if (block.heading_1.color !== 'default') {
             return block.heading_1.color;
-          } else if (block.heading_1.rich_text[0].annotations.color !== "default") {
+          } else if (
+            block.heading_1.rich_text[0].annotations.color !== 'default'
+          ) {
             return block.heading_1.rich_text[0].annotations.color;
           } else {
-            return "default"
+            return 'default';
           }
-        }
+        };
         return (
           <h1 style={{ color: getBackgroundColor(dicideHeading1Color()) }}>
             {getText(block.heading_1.rich_text)}
@@ -58,7 +60,7 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
             <p className="text-lg">{getText(block.paragraph.rich_text)}</p>
           );
         }
-          
+
       case 'divider':
         return (
           <hr className="h-px my-3 bg-gray-200 border-0 dark:bg-gray-300" />
@@ -107,11 +109,11 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
               <pre className="whitespace-pre-wrap mb-0 text-gray-500 text-sm">
                 {block.image.caption[0].plain_text}
               </pre>
-            )
+            );
           } else {
-            return null
+            return null;
           }
-        }
+        };
         if (block.image.file) {
           return (
             <div className="w-full my-3">
@@ -174,23 +176,23 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
               borderColor: getBackgroundColor(block.quote.color),
             }}
           >
-            <p
-              className="my-3 text-lg pl-3"
+            <pre
+              className="my-3 text-lg pl-3 whitespace-pre-wrap"
               style={{
                 color: getBackgroundColor(block.quote.color),
               }}
             >
               {getText(block.quote.rich_text)}
-            </p>
+            </pre>
           </div>
         );
       case 'table':
         return <Table block={block} tableData={tableData} />;
       default:
         console.log(`unknoen block type: ${block.type}`);
-        return null
-        // debug用
-        // return <div>unknown blockType : {block.type}</div>;
+        return null;
+      // debug用
+      // return <div>unknown blockType : {block.type}</div>;
     }
   };
   return (
