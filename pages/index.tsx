@@ -36,7 +36,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   const isUser = useLoginCheck();
   const dispatch = useAppDispatch();
   const displayPages = useAppSelector(selectPage);
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [width] = useWindowSize();
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
       isUser,
       ']'
     );
-  },[pages])
+  }, [pages]);
 
   const renderLoading = () => (
     <div className="w-full flex justify-center items-center h-60">
@@ -55,7 +55,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
       <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
     </div>
   );
-  
+
   return (
     <Layout>
       <div className="w-full">
@@ -64,7 +64,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
             <Search setIsLoading={setIsLoading} />
             <div
               className="w-full mt-5 border-gray-300  shadow-lg rounded-lg"
-              style={{display: width < 600 ? "none" : "block"}}
+              style={{ display: width < 600 ? 'none' : 'block' }}
             >
               <Timeline
                 dataSource={{

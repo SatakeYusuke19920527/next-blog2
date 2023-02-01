@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -13,9 +14,27 @@ import {
 } from '../utils/property';
 
 const Card: FC<CardProps> = ({ page }) => {
+  const incrementViewCount = (s_obj: Object) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post('/api/increment_view_count', { view_count: s_obj })
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
   return (
     <Link
       href={`/articles/${getText(page.properties.slug.rich_text)}`}
+      onClick={() =>
+        incrementViewCount({
+          pageId: page.id,
+          numberOfView: page.properties.numberOfView,
+        })
+      }
       className="animate-slide-in-bck-center flex justify-center"
     >
       <div
@@ -50,11 +69,19 @@ const Card: FC<CardProps> = ({ page }) => {
 
         {/* title & overview*/}
         <div className="px-6 pt-4">
-          <p className="text-red-500 text-xs">
-            {page.properties.published.rich_text.length !== 0
-              ? getDate(page.properties.published.rich_text[0].plain_text)
-              : null}
-          </p>
+          <div className="w-full flex justify-between">
+            <p className="text-red-500 text-xs">
+              {page.properties.published.rich_text.length !== 0
+                ? getDate(page.properties.published.rich_text[0].plain_text)
+                : null}
+            </p>
+            <p className="text-red-500 text-xs">
+              閲覧数：
+              {page.properties.numberOfView.number !== null
+                ? page.properties.numberOfView.number.toString()
+                : 0}
+            </p>
+          </div>
           <h2 className="text-base font-medium mb-3">
             {getText(page.properties.name.title)}
           </h2>
