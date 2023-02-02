@@ -13,18 +13,20 @@ import {
   getTitle,
 } from '../utils/property';
 
-const Card: FC<CardProps> = ({ page }) => {
+const Card: FC<CardProps> = ({ page, isUser }) => {
   const incrementViewCount = (s_obj: Object) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/increment_view_count', { view_count: s_obj })
-        .then((res) => {
-          resolve(res);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
+    if (isUser) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('/api/increment_view_count', { view_count: s_obj })
+          .then((res) => {
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    }
   };
   return (
     <Link
