@@ -40,12 +40,15 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   const [width] = useWindowSize();
 
   useEffect(() => {
-    dispatch(get_pages(pages));
-    console.log(
-      '🚀 ~ file: index.tsx:21 ~ isUser ~ login check : [',
-      isUser,
-      ']'
-    );
+    const dispatchPages = () => {
+      dispatch(get_pages(pages));
+      console.log(
+        '🚀 ~ file: index.tsx:21 ~ isUser ~ login check : [',
+        isUser,
+        ']'
+      );
+    };
+    return () => dispatchPages();
   }, [pages]);
 
   const renderLoading = () => (

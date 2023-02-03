@@ -4,7 +4,7 @@ import { BlockProps } from '../types/types';
 import { getBackgroundColor, getText } from '../utils/property';
 import Table from './notion/Table';
 
-const Block: FC<BlockProps> = ({ blocks, tableData }) => {
+const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
   const renderNotionBlock = (block: any) => {
     switch (block.type) {
       case 'heading_1':
@@ -188,6 +188,19 @@ const Block: FC<BlockProps> = ({ blocks, tableData }) => {
         );
       case 'table':
         return <Table block={block} tableData={tableData} />;
+      case 'column_list':
+        return (
+          <div className="w-full flex justify-around">
+            {columnListData.map((cd, index) => (
+              <img
+                key={index}
+                src={cd.image.external.url}
+                alt={cd.image.type}
+                className="my-3"
+              />
+            ))}
+          </div>
+        );
       default:
         console.log(`unknoen block type: ${block.type}`);
         return null;

@@ -24,6 +24,7 @@ export type ArticleProps = {
   page: PageType;
   blocks: BlockType[];
   tableData: TableType[];
+  columnListData: ColumnListType[];
 };
 
 export type ArticleMetaProps = CardProps;
@@ -39,6 +40,7 @@ export type TagProps = IndexProps & {
 export type BlockProps = {
   blocks: BlockType[];
   tableData: TableType[];
+  columnListData: ColumnListType[];
 };
 
 export type Params = ParsedUrlQuery & {
@@ -161,4 +163,62 @@ export type TableType = {
   archived: boolean;
   type: string;
   table_row: { cells: [] };
+};
+
+export type ColumnListType = {
+  object: string;
+  id: string;
+  parent: {
+    type: string;
+    block_id: string;
+  };
+  created_time: string;
+  last_edited_time: string;
+  created_by: {
+    object: string;
+    id: string;
+  };
+  last_edited_by: {
+    object: string;
+    id: string;
+  };
+  has_children: boolean;
+  archived: boolean;
+  type: string;
+  image: {
+    caption: any[];
+    type: string;
+    external: {
+      url: string;
+    };
+  };
+};
+
+export type ColumnType = {
+  object: string;
+  id: string;
+  parent: {
+    type: string;
+    block_id: string;
+  };
+  created_time: string;
+  last_edited_time: string;
+  created_by: {
+    object: string;
+    id: string;
+  };
+  last_edited_by: {
+    object: string;
+    id: string;
+  };
+  has_children: false;
+  archived: false;
+  type: string;
+  image: {
+    caption: any[];
+    type: string;
+    external: {
+      url: string;
+    };
+  };
 };

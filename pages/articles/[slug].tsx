@@ -12,7 +12,8 @@ import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
 import {
   fetchBlocksByPageId,
   fetchPages,
-  getChildrenAllInBlockByBlocks,
+  getColumnListChildrenAllInBlockByBlocks,
+  getTableChildrenAllInBlockByBlocks,
 } from '../../utils/notion';
 import { getText } from '../../utils/property';
 
@@ -54,17 +55,24 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const page = results[0];
   const pageId = page.id;
   const { results: blocks } = await fetchBlocksByPageId(pageId);
-  const tableData = await getChildrenAllInBlockByBlocks(blocks);
+  const tableData = await getTableChildrenAllInBlockByBlocks(blocks);
+  const columnListData = await getColumnListChildrenAllInBlockByBlocks(blocks);
   return {
     props: {
       page: page,
       blocks: blocks,
       tableData: tableData,
+      columnListData: columnListData,
     },
   };
 };
 
-const Article: NextPage<ArticleProps> = ({ page, blocks, tableData }) => {
+const Article: NextPage<ArticleProps> = ({
+  page,
+  blocks,
+  tableData,
+  columnListData,
+}) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const isLogin = useLoginCheck();
@@ -109,7 +117,11 @@ const Article: NextPage<ArticleProps> = ({ page, blocks, tableData }) => {
         </div>
         {/* article */}
         <div className="my-12 animate-slide-in-bck-center flex justify-center">
-          <Block blocks={blocks} tableData={tableData} />
+          <Block
+            blocks={blocks}
+            tableData={tableData}
+            columnListData={columnListData}
+          />
         </div>
         {/* お問合せボタン */}
         <div className="w-full flex justify-center items-center">

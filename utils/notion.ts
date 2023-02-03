@@ -350,30 +350,46 @@ export const getChildrenAllInBlock = async (block_id: string) => {
   return blocks.flat();
 };
 
-export const getChildrenAllInBlockByBlocks = (blocks: any[]) => {
-  let checkCount = 0;
-  blocks.forEach(async (block: any) => {
-    if (block.type === 'table') {
-      checkCount++;
-    }
-  });
-  if (checkCount !== 0) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let tableData: any[] = [];
-        blocks.forEach(async (block: any) => {
-          if (block.type === 'table') {
-            tableData = await getChildrenAllInBlock(block.id);
-            resolve(tableData);
-          }
-        });
-      } catch (error) {
-        reject(error);
+/**
+ * テーブルのデータをreturnする
+ * @param blocks
+ * @returns table children
+ */
+export const getTableChildrenAllInBlockByBlocks = async (blocks: any[]) => {
+  const tableBlocks = blocks.filter((block) => block.type === 'table');
+  if (!tableBlocks.length) return [];
+
+  const [firstTableBlock] = tableBlocks;
+  const tableData = await getChildrenAllInBlock(firstTableBlock.id);
+
+  return tableData;
+};
+
+/**
+ * * column_listのデータをreturnする
+ * @param columnData
+ * @returns column_list_children
+ */
+export const getColumnListChildrenAllInBlockByBlocks = async (
+  blocks: any[]
+) => {
+  const columnListBlocks = blocks.filter(
+    (block) => block.type === 'column_list'
+  );
+  if (!columnListBlocks.length) return [];
+
+  let columnData: any[] = [];
+  for (const block of columnListBlocks) {
+    const columnListData: any[] = await getChildrenAllInBlock(block.id);
+    for (const clData of columnListData) {
+      if (clData.has_children) {
+        const res = await getChildrenAllInBlock(clData.id);
+        columnData.push(...res);
       }
-    });
-  } else {
-    return [];
+    }
   }
+
+  return columnData;
 };
 
 /**
@@ -381,23 +397,17 @@ export const getChildrenAllInBlockByBlocks = (blocks: any[]) => {
  */
 export const updateNumberOfViews = async (s_obj: any) => {
   const { pageId, numberOfView } = s_obj.view_count;
-  let viewCount = 0;
-  if (numberOfView.number !== null) {
-    viewCount = numberOfView.number + 1;
-  } else {
-    viewCount = 1;
-  }
+  const viewCount = (numberOfView.number || 0) + 1;
+
   try {
     await notion.pages.update({
       page_id: pageId,
       properties: {
-        numberOfView: {
-          number: viewCount,
-        },
+        numberOfView: { number: viewCount },
       },
     });
   } catch (error: any) {
-    console.log(
+    console.error(
       '🚀 ~ file: notion.ts:396 ~ updateNumberOfViews ~ error',
       error.message
     );
