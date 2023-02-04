@@ -84,10 +84,17 @@ const Card: FC<CardProps> = ({ page, isUser }) => {
                 : 0}
             </p>
           </div>
-          <h2 className="text-base font-medium mb-3">
-            {getText(page.properties.name.title)}
-          </h2>
-          <pre className="text-gray-700 whitespace-pre-wrap text-xs">
+          <div className="mb-2">
+            <h2 className="text-base font-medium mb-0">
+              {getText(page.properties.name.title)}
+            </h2>
+            {page.properties.type.multi_select[0].name === '成形設備' ? (
+              <pre className="text-gray-700 whitespace-pre-wrap text-sm">
+                {getOverview(page.properties.enterprise)}
+              </pre>
+            ) : null}
+          </div>
+          <pre className="text-gray-700 whitespace-pre-wrap text-sm">
             {getOverview(page.properties.overview)}
           </pre>
         </div>

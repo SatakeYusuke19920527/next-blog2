@@ -1,6 +1,6 @@
 export const siteConfig = {
   title: '成形ポータル',
-  company: '株式会社ピボーテ',
+  company: '成形ポータル',
   twitterUrl: 'https://twitter.com/seikei_poratl',
   instagramUrl: 'https://www.instagram.com/seikei_portal/',
   githubUrl: 'https://github.com/SatakeYusuke19920527',

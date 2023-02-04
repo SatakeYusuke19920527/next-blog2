@@ -2,6 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { Timeline } from 'react-twitter-widgets';
 import Card from '../components/Card';
+import CommonMeta from '../components/CommonMeta';
 import InnerNavbar from '../components/InnerNavbar';
 import Layout from '../components/Layout';
 import Loader from '../components/Loader';
@@ -61,6 +62,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
 
   return (
     <Layout>
+      <CommonMeta />
       <div className="w-full">
         <div className="pt-8 grid lg:grid-cols-10 md:grid-cols-1 items-start container-fluid gap-6">
           <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
