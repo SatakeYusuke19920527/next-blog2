@@ -196,7 +196,7 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
                 key={index}
                 src={cd.image.external.url}
                 alt={cd.image.type}
-                className="my-3"
+                className="w-2/5 my-3"
               />
             ))}
           </div>
