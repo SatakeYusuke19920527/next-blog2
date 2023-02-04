@@ -1,19 +1,19 @@
-import Link from "next/link";
-import { selectUser } from "../features/userSlice";
-import { useLoginCheck } from "../hooks/useLoginCheck";
-import { useAppSelector } from "../hooks/useRTK";
-import { logout } from "../models/user/userApplicationService";
+import Link from 'next/link';
+import { selectUser } from '../features/userSlice';
+import { useLoginCheck } from '../hooks/useLoginCheck';
+import { useAppSelector } from '../hooks/useRTK';
+import { logout } from '../models/user/userApplicationService';
 
 const Navbar = () => {
-  const isLogin = useLoginCheck()
-  const user = useAppSelector(selectUser)
+  const isLogin = useLoginCheck();
+  const user = useAppSelector(selectUser);
   const handleLogout = async () => {
-    const result = window.confirm("ログアウトしますか？")
+    const result = window.confirm('ログアウトしますか？');
     if (result) await logout();
-  }
+  };
   return (
     <nav className="relative w-full flex flex-wrap items-center justify-between text-gray-900 hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg bg-white">
-      <div className="grid md:grid-cols-10 grid-cols-4 container-fluid w-full px-6">
+      <div className="grid md:grid-cols-10 grid-cols-4 container-fluid w-full md:px-6 px-2">
         <div
           className="flex bg-grey-light rounded-md w-full md:col-span-9 col-span-3 p-2"
           aria-label="breadcrumb1"
@@ -70,6 +70,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
