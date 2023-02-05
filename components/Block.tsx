@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Youtube from 'react-youtube';
-import { BlockProps } from '../types/types';
+import { BlockProps, ColumnType } from '../types/types';
 import { getBackgroundColor, getText } from '../utils/property';
 import Table from './notion/Table';
 
@@ -189,16 +189,43 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
       case 'table':
         return <Table block={block} tableData={tableData} />;
       case 'column_list':
+        const renderColumnList = () => {
+          const displayColumnList: ColumnType[] = [];
+          const parentIds = columnListData.column_list_data.map((clData) => {
+            if (block.id === clData.parent.block_id) {
+              return clData.id;
+            }
+          });
+          parentIds.forEach((pid) => {
+            columnListData.column_data.forEach((cdata) => {
+              if (pid === cdata.parent.block_id) {
+                displayColumnList.push(cdata);
+              }
+            });
+          });
+          return displayColumnList.map((dclist, index) => {
+            return (
+              <div key={index} className="w-1/2 px-1 my-3">
+                {dclist.image && dclist.image.external ? (
+                  <img
+                    key={index}
+                    src={dclist.image.external.url}
+                    alt={dclist.image.type}
+                    className="w-full"
+                  />
+                ) : null}
+                {dclist.image && dclist.image.caption.length !== 0 ? (
+                  <pre className="whitespace-pre-wrap mt-1 mb-0 text-gray-500 text-sm">
+                    {dclist.image.caption[0].plain_text}
+                  </pre>
+                ) : null}
+              </div>
+            );
+          });
+        };
         return (
-          <div className="w-full flex justify-around">
-            {columnListData.map((cd, index) => (
-              <img
-                key={index}
-                src={cd.image.external.url}
-                alt={cd.image.type}
-                className="w-2/5 my-3"
-              />
-            ))}
+          <div className="w-full flex justify-between flex-wrap">
+            {renderColumnList()}
           </div>
         );
       default:

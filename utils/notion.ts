@@ -376,11 +376,14 @@ export const getColumnListChildrenAllInBlockByBlocks = async (
   const columnListBlocks = blocks.filter(
     (block) => block.type === 'column_list'
   );
+
   if (!columnListBlocks.length) return [];
 
+  let columnListData: any[] = [];
   let columnData: any[] = [];
   for (const block of columnListBlocks) {
-    const columnListData: any[] = await getChildrenAllInBlock(block.id);
+    const list = await getChildrenAllInBlock(block.id);
+    columnListData.push(...list);
     for (const clData of columnListData) {
       if (clData.has_children) {
         const res = await getChildrenAllInBlock(clData.id);
@@ -388,8 +391,10 @@ export const getColumnListChildrenAllInBlockByBlocks = async (
       }
     }
   }
-
-  return columnData;
+  // 重複削除
+  const column_list_data = removeDuplicates(columnListData);
+  const column_data = removeDuplicates(columnData);
+  return { column_list_data, column_data };
 };
 
 /**
@@ -412,4 +417,17 @@ export const updateNumberOfViews = async (s_obj: any) => {
       error.message
     );
   }
+};
+
+/**
+ * 配列の重複を削除
+ * @param array
+ * @returns array
+ */
+const removeDuplicates = (array: any[]) => {
+  let seen = new Map();
+  return array.filter(function (item) {
+    let itemKey = JSON.stringify(item);
+    return seen.has(itemKey) ? false : seen.set(itemKey, true);
+  });
 };
