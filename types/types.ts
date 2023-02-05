@@ -18,7 +18,6 @@ export type PageProps = {
 
 export type CardProps = {
   page: PageType;
-  isUser?: boolean;
 };
 export type ArticleProps = {
   page: PageType;

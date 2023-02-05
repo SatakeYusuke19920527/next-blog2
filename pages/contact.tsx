@@ -1,7 +1,9 @@
+import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import { error, no_error, selectError } from '../features/errorSlice';
 import { selectedPage } from '../features/selectedPageSlice';
+import { useLoginCheck } from '../hooks/useLoginCheck';
 import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
 import { getErrorText } from '../models/error/errorApplicationService';
 import { sendEmail } from '../models/mail/mailApplicationService';
@@ -12,7 +14,8 @@ const Contact = () => {
   const [uname, setUname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const isLogin = useLoginCheck();
   const dispatch = useAppDispatch();
   const page = useAppSelector(selectedPage);
   const err = useAppSelector(selectError);
@@ -30,8 +33,8 @@ const Contact = () => {
       uname,
       email,
       content,
-      project: page.title !== "" ? page.title : "",
-      url: page.url !== "" ? page.url : ""
+      project: page.title !== '' ? page.title : '',
+      url: page.url !== '' ? page.url : '',
     };
     const err = await sendEmail(mailObj);
     console.log('🚀 ~ file: contact.tsx:22 ~ sendEmail ~ err', err);
@@ -58,15 +61,19 @@ const Contact = () => {
     setIsLoading(false);
   };
 
-  const renderTitle = () => {
-    return page.title !== "" ? (
-      <h2 className="text-gray-600 text-lg text-left">
-        { page.title }のお問合せ
-      </h2>
-    ) : null
-  }
+  const moveToSignIn = () => {
+    router.push(`/signIn`);
+  };
 
-  return (
+  const renderTitle = () => {
+    return page.title !== '' ? (
+      <h2 className="text-gray-600 text-lg text-left">
+        {page.title}のお問合せ
+      </h2>
+    ) : null;
+  };
+
+  return isLogin ? (
     <Layout>
       <div className="w-full h-full pt-12 flex flex-col  justify-center items-center">
         <form className="w-full max-w-lg">
@@ -155,6 +162,21 @@ const Contact = () => {
           </div>
         </form>
       </div>
+    </Layout>
+  ) : (
+    <Layout>
+      <article className="items-center max-w-2xl w-full mx-auto">
+        <div className="w-full">
+          <h4 className="mt-10">詳細ページはログイン後閲覧可能となります。</h4>
+          <button
+            className="shadow mt-5 bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            type="button"
+            onClick={moveToSignIn}
+          >
+            ログインページへ移動
+          </button>
+        </div>
+      </article>
     </Layout>
   );
 };

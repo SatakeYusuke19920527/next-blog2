@@ -6,7 +6,6 @@ import Block from '../../components/Block';
 import Layout from '../../components/Layout';
 import { selectError } from '../../features/errorSlice';
 import { selectPageInfo } from '../../features/selectedPageSlice';
-import { useLoginCheck } from '../../hooks/useLoginCheck';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRTK';
 import { ArticleProps, Params, SelectPageInfoType } from '../../types/types';
 import {
@@ -43,7 +42,6 @@ const Article: NextPage<ArticleProps> = ({
 }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const isLogin = useLoginCheck();
   const err = useAppSelector(selectError);
 
   useEffect(() => {
@@ -62,11 +60,7 @@ const Article: NextPage<ArticleProps> = ({
     router.push(`/contact`);
   };
 
-  const moveToSignIn = () => {
-    router.push(`/signIn`);
-  };
-
-  return isLogin ? (
+  return (
     <Layout>
       <article className="items-center max-w-2xl w-full mx-auto bg-white m-5 md:p-10 p-3">
         {/* meta section */}
@@ -111,21 +105,6 @@ const Article: NextPage<ArticleProps> = ({
           ) : null}
         </div>
         <br />
-      </article>
-    </Layout>
-  ) : (
-    <Layout>
-      <article className="items-center max-w-2xl w-full mx-auto">
-        <div className="w-full">
-          <h4 className="mt-10">詳細ページはログイン後閲覧可能となります。</h4>
-          <button
-            className="shadow mt-5 bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="button"
-            onClick={moveToSignIn}
-          >
-            ログインページへ移動
-          </button>
-        </div>
       </article>
     </Layout>
   );
