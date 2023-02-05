@@ -1,6 +1,6 @@
-import { BlockType } from "notion-block-renderer";
-import { colorConfig } from "../site.config";
-import { PageType, RichTextType } from "../types/types";
+import { BlockType } from 'notion-block-renderer';
+import { colorConfig } from '../site.config';
+import { PageType, RichTextType } from '../types/types';
 
 export const getTitle = (type: string) => {
   try {
@@ -18,42 +18,42 @@ export const getTitle = (type: string) => {
       case colorConfig.subsidy.name:
         return colorConfig.subsidy.name;
       default:
-        return "その他"
+        return 'その他';
     }
   } catch (error) {
-    console.log("🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error", error)
+    console.log('🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error', error);
   }
-}
+};
 
 export const getText = (richTextArr: RichTextType[]) => {
   try {
-    const textArr = richTextArr.map(richText => richText.plain_text)
-    return textArr.join("")
+    const textArr = richTextArr.map((richText) => richText.plain_text);
+    return textArr.join('');
   } catch (err) {
-    console.log("🚀 ~ file: property.ts ~ line 8 ~ getText ~ err", err)
+    console.log('🚀 ~ file: property.ts ~ line 8 ~ getText ~ err', err);
   }
-}
+};
 
-export const getCover = (cover: PageType["cover"]) => {
+export const getCover = (cover: PageType['cover']) => {
   if (cover && cover.file) return cover.file.url;
   if (cover && cover.external) return cover.external.url;
-  return "/noimage.png"
-}
+  return '/noimage.png';
+};
 
-export const getDate = (date: string ) => {
+export const getDate = (date: string) => {
   try {
     return date;
   } catch (err) {
-    console.log("🚀 ~ file: property.ts ~ line 22 ~ getDate ~ err", err)
+    console.log('🚀 ~ file: property.ts ~ line 22 ~ getDate ~ err', err);
   }
-  return "-";
+  return '-';
 };
- 
+
 export const getMultiSelect = (multiSelect: [{ name: string }]) => {
   try {
     return multiSelect.map((tag) => tag.name);
   } catch (err) {
-    console.log("🚀 ~ file: property.ts ~ line 31 ~ getMultiSelect ~ err", err)
+    console.log('🚀 ~ file: property.ts ~ line 31 ~ getMultiSelect ~ err', err);
   }
   return [];
 };
@@ -61,14 +61,17 @@ export const getMultiSelect = (multiSelect: [{ name: string }]) => {
 export const getOverview = (overview: { rich_text: RichTextType[] }) => {
   try {
     if (overview !== undefined && overview.rich_text[0] !== undefined) {
-     return overview.rich_text[0].plain_text 
+      return overview.rich_text[0].plain_text;
     } else {
-     return "" 
+      return '';
     }
   } catch (error) {
-    console.log("🚀 ~ file: property.ts ~ line 40 ~ getOverview ~ error", error)
+    console.log(
+      '🚀 ~ file: property.ts ~ line 40 ~ getOverview ~ error',
+      error
+    );
   }
-}
+};
 
 export const getColor = (type: string) => {
   try {
@@ -86,39 +89,53 @@ export const getColor = (type: string) => {
       case colorConfig.subsidy.name:
         return colorConfig.subsidy.color;
       default:
-        return "white"
+        return 'white';
     }
   } catch (error) {
-    console.log("🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error", error)
+    console.log('🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error', error);
   }
-}
+};
 
 export const getVideoId = (blocks: BlockType[]) => {
-  let videoUrl = ""
+  let videoUrl = '';
   try {
-    blocks.forEach(block => {
-      if (block.type === "video") {
-        const videoFullUrl = block.video.external.url
-        videoUrl = videoFullUrl.substring(videoFullUrl.indexOf('v=') + 2)
+    blocks.forEach((block) => {
+      if (block.type === 'video') {
+        const videoFullUrl = block.video.external.url;
+        videoUrl = videoFullUrl.substring(videoFullUrl.indexOf('v=') + 2);
       }
     });
-    return videoUrl
+    return videoUrl;
   } catch (error) {
-    console.log("🚀 ~ file: property.ts:96 ~ getVideoId ~ error", error)
+    console.log('🚀 ~ file: property.ts:96 ~ getVideoId ~ error', error);
   }
-}
+};
 
 export const getBackgroundColor = (color: string) => {
   try {
     switch (color) {
-      case "blue_background":
-        return "#E7F3F8";
-      case "blue":
-        return "#337EA9"
+      case 'blue_background':
+        return '#E7F3F8';
+      case 'blue':
+        return '#337EA9';
       default:
-        return "#37362F"
+        return '#37362F';
     }
   } catch (error) {
-    console.log("🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error", error)
+    console.log('🚀 ~ file: property.ts ~ line 48 ~ getColor ~ error', error);
   }
-}
+};
+
+export const getShowCards = (
+  displayPages: PageType[],
+  pageNo: number
+): PageType[] => {
+  const returnArr: PageType[] = [];
+  if (displayPages.length <= 16) return displayPages;
+  const startPageNo = pageNo === 1 ? 0 : (pageNo - 1) * 15;
+  const finPageNo = Math.min(pageNo * 15, displayPages.length);
+  for (let i = startPageNo; i < finPageNo; i++) {
+    returnArr.push(displayPages[i]);
+  }
+  return returnArr;
+};

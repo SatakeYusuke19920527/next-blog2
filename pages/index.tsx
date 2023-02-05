@@ -6,6 +6,7 @@ import CommonMeta from '../components/CommonMeta';
 import InnerNavbar from '../components/InnerNavbar';
 import Layout from '../components/Layout';
 import Loader from '../components/Loader';
+import PageNation from '../components/PageNation';
 import Search from '../components/Search';
 import { get_pages, selectPage } from '../features/pageSlice';
 import { useLoginCheck } from '../hooks/useLoginCheck';
@@ -13,16 +14,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useRTK';
 import useWindowSize from '../hooks/useWindowSize';
 import { IndexProps } from '../types/types';
 import { fetchPages } from '../utils/notion';
-
-// export const getStaticProps: GetStaticProps = async () => {
-//   const {results} = await fetchPages({});
-//   return {
-//     props: {
-//       pages: results ? results : []
-//     },
-//     revalidate: 10
-//   }
-// }
+import { getShowCards } from '../utils/property';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { results } = await fetchPages({});
@@ -38,6 +30,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   const dispatch = useAppDispatch();
   const displayPages = useAppSelector(selectPage);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [pageNo, setPageNo] = useState<number>(1);
   const [width] = useWindowSize();
 
   useEffect(() => {
@@ -89,12 +82,17 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
               renderLoading()
             ) : (
               <div className="grid lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
-                {displayPages &&
-                  displayPages.map((page, index) => (
+                {getShowCards(displayPages, pageNo) &&
+                  getShowCards(displayPages, pageNo).map((page, index) => (
                     <Card key={index} page={page} />
                   ))}
               </div>
             )}
+            <PageNation
+              pageNo={pageNo}
+              setPageNo={setPageNo}
+              totalPageAmount={Math.floor(displayPages.length / 15) + 1}
+            />
           </div>
         </div>
       </div>
