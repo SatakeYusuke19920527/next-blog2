@@ -167,7 +167,7 @@ const Contact = () => {
     <Layout>
       <article className="items-center max-w-2xl w-full mx-auto">
         <div className="w-full">
-          <h4 className="mt-10">詳細ページはログイン後閲覧可能となります。</h4>
+          <h4 className="mt-10">ログイン後、お問い合わせ可能になります。</h4>
           <button
             className="shadow mt-5 bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
             type="button"

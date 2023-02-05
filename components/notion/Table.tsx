@@ -3,8 +3,8 @@ const Table: FC<any> = ({ tableData }) => {
   return tableData ? (
     <div className="w-full mt-3 mb-5">
       <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 ">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+        <table className="w-full text-left text-base text-gray-500 ">
+          <thead className=" text-gray-700 uppercase bg-gray-50 ">
             <tr>
               {tableData.length > 0 &&
                 tableData[0].table_row.cells.map((cell: any, index: number) => {

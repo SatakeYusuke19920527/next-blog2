@@ -83,7 +83,7 @@ const Card: FC<CardProps> = ({ page }) => {
             </p>
           </div>
           <div className="mb-2">
-            <h2 className="text-base font-medium mb-0">
+            <h2 className="text-xl font-medium mb-0">
               {getText(page.properties.name.title)}
             </h2>
             {page.properties.type.multi_select[0].name === '成形設備' ? (

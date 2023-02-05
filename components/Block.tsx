@@ -73,8 +73,8 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
             }}
             className="flex justify-start items-start"
           >
-            <p className="mb-0 p-3 text-lg">{block.callout.icon.emoji}</p>
-            <p className="mb-0 p-3 text-lg">
+            <p className="mb-0 p-3 text-xl">{block.callout.icon.emoji}</p>
+            <p className="mb-0 p-3 text-xl">
               {getText(block.callout.rich_text)}
             </p>
           </div>
@@ -177,7 +177,7 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
             }}
           >
             <pre
-              className="my-3 text-lg pl-3 whitespace-pre-wrap"
+              className="my-3 text-xl pl-3 whitespace-pre-wrap"
               style={{
                 color: getBackgroundColor(block.quote.color),
               }}
