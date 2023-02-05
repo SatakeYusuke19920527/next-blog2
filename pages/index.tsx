@@ -91,7 +91,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
               <div className="grid lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
                 {displayPages &&
                   displayPages.map((page, index) => (
-                    <Card key={index} page={page} isUser={isUser} />
+                    <Card key={index} page={page} />
                   ))}
               </div>
             )}
