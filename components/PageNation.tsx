@@ -14,12 +14,10 @@ const PageNation = ({
     (_, i) => i + 1
   );
   const pageNoDecrement = () => {
-    pageNo !== 1 ? setPageNo((prev) => prev - 1) : setPageNo(1);
+    setPageNo(1);
   };
   const pageNoIncrement = () => {
-    pageNo !== totalPageAmount
-      ? setPageNo((prev) => prev + 1)
-      : setPageNo(totalPageAmount);
+    setPageNo(totalPageAmount);
   };
   const renderPageNationElement = () =>
     pageNoElementAmount.map((pnea, index) => {

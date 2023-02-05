@@ -81,18 +81,22 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
             {isLoading ? (
               renderLoading()
             ) : (
-              <div className="grid lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
-                {getShowCards(displayPages, pageNo) &&
-                  getShowCards(displayPages, pageNo).map((page, index) => (
-                    <Card key={index} page={page} />
-                  ))}
+              <div>
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 w-full gap-6">
+                  {getShowCards(displayPages, pageNo) &&
+                    getShowCards(displayPages, pageNo).map((page, index) => (
+                      <Card key={index} page={page} />
+                    ))}
+                </div>
+                {displayPages ? (
+                  <PageNation
+                    pageNo={pageNo}
+                    setPageNo={setPageNo}
+                    totalPageAmount={Math.floor(displayPages.length / 15) + 1}
+                  />
+                ) : null}
               </div>
             )}
-            <PageNation
-              pageNo={pageNo}
-              setPageNo={setPageNo}
-              totalPageAmount={Math.floor(displayPages.length / 15) + 1}
-            />
           </div>
         </div>
       </div>

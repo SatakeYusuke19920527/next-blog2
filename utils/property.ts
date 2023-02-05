@@ -131,6 +131,7 @@ export const getShowCards = (
   pageNo: number
 ): PageType[] => {
   const returnArr: PageType[] = [];
+  if (!displayPages) return [];
   if (displayPages.length <= 16) return displayPages;
   const startPageNo = pageNo === 1 ? 0 : (pageNo - 1) * 15;
   const finPageNo = Math.min(pageNo * 15, displayPages.length);
