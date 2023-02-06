@@ -298,7 +298,9 @@ export const searchPages = async (s_obj: any) => {
       });
     }
 
-    and.push({ or: or });
+    // 検索方法を全てand検索へ変更
+    // and.push({ or: or });
+    and.push(...or);
 
     return await notion.databases.query({
       database_id: DATABASE_ID,
