@@ -14,8 +14,8 @@ const signIn = () => {
   const dispatch = useAppDispatch();
   const isLogin = useLoginCheck();
   const err = useAppSelector(selectError);
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   useEffect(() => {
     if (isLogin) {
       console.log('🚀 ~ file: signIn.tsx:16 ~ signIn ~ isLogin', isLogin);
@@ -24,9 +24,9 @@ const signIn = () => {
       console.log('🚀 ~ file: signIn.tsx:16 ~ signIn ~ isLogin', isLogin);
     }
   }, [isLogin]);
-  
+
   const loginByFirebaseAuth = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const err = await login(email, password);
     if (err !== undefined) {
       const errMessage = getErrorText(err as string);
@@ -127,6 +127,6 @@ const signIn = () => {
       </section>
     </Layout>
   );
-}
+};
 
-export default signIn
+export default signIn;

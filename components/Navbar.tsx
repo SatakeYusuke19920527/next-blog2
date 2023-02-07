@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { selectUser } from '../features/userSlice';
 import { useLoginCheck } from '../hooks/useLoginCheck';
@@ -19,10 +20,13 @@ const Navbar = () => {
           aria-label="breadcrumb1"
         >
           <Link href={`/`} className="hover:text-gray-600">
-            <img
+            <Image
               className="w-full h-16"
-              src="../static/seikei-portal-icon.png"
+              width={500}
+              height={500}
+              src="/static/seikei-portal-icon.png"
               alt="icon"
+              unoptimized
             />
           </Link>
           {/* <div className="pl-4">

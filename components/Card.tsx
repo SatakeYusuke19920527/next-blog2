@@ -59,7 +59,7 @@ const Card: FC<CardProps> = ({ page }) => {
           <Image
             className="w-full static h-auto"
             src={getCover(page.cover)}
-            alt=""
+            alt="card"
             objectFit="cover"
             width={400}
             height={225}

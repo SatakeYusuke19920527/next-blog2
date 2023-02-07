@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps, ColumnType } from '../types/types';
@@ -117,14 +118,26 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
         if (block.image.file) {
           return (
             <div className="w-full my-3">
-              <img src={block.image.file.url} alt={block.image.type} />
+              <Image
+                width={500}
+                height={500}
+                src={block.image.file.url}
+                alt={block.image.type}
+                unoptimized
+              />
               {renderCaption()}
             </div>
           );
         } else if (block.image.external) {
           return (
             <div className="w-full my-3">
-              <img src={block.image.external.url} alt={block.image.type} />
+              <Image
+                width={500}
+                height={500}
+                src={block.image.external.url}
+                alt={block.image.type}
+                unoptimized
+              />
               {renderCaption()}
             </div>
           );
@@ -157,9 +170,12 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
               className="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100"
             >
               <div className="flex-grow-0 mr-2">
-                <img
+                <Image
+                  width={500}
+                  height={500}
                   src={`http://www.google.com/s2/favicons?domain=${block.bookmark.url}`}
                   alt="block.bookmark.url"
+                  unoptimized
                 />
               </div>
               <p className="flex-grow-1 font-normal mb-0 text-blue-700 truncate whitespace-nowrap">
@@ -207,11 +223,14 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
             return (
               <div key={index} className="w-1/2 px-1 my-3">
                 {dclist.image && dclist.image.external ? (
-                  <img
+                  <Image
+                    width={500}
+                    height={500}
                     key={index}
                     src={dclist.image.external.url}
                     alt={dclist.image.type}
                     className="w-full"
+                    unoptimized
                   />
                 ) : null}
                 {dclist.image && dclist.image.caption.length !== 0 ? (

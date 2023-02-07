@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Layout from '../components/Layout';
 
 const AboutUs = () => {
@@ -8,7 +9,13 @@ const AboutUs = () => {
           射出成形業界のポータルサイト
         </h2>
         <div className="flex w-full justify-center items-center mb-5">
-          <img src="/static/aboutus_1.JPG" alt="aboutus_1" />
+          <Image
+            src="/static/aboutus_1.JPG"
+            alt="aboutus_1"
+            width={500}
+            height={500}
+            unoptimized
+          />
         </div>
         <h3 className="w-full p-3 mb-5" style={{ backgroundColor: '#E7F3F8' }}>
           成形ポータルとは
@@ -22,7 +29,13 @@ const AboutUs = () => {
           気になる企業・製品・サービスがあれば、成形ポータルを通じてコンタクト可能です。
         </p>
         <div className="flex w-full justify-center items-center mb-5">
-          <img src="/static/aboutus_2.JPG" alt="aboutus_2" />
+          <Image
+            src="/static/aboutus_2.JPG"
+            alt="aboutus_2"
+            width={500}
+            height={500}
+            unoptimized
+          />
         </div>
         <h3 className="w-full p-3 mb-5" style={{ backgroundColor: '#E7F3F8' }}>
           成形ポータルに登録すると
