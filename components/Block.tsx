@@ -171,8 +171,8 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
             >
               <div className="flex-grow-0 mr-2">
                 <Image
-                  width={500}
-                  height={500}
+                  width={20}
+                  height={20}
                   src={`http://www.google.com/s2/favicons?domain=${block.bookmark.url}`}
                   alt="block.bookmark.url"
                   unoptimized

@@ -121,6 +121,7 @@ export const troublesConfig = [
   '寸法精度の向上',
   '成形品の軽量化',
   '表面品質の向上',
+  '省人化を図る',
 ];
 
 export const colorConfig = {
