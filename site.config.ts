@@ -150,3 +150,5 @@ export const colorConfig = {
     color: '#ccc',
   },
 };
+
+export const searchTypeConfig = ['ピンポイント検索', '複数候補検索'];
