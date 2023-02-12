@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps, ColumnType } from '../types/types';
+import { removeDuplicates } from '../utils/notion';
 import { getBackgroundColor, getText } from '../utils/property';
 import Table from './notion/Table';
 
@@ -206,10 +207,11 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
         return <Table block={block} tableData={tableData} />;
       case 'column_list':
         const renderColumnList = () => {
+          const parentIds: string[] = [];
           const displayColumnList: ColumnType[] = [];
-          const parentIds = columnListData.column_list_data.map((clData) => {
+          columnListData.column_list_data.map((clData) => {
             if (block.id === clData.parent.block_id) {
-              return clData.id;
+              parentIds.push(clData.id);
             }
           });
           parentIds.forEach((pid) => {
@@ -219,21 +221,27 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
               }
             });
           });
-          return displayColumnList.map((dclist, index) => {
+          const NoDupDisplayColumnList = removeDuplicates(
+            displayColumnList,
+            'id'
+          );
+
+          return NoDupDisplayColumnList.map((dclist, index) => {
+            const imageUrl = dclist.image.file
+              ? dclist.image.file.url
+              : dclist.image.external.url;
             return (
               <div key={index} className="w-1/2 px-1 my-3">
-                {dclist.image && dclist.image.external ? (
-                  <Image
-                    width={500}
-                    height={500}
-                    key={index}
-                    src={dclist.image.external.url}
-                    alt={dclist.image.type}
-                    className="w-full"
-                    unoptimized
-                  />
-                ) : null}
-                {dclist.image && dclist.image.caption.length !== 0 ? (
+                <Image
+                  width={500}
+                  height={500}
+                  key={index}
+                  src={imageUrl}
+                  alt={dclist.image.type}
+                  className="w-full"
+                  unoptimized
+                />
+                {dclist.image?.caption.length >= 0 ? (
                   <pre className="whitespace-pre-wrap mt-1 mb-0 text-gray-500 text-sm">
                     {dclist.image.caption[0].plain_text}
                   </pre>

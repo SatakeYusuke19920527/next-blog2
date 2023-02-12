@@ -224,5 +224,9 @@ export type ColumnType = {
     external: {
       url: string;
     };
+    file: {
+      expiry_time: string;
+      url: string;
+    };
   };
 };

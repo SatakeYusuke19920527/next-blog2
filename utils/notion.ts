@@ -394,8 +394,8 @@ export const getColumnListChildrenAllInBlockByBlocks = async (
     }
   }
   // 重複削除
-  const column_list_data = removeDuplicates(columnListData);
-  const column_data = removeDuplicates(columnData);
+  const column_list_data = removeDuplicates(columnListData, 'id');
+  const column_data = removeDuplicates(columnData, 'id');
   return { column_list_data, column_data };
 };
 
@@ -426,10 +426,8 @@ export const updateNumberOfViews = async (s_obj: any) => {
  * @param array
  * @returns array
  */
-const removeDuplicates = (array: any[]) => {
-  let seen = new Map();
-  return array.filter(function (item) {
-    let itemKey = JSON.stringify(item);
-    return seen.has(itemKey) ? false : seen.set(itemKey, true);
-  });
-};
+export function removeDuplicates(array: any[], key: string) {
+  return array.filter(
+    (obj, index, self) => index === self.findIndex((t) => t[key] === obj[key])
+  );
+}
