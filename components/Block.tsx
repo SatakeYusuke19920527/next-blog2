@@ -47,7 +47,7 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
         if (block.paragraph.rich_text.length !== 0) {
           return (
             <pre
-              className="text-lg"
+              className="text-lg whitespace-pre-wrap mb-0"
               style={{
                 color: getBackgroundColor(
                   block.paragraph.rich_text[0].annotations.color
