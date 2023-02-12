@@ -62,7 +62,7 @@ const Article: NextPage<ArticleProps> = ({
 
   return (
     <Layout>
-      <article className="items-center max-w-2xl w-full mx-auto bg-white m-5 md:p-10 p-3">
+      <article className="items-center max-w-4xl w-full mx-auto bg-white m-5 md:p-10 p-3">
         {/* meta section */}
         <div className="my-12">
           <ArticleMeta page={page} />
@@ -78,7 +78,7 @@ const Article: NextPage<ArticleProps> = ({
           </button>
         </div>
         {/* article */}
-        <div className="my-12 animate-slide-in-bck-center flex justify-center">
+        <div className="my-12">
           <Block
             blocks={blocks}
             tableData={tableData}

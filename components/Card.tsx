@@ -38,7 +38,7 @@ const Card: FC<CardProps> = ({ page }) => {
       className="animate-slide-in-bck-center flex justify-center"
     >
       <div
-        style={{ maxHeight: `30rem` }}
+        style={{ maxHeight: `40rem` }}
         className="bg-white max-w-sm rounded-2xl overflow-hidden shadow-lg w-full my-4 md:my-0 content-between grid"
       >
         <div className="w-full text-gray-700 font-normal text-lg">
