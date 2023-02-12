@@ -289,6 +289,7 @@ export const searchPages = async (s_obj: any) => {
       }
     }
 
+    // Locationが記載されていれば設定
     if ('location' in search_context) {
       and.push({
         property: 'prefecture',
@@ -298,9 +299,12 @@ export const searchPages = async (s_obj: any) => {
       });
     }
 
-    // 検索方法を全てand検索へ変更
-    // and.push({ or: or });
-    and.push(...or);
+    // 検索方法をand || orどちらかに設定 ***
+    if (search_context.searchType === 'ピンポイント検索') {
+      and.push(...or);
+    } else {
+      and.push({ or: or });
+    }
 
     return await notion.databases.query({
       database_id: DATABASE_ID,
