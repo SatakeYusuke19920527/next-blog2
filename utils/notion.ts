@@ -72,6 +72,7 @@ export const searchPages = async (s_obj: any) => {
   try {
     const search_context = s_obj.search;
     const or: any = [];
+    const keywordArr: any = [];
     const and: any = [
       {
         property: 'isPublished',
@@ -87,9 +88,21 @@ export const searchPages = async (s_obj: any) => {
       },
     ];
     if ('keyword' in search_context) {
-      and.push({
+      keywordArr.push({
         property: 'name',
         title: {
+          contains: search_context.keyword,
+        },
+      });
+      keywordArr.push({
+        property: 'tags',
+        multi_select: {
+          contains: search_context.keyword,
+        },
+      });
+      keywordArr.push({
+        property: 'enterprise',
+        rich_text: {
           contains: search_context.keyword,
         },
       });
@@ -302,7 +315,9 @@ export const searchPages = async (s_obj: any) => {
     // 検索方法をand || orどちらかに設定 ***
     if (search_context.searchType === 'ピンポイント検索') {
       and.push(...or);
+      and.push({ or: keywordArr });
     } else {
+      or.push(...keywordArr);
       and.push({ or: or });
     }
 
