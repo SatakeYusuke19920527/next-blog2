@@ -46,7 +46,7 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
       case 'paragraph':
         if (block.paragraph.rich_text.length !== 0) {
           return (
-            <p
+            <pre
               className="text-lg"
               style={{
                 color: getBackgroundColor(
@@ -55,7 +55,7 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
               }}
             >
               {getText(block.paragraph.rich_text)}
-            </p>
+            </pre>
           );
         } else {
           return (
@@ -120,8 +120,8 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
           return (
             <div className="w-full my-3">
               <Image
-                width={500}
-                height={500}
+                width={1000}
+                height={700}
                 src={block.image.file.url}
                 alt={block.image.type}
                 unoptimized
