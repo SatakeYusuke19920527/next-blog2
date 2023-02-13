@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { get_pages } from '../features/pageSlice';
 import { useAppDispatch } from '../hooks/useRTK';
+import useWindowSize from '../hooks/useWindowSize';
 import {
   categoryConfig,
   clampingForceConfig,
@@ -27,13 +28,16 @@ import {
 
 const Search = ({
   setIsLoading,
+  moveTopPage,
 }: {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  moveTopPage: any;
 }) => {
   const dispatch = useAppDispatch();
   const [keyword, setKeyword] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [location, setLocation] = useState<string>('');
+  const [width] = useWindowSize();
 
   // 検索方法 ~ and || or ~
   const [searchType, setSerachType] = useState<string>(searchTypeConfig[0]);
@@ -161,6 +165,11 @@ const Search = ({
       '🚀 ~ file: Search.tsx:38 ~ startSearch ~ searchObj',
       searchObj
     );
+
+    // pc画面上部までスクロール
+    if (width >= 1200) {
+      moveTopPage();
+    }
     const result: any = await searchPage(searchObj);
     dispatch(get_pages(result.data.results));
     setIsLoading(false);

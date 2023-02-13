@@ -1,5 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { createRef, useCallback, useEffect, useState } from 'react';
 import { Timeline } from 'react-twitter-widgets';
 import Card from '../components/Card';
 import CommonMeta from '../components/CommonMeta';
@@ -32,6 +32,7 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pageNo, setPageNo] = useState<number>(1);
   const [width] = useWindowSize();
+  const pageTopRef = createRef<HTMLDivElement>();
 
   useEffect(() => {
     dispatch(get_pages(pages));
@@ -53,13 +54,18 @@ const Home: NextPage<IndexProps> = ({ pages }) => {
     </div>
   );
 
+  const moveTopPage = useCallback(() => {
+    pageTopRef!.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [pageTopRef]);
+
   return (
     <Layout>
       <CommonMeta />
       <div className="w-full">
+        <div ref={pageTopRef} />
         <div className="pt-8 grid lg:grid-cols-10 md:grid-cols-1 items-start container-fluid gap-6">
           <div className="rounded-md lg:col-span-2 md:col-span-1 gap-6 h-full">
-            <Search setIsLoading={setIsLoading} />
+            <Search setIsLoading={setIsLoading} moveTopPage={moveTopPage} />
             <div
               className="w-full mt-5 border-gray-300  shadow-lg rounded-lg"
               style={{ display: width < 600 ? 'none' : 'block' }}
