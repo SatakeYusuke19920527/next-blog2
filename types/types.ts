@@ -75,7 +75,7 @@ export type SelectType = {
 
 export type PropertyType = {
   name: { title: RichTextType[] };
-  tags: { multi_select: [{ name: string }] };
+  tags: { multi_select: [{ name: string; id: string; color: string }] };
   slug: { rich_text: RichTextType[] };
   published: { rich_text: RichTextType[] };
   enterprise: { rich_text: RichTextType[] };
@@ -229,4 +229,10 @@ export type ColumnType = {
       url: string;
     };
   };
+};
+
+export type TagType = {
+  color: string;
+  id: string;
+  name: string;
 };

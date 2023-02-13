@@ -1,6 +1,6 @@
 import { BlockType } from 'notion-block-renderer';
 import { colorConfig } from '../site.config';
-import { PageType, RichTextType } from '../types/types';
+import { PageType, RichTextType, TagType } from '../types/types';
 
 export const getTitle = (type: string) => {
   try {
@@ -49,9 +49,9 @@ export const getDate = (date: string) => {
   return '-';
 };
 
-export const getMultiSelect = (multiSelect: [{ name: string }]) => {
+export const getMultiSelect = (multiSelect: TagType[]) => {
   try {
-    return multiSelect.map((tag) => tag.name);
+    return multiSelect.map((tag) => tag);
   } catch (err) {
     console.log('🚀 ~ file: property.ts ~ line 31 ~ getMultiSelect ~ err', err);
   }

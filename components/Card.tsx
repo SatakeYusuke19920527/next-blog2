@@ -104,8 +104,9 @@ const Card: FC<CardProps> = ({ page }) => {
               <span
                 key={index}
                 className="text-sm px-2 font-normal bg-gray-200 rounded-lg break-words mr-2 mb-2"
+                style={{ backgroundColor: `${tag.color}`, opacity: '0.8' }}
               >
-                {`#${tag}`}
+                {`#${tag.name}`}
               </span>
             )
           )}

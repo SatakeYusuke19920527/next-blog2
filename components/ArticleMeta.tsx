@@ -1,13 +1,13 @@
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { FC } from 'react';
-import { ArticleMetaProps } from '../types/types';
+import { ArticleMetaProps, TagType } from '../types/types';
 import { getCover, getDate, getMultiSelect, getText } from '../utils/property';
 
 const ArticleMeta: FC<ArticleMetaProps> = ({ page }) => {
   return (
     <>
-      <div className='w-full flex justify-center'>
+      <div className="w-full flex justify-center">
         {/* page cover */}
         <Image
           className="w-full max-w-screen-lg rounded-lg aspect-video my-4"
@@ -41,9 +41,9 @@ const ArticleMeta: FC<ArticleMetaProps> = ({ page }) => {
           <div className="col-span-2">
             {/* change later */}
             {getMultiSelect(page.properties.tags.multi_select).map(
-              (tag: string, index: number) => (
-                <Link key={index} href={`/tags/${tag}`}>
-                  <span>{`#${tag} `}</span>
+              (tag: TagType, index: number) => (
+                <Link key={index} href={`/tags/${tag.name}`}>
+                  <span>{`#${tag.name} `}</span>
                 </Link>
               )
             )}
