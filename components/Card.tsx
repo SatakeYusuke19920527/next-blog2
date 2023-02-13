@@ -11,6 +11,7 @@ import {
   getOverview,
   getText,
   getTitle,
+  nameToRgba,
 } from '../utils/property';
 
 const Card: FC<CardProps> = ({ page }) => {
@@ -104,7 +105,9 @@ const Card: FC<CardProps> = ({ page }) => {
               <span
                 key={index}
                 className="text-sm px-2 font-normal bg-gray-200 rounded-lg break-words mr-2 mb-2"
-                style={{ backgroundColor: `${tag.color}`, opacity: '0.8' }}
+                style={{
+                  backgroundColor: `${nameToRgba(tag.color, 0.5)}`,
+                }}
               >
                 {`#${tag.name}`}
               </span>

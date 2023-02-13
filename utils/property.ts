@@ -58,6 +58,17 @@ export const getMultiSelect = (multiSelect: TagType[]) => {
   return [];
 };
 
+export const nameToRgba = (colorName: string, opacity: number) => {
+  var canvas = document.createElement('canvas');
+  var context = canvas.getContext('2d');
+  context!.fillStyle = colorName;
+  context!.fillRect(0, 0, 1, 1);
+  var data = context!.getImageData(0, 0, 1, 1).data;
+  return (
+    'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + opacity + ')'
+  );
+};
+
 export const getOverview = (overview: { rich_text: RichTextType[] }) => {
   try {
     if (overview !== undefined && overview.rich_text[0] !== undefined) {
