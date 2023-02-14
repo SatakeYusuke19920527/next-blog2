@@ -106,7 +106,7 @@ const Card: FC<CardProps> = ({ page }) => {
                 key={index}
                 className="text-sm px-2 font-normal bg-gray-200 rounded-lg break-words mr-2 mb-2"
                 style={{
-                  backgroundColor: `${nameToRgba(tag.color, 0.5)}`,
+                  backgroundColor: `${nameToRgba(tag.color, 0.3)}`,
                 }}
               >
                 {`#${tag.name}`}
