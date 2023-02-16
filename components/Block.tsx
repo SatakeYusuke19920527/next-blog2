@@ -3,7 +3,7 @@ import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps, ColumnType } from '../types/types';
 import { removeDuplicates } from '../utils/notion';
-import { getBackgroundColor, getText } from '../utils/property';
+import { getBackgroundColor, getText, nameToRgba } from '../utils/property';
 import Table from './notion/Table';
 
 const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
@@ -45,13 +45,26 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
         );
       case 'paragraph':
         if (block.paragraph.rich_text.length !== 0) {
+          const textColor =
+            block.paragraph.color === 'default'
+              ? block.paragraph.rich_text[0].annotations.color
+              : block.paragraph.color;
+          const bgColor =
+            block.paragraph.color === 'gray_background' ? 'gray' : 'white';
+          console.log(
+            '🚀 ~ file: Block.tsx:58 ~ renderNotionBlock ~ block.paragraph.color',
+            bgColor
+          );
           return (
             <pre
-              className="text-lg whitespace-pre-wrap mb-0"
+              className="text-lg whitespace-pre-wrap mb-0 p-1"
               style={{
-                color: getBackgroundColor(
-                  block.paragraph.rich_text[0].annotations.color
-                ),
+                backgroundColor: `${nameToRgba(bgColor, 0.2)}`,
+                color: textColor,
+                textDecoration: block.paragraph.rich_text[0].annotations
+                  .underline
+                  ? 'underline'
+                  : 'none',
               }}
             >
               {getText(block.paragraph.rich_text)}
@@ -188,17 +201,13 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
       case 'quote':
         return (
           <div
-            className="border-l-2 border-gray-900"
+            className="border-l-4 border-gray-900 my-2"
             style={{
               borderColor: getBackgroundColor(block.quote.color),
+              backgroundColor: `${nameToRgba(block.quote.color, 0.04)}`,
             }}
           >
-            <pre
-              className="my-3 text-xl pl-3 whitespace-pre-wrap"
-              style={{
-                color: getBackgroundColor(block.quote.color),
-              }}
-            >
+            <pre className="my-3 text-xl pl-3 whitespace-pre-wrap">
               {getText(block.quote.rich_text)}
             </pre>
           </div>
@@ -209,11 +218,12 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
         const renderColumnList = () => {
           const parentIds: string[] = [];
           const displayColumnList: ColumnType[] = [];
-          columnListData.column_list_data.map((clData) => {
-            if (block.id === clData.parent.block_id) {
-              parentIds.push(clData.id);
-            }
-          });
+          columnListData.column_list_data &&
+            columnListData.column_list_data.map((clData) => {
+              if (block.id === clData.parent.block_id) {
+                parentIds.push(clData.id);
+              }
+            });
           parentIds.forEach((pid) => {
             columnListData.column_data.forEach((cdata) => {
               if (pid === cdata.parent.block_id) {
