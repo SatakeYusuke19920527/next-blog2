@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps, ColumnType } from '../types/types';
-import { removeDuplicates } from '../utils/notion';
 import { getBackgroundColor, getText, nameToRgba } from '../utils/property';
 import Table from './notion/Table';
 
@@ -216,30 +215,24 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
         return <Table block={block} tableData={tableData} />;
       case 'column_list':
         const renderColumnList = () => {
-          const parentIds: string[] = [];
-          const displayColumnList: ColumnType[] = [];
-          columnListData.column_list_data &&
-            columnListData.column_list_data.map((clData) => {
-              if (block.id === clData.parent.block_id) {
-                parentIds.push(clData.id);
-              }
-            });
-          parentIds.forEach((pid) => {
-            columnListData.column_data.forEach((cdata) => {
-              if (pid === cdata.parent.block_id) {
-                displayColumnList.push(cdata);
-              }
-            });
-          });
-          const NoDupDisplayColumnList = removeDuplicates(
-            displayColumnList,
-            'id'
+          const parentIds: string[] = columnListData.column_list_data
+            .filter((clData) => block.id === clData.parent.block_id)
+            .map((clData) => clData.id);
+
+          const displayColumnList: ColumnType[] =
+            columnListData.column_data.filter((cdata) =>
+              parentIds.includes(cdata.parent.block_id)
+            );
+
+          const ndclHasImageArr = displayColumnList.filter((item) =>
+            item.hasOwnProperty('image')
           );
 
-          return NoDupDisplayColumnList.map((dclist, index) => {
+          return ndclHasImageArr.map((dclist, index) => {
             const imageUrl = dclist.image.file
               ? dclist.image.file.url
               : dclist.image.external.url;
+            const caption = dclist.image?.caption?.[0]?.plain_text ?? '';
             return (
               <div key={index} className="w-1/2 px-1 my-3">
                 <Image
@@ -251,11 +244,11 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
                   className="w-full"
                   unoptimized
                 />
-                {dclist.image?.caption.length >= 0 ? (
+                {caption.length > 0 && (
                   <pre className="whitespace-pre-wrap mt-1 mb-0 text-gray-500 text-sm">
-                    {dclist.image.caption[0].plain_text}
+                    {caption}
                   </pre>
-                ) : null}
+                )}
               </div>
             );
           });
