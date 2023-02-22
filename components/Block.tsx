@@ -50,10 +50,6 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
               : block.paragraph.color;
           const bgColor =
             block.paragraph.color === 'gray_background' ? 'gray' : 'white';
-          console.log(
-            '🚀 ~ file: Block.tsx:58 ~ renderNotionBlock ~ block.paragraph.color',
-            bgColor
-          );
           return (
             <pre
               className="text-lg whitespace-pre-wrap mb-0 p-1"

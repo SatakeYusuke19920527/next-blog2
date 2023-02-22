@@ -168,7 +168,7 @@ export const searchPages = async (s_obj: any) => {
           if (search_context.subsidy.length !== 0) {
             search_context.subsidy.forEach((s: string) => {
               or.push({
-                property: 'facility',
+                property: 'subsidy',
                 multi_select: {
                   contains: s,
                 },
@@ -320,6 +320,8 @@ export const searchPages = async (s_obj: any) => {
       or.push(...keywordArr);
       and.push({ or: or });
     }
+
+    console.log('🚀 ~ file: notion.ts:322 ~ searchPages ~ and:', and);
 
     return await notion.databases.query({
       database_id: DATABASE_ID,
