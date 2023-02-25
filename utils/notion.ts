@@ -381,11 +381,13 @@ export const getChildrenAllInBlock = async (block_id: string) => {
 export const getTableChildrenAllInBlockByBlocks = async (blocks: any[]) => {
   const tableBlocks = blocks.filter((block) => block.type === 'table');
   if (!tableBlocks.length) return [];
+  let tblData: any[] = [];
+  for (const block of tableBlocks) {
+    const list = await getChildrenAllInBlock(block.id);
+    tblData.push({ parentId: block.id, tblData: list });
+  }
 
-  const [firstTableBlock] = tableBlocks;
-  const tableData = await getChildrenAllInBlock(firstTableBlock.id);
-
-  return tableData;
+  return tblData;
 };
 
 /**
