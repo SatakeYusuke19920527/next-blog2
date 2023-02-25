@@ -1,6 +1,6 @@
 import { BlockType } from 'notion-block-renderer';
 import { ParsedUrlQuery } from 'querystring';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 export type LayoutProps = {
   children: ReactNode;
@@ -40,6 +40,12 @@ export type BlockProps = {
   blocks: BlockType[];
   tableData: TableType[];
   columnListData: ColumnListParentType;
+};
+
+export type StGgMapProps = {
+  lat: number;
+  lng: number;
+  mapContainerStyle?: CSSProperties;
 };
 
 export type Params = ParsedUrlQuery & {

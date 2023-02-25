@@ -3,6 +3,7 @@ import { FC } from 'react';
 import Youtube from 'react-youtube';
 import { BlockProps, ColumnType } from '../types/types';
 import { getBackgroundColor, getText, nameToRgba } from '../utils/property';
+import StGgMap from './notion/StGgMap';
 import Table from './notion/Table';
 
 const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
@@ -253,6 +254,27 @@ const Block: FC<BlockProps> = ({ blocks, tableData, columnListData }) => {
           <div className="w-full flex justify-between flex-wrap">
             {renderColumnList()}
           </div>
+        );
+      case 'embed':
+        const getLatLngFromUrl = (url) => {
+          const regex = /@([-0-9.]+),([-0-9.]+)/;
+          const matches = url.match(regex);
+          if (matches && matches.length === 3) {
+            const lat = parseFloat(matches[1]);
+            const lng = parseFloat(matches[2]);
+            return { lat, lng };
+          } else {
+            return null;
+          }
+        };
+        const url = block.embed?.url;
+        const latLng = getLatLngFromUrl(url);
+        return (
+          <StGgMap
+            lat={latLng.lat}
+            lng={latLng.lng}
+            mapContainerStyle={{ height: '400px', width: '100%' }}
+          />
         );
       default:
         console.log(`unknoen block type: ${block.type}`);
