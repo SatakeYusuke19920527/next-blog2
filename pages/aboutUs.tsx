@@ -60,11 +60,11 @@ const AboutUs = () => {
           従来の営業方法に加え、あなたの会社の記事を成形ポータルに投稿し、
           営業活動の選択肢を増やしませんか？
         </p>
-        <p className="my-5 p-3" style={{ backgroundColor: '#FBECDD' }}>
+        {/* <p className="my-5 p-3" style={{ backgroundColor: '#FBECDD' }}>
           <span className="mr-3">💡</span>掲載料は
           <span className="text-red-500">月額1万円</span>
           ※初月のみ3万円となります。
-        </p>
+        </p> */}
         <p>まずはお気軽にご相談ください。</p>
         <h3 className="w-full p-3 mb-5" style={{ backgroundColor: '#E7F3F8' }}>
           運営元
