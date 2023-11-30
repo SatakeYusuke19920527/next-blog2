@@ -13,6 +13,7 @@ const nextConfig = {
       'www.kawata.cc',
       'www.pascaleng.co.jp',
       's3.us-west-2.amazonaws.com/secure.notion-static.com',
+      'prod-files-secure.s3.us-west-2.amazonaws.com',
     ],
   },
 };
